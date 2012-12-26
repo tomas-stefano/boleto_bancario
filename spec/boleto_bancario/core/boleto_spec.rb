@@ -16,7 +16,8 @@ module BoletoBancario
               :conta_corrente   => '98701',
               :cedente          => 'Nome da razao social',
               :sacado           => 'Teste',
-              :documento_sacado => '725.275.005-10'
+              :documento_sacado => '725.275.005-10',
+              :endereco_sacado  => 'Rua teste, 23045'
             )
           end
 
@@ -34,6 +35,7 @@ module BoletoBancario
           its(:data_documento)    { should eq Date.today }
           its(:sacado)            { should eq 'Teste' }
           its(:documento_sacado)  { should eq '725.275.005-10' }
+          its(:endereco_sacado)   { should eq 'Rua teste, 23045'}
         end
 
         context 'when passing a block' do

@@ -156,6 +156,27 @@ module BoletoBancario
       #
       attr_accessor :documento_sacado
 
+      # Endereço do sacado.
+      #
+      # <b>OBS.: Esse campo não possui validação do campo. Caso você precise imeplemente na subclasse.</b>
+      #
+      # Esse campo serve apenas para mostrar no boleto no campo "Sacado".
+      #
+      attr_accessor :endereco_sacado
+
+      # O que falta:
+      #
+      # Local Pagamento
+      # Valor documento formatado
+      # Logos
+      # Formatacao documento
+      # Data do documento formatado
+      # Aceite
+      # Instruções
+      # Código de barras como imagem (usar a gem Barby)
+      # Data do vencimento formatado
+      #
+
       # Validações de todos os boletos
       #
       validates :carteira, :valor_documento, :numero_documento, :data_vencimento, presence: true
