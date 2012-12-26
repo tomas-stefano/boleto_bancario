@@ -77,9 +77,33 @@ module BoletoBancario
     #      end
     #    end
     #
-    # Obs.: Mudar as regras de validação podem influenciar na emissão do boleto em si.
+    # Ou você pode desativar as validações que são feitas, sobrescrevendo os métodos de validação:
+    #
+    #    class Itau < BoletoBancario::Itau
+    #      def deve_validar_agencia?
+    #       false
+    #     end
+    #
+    #     def deve_validar_conta_corrente?
+    #       false
+    #     end
+    #
+    #     def deve_validar_codigo_cedente?
+    #       false
+    #     end
+    #
+    #     def deve_validar_numero_documento?
+    #       false
+    #     end
+    #
+    #     def deve_validar_carteira?
+    #       false
+    #     end
+    #   end
+    #
+    # <b>Obs.: Mudar as regras de validação podem influenciar na emissão do boleto em si.
     # Talvez você precise analisar o efeito no #codigo_de_barras e na #linha_digitável (ambos podem ser
-    # sobreescritos também).
+    # sobreescritos também).</b>
     #
     # Caso exista algum cenário de sobrescrita de validação contate o dono dessa gem pelo github e conte um
     # pouco mais sobre esses cenários.
@@ -202,8 +226,8 @@ module BoletoBancario
       # Para mais detalhes veja o método carteiras especiais dessa classe.
       #
       validates :codigo_cedente, :seu_numero, presence: true, :if => :carteira_especial?
-      validates :codigo_cedente, length: { maximum: tamanho_maximo_codigo_cedente }, :if => :carteira_especial?
-      validates :seu_numero,     length: { maximum: tamanho_maximo_seu_numero     }, :if => :carteira_especial?
+      validates :codigo_cedente, length: { maximum: tamanho_maximo_codigo_cedente }, :if => :deve_validar_codigo_cedente_carteira_especial?
+      validates :seu_numero,     length: { maximum: tamanho_maximo_seu_numero     }, :if => :deve_validar_seu_numero_carteira_especial?
 
       # <b>Nosso número</b> é a identificação do título no banco.
       # Eu diria que há uma diferença bem sutil entre esse campo e o seu número.
@@ -372,10 +396,43 @@ module BoletoBancario
       # Verifica se a carteira é especial.
       # Para mais detalhes veja o método #carteiras_especiais.
       #
-      # @return [TrueClass, FalseClass]
+      # @return [True, False]
       #
       def carteira_especial?
         carteira.to_s.in?(carteiras_especiais)
+      end
+
+      # Verifica se deve validar o código do cedente e se a carteira é especial.
+      #
+      # Métodos usado para verificar se deve realizar a validação do campo 'codigo_cedente'.
+      # <b>Sobrescreva esse método na subclasse, caso você mesmo queira fazer as validações</b>.
+      #
+      # @return [True]
+      #
+      def deve_validar_codigo_cedente_carteira_especial?
+        deve_validar_codigo_cedente? and carteira_especial?
+      end
+
+      # Verifica se deve validar o seu número e se a carteira é especial.
+      #
+      # Métodos usado para verificar se deve realizar a validação do campo 'codigo_cedente'.
+      # <b>Sobrescreva esse método na subclasse, caso você mesmo queira fazer as validações</b>.
+      #
+      # @return [True]
+      #
+      def deve_validar_seu_numero_carteira_especial?
+        deve_validar_seu_numero? and carteira_especial?
+      end
+
+      # Verifica se deve validar o seu número. O padrão é validar o seu número.
+      #
+      # Métodos usado para verificar se deve realizar a validação do campo 'seu_numero'.
+      # <b>Sobrescreva esse método na subclasse, caso você mesmo queira fazer as validações</b>.
+      #
+      # @return [True] true
+      #
+      def deve_validar_seu_numero?
+        true
       end
     end
   end
