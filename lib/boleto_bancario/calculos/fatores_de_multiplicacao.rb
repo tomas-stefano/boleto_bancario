@@ -52,7 +52,7 @@ module BoletoBancario
       #
       def initialize(number, options)
         @number  = number.to_s.reverse.split('')
-        @factors = options.fetch(:fatores) * @number.size
+        @factors = options.fetch(:fatores).cycle.take(@number.size)
         super(calculate)
       end
 
