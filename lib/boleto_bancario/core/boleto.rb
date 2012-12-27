@@ -170,8 +170,6 @@ module BoletoBancario
 
       # O que falta:
       #
-      # Local Pagamento
-      # Valor documento formatado
       # Logo
       # Formatacao documento (CPF/CNPJ)
       # Aceite
@@ -328,7 +326,7 @@ module BoletoBancario
       end
 
       # Formata o valor do documentado para ser mostrado no código de barras
-      # e na linha digitável.
+      # e na linha digitável com 08 dígitos na casa dos Reais e 02 dígitos nas casas dos centavos.
       #
       # @example
       #

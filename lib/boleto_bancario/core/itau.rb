@@ -36,12 +36,12 @@ module BoletoBancario
     #
     # O recomendado é criar uma subclasse de BoletoBancario::Itau
     #
-    #     class Itau < BoletoBancario::Itau
+    #     class BoletoItau < BoletoBancario::Itau
     #     end
     #
-    # E a partir daí usar a sua classe para emitir o boleto:
+    # === Criando um boleto
     #
-    #    Itau.new do |boleto|
+    #    boleto_itau = BoletoItau.new do |boleto|
     #      boleto.conta_corrente   = '89755'
     #      boleto.agencia          = '0097'
     #      boleto.carteira         = '198'
@@ -54,24 +54,39 @@ module BoletoBancario
     # A classe Itaú possui suas próprias validações.
     # Primeiramente, <b>antes de renderizar qualquer boleto você precisar verificar se esse o boleto é válido</b>:
     #
-    #     @itau = Itau.new
-    #     if @itau.valid?
-    #        # render @itau
+    #     if boleto_itau.valid?
+    #        # render boleto_itau
     #     else
     #        # ...
     #     end
     #
-    # Se você quiser sobrescrever alguma validação dessa classe a gem de boleto bancário
-    # possui alguns modos de fazer isso.
+    # === Campos do Boleto
+    #
+    #    boleto_itau.codigo_de_barras
+    #
+    #    boleto_itau.linha_digitavel
+    #
+    #    boleto_itau.nosso_numero
+    #
+    #    boleto_itau.agencia_codigo_cedente
+    #
+    #    boleto_itau.carteira_formatada # Formata a carteira, para mostrar no boleto.
+    #
+    #    boleto_itau.numero_documento
+    #
+    #    boleto_itau.valor_documento
     #
     # === Sobrescrevendo validações
+    #
+    # Se você quiser sobrescrever alguma validação dessa classe a gem de boleto bancário
+    # possui alguns modos de fazer isso.
     #
     # Caso você precise mudar as validações, você pode sobrescrever alguns métodos que possuem <b>"Magic numbers"</b>.
     # Foi colocado dessa forma, já que os bancos mudam bastante esse tipo de validação.
     # Por exemplo, atualmente a conta corrente é validado com <b>'5' como máximo de tamanho</b>.
     # Caso você queira que valide como 6, mude conforme abaixo:
     #
-    #    class Itau < BoletoBancario::Itau
+    #    class BoletoItau < BoletoBancario::Itau
     #      def self.tamanho_maximo_conta_corrente
     #        6
     #      end
@@ -79,7 +94,7 @@ module BoletoBancario
     #
     # Ou você pode desativar as validações que são feitas, sobrescrevendo os métodos de validação:
     #
-    #    class Itau < BoletoBancario::Itau
+    #    class BoletoItau < BoletoBancario::Itau
     #      def deve_validar_agencia?
     #       false
     #     end
@@ -194,7 +209,7 @@ module BoletoBancario
       # Se você quiser sobrescrever os tamanhos permitidos, ficará a sua responsabilidade.
       # Basta você sobrescrever os métodos de validação:
       #
-      #    class Itau < BoletoBancario::Core::Itau
+      #    class BoletoItau < BoletoBancario::Core::Itau
       #       def self.tamanho_maximo_agencia
       #         5
       #       end
