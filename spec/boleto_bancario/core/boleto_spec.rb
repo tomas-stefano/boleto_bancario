@@ -1,3 +1,4 @@
+# encoding: utf-8
 require 'spec_helper'
 
 module BoletoBancario
@@ -36,6 +37,7 @@ module BoletoBancario
           its(:sacado)            { should eq 'Teste' }
           its(:documento_sacado)  { should eq '725.275.005-10' }
           its(:endereco_sacado)   { should eq 'Rua teste, 23045'}
+          its(:local_pagamento)   { should eq 'PAGÁVEL EM QUALQUER BANCO ATÉ O VENCIMENTO' }
         end
 
         context 'when passing a block' do

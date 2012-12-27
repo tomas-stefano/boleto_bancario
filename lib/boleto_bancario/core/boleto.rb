@@ -164,18 +164,24 @@ module BoletoBancario
       #
       attr_accessor :endereco_sacado
 
+      # Descrição do local do pagamento.
+      #
+      attr_accessor :local_pagamento
+
       # O que falta:
       #
       # Local Pagamento
       # Valor documento formatado
-      # Logos
-      # Formatacao documento
-      # Data do documento formatado
+      # Logo
+      # Formatacao documento (CPF/CNPJ)
       # Aceite
       # Instruções
       # Código de barras como imagem (usar a gem Barby)
       # Data do vencimento formatado
-      #
+      # Data do documento
+      # Data do documento formatado
+      # Data do processamento
+      # Data do processamento formatado
 
       # Validações de todos os boletos
       #
@@ -258,6 +264,7 @@ module BoletoBancario
           :codigo_moeda      => '9',
           :especie           => 'R$',
           :especie_documento => 'DM',
+          :local_pagamento   => 'PAGÁVEL EM QUALQUER BANCO ATÉ O VENCIMENTO',
           :data_documento    => Date.today
         }
       end
@@ -281,6 +288,15 @@ module BoletoBancario
       #
       def digito_codigo_banco
         raise NotImplementedError.new("Not implemented #digito_codigo_banco in #{self}.")
+      end
+
+      # Formata o código do banco com o dígito do código do banco.
+      # Método usado para o campo de código do banco localizado no cabeçalho do boleto.
+      #
+      # @return [String]
+      #
+      def codigo_banco_formatado
+        "#{codigo_banco}-#{digito_codigo_banco}"
       end
 
       # Agência, código do cedente ou nosso número.

@@ -52,6 +52,16 @@ shared_examples_for 'boleto bancario' do
     it { expect { subject.digito_codigo_banco }.to_not raise_error(NotImplementedError) }
   end
 
+  describe "#codigo_banco_formatado" do
+    before { subject.should respond_to(:codigo_banco_formatado) }
+
+    it "should format the 'codigo_banco' with digit" do
+      subject.stub(:codigo_banco).and_return('001')
+      subject.stub(:digito_codigo_banco).and_return('9')
+      subject.codigo_banco_formatado.should eq '001-9'
+    end
+  end
+
   describe "#agencia_codigo_cedente" do
     before { subject.should respond_to(:agencia_codigo_cedente) }
 
