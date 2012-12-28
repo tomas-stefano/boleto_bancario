@@ -17,17 +17,18 @@ module BoletoBancario
     #
     # Segue abaixo as carteiras suportadas do itáu <b>seguindo a documentação</b>:
     #
-    #      ______________________________________________________________________________________________________________
-    #     | Carteira                 | Descrição                                          | Testada/Homologada no banco |
-    #     |   107                    | Sem registro com emissão integral – 15 posições    | Esperando Contribuição      |
-    #     |   109                    | Direta eletrônica sem emissão – simples            | Esperando Contribuição      |
-    #     |   174                    | Sem registro emissão parcial com protesto borderô  | Esperando Contribuição      |
-    #     |   175                    | Sem registro sem emissão com protesto eletrônico   | Esperando Contribuição      |
-    #     |   196                    | Sem registro com emissão e entrega – 15 posições   | Esperando Contribuição      |
-    #     |   198                    | Sem registro sem emissão 15 dígitos                | Esperando Contribuição      |
-    #     | 126, 131, 146, 150, 168  | -------------------------------------------------- | Esperando Contribuição      |
-    #     | 107, 122, 142, 143       | -------------------------------------------------- | Esperando Contribuição      |
-    #     ---------------------------------------------------------------------------------------------------------------
+    #      _______________________________________________________________________________________________________
+    #     | Carteira          | Descrição                                          | Testada/Homologada no banco |
+    #     |   107             | Sem registro com emissão integral – 15 posições    | Esperando Contribuição      |
+    #     |   109             | Direta eletrônica sem emissão – simples            | Esperando Contribuição      |
+    #     |   174             | Sem registro emissão parcial com protesto borderô  | Esperando Contribuição      |
+    #     |   175             | Sem registro sem emissão com protesto eletrônico   | Esperando Contribuição      |
+    #     |   196             | Sem registro com emissão e entrega – 15 posições   | Esperando Contribuição      |
+    #     |   198             | Sem registro sem emissão 15 dígitos                | Esperando Contribuição      |
+    #     |   126, 131, 146   | -------------------------------------------------- | Esperando Contribuição      |
+    #     |   122, 142, 143   | -------------------------------------------------- | Esperando Contribuição      |
+    #     |   150, 168        | -------------------------------------------------- | Esperando Contribuição      |
+    #     --------------------------------------------------------------------------------------------------------
     #
     # <b>OBS.: Seja um contribuidor dessa gem. Contribua para homologar os boletos e as
     # devidas carteiras junto ao banco Itaú.</b>
