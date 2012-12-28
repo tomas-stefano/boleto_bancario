@@ -168,19 +168,6 @@ module BoletoBancario
       #
       attr_accessor :local_pagamento
 
-      # O que falta:
-      #
-      # Logo
-      # Formatacao documento (CPF/CNPJ)
-      # Aceite
-      # Instruções
-      # Código de barras como imagem (usar a gem Barby)
-      # Data do vencimento formatado
-      # Data do documento
-      # Data do documento formatado
-      # Data do processamento
-      # Data do processamento formatado
-
       # Validações de todos os boletos
       #
       validates :carteira, :valor_documento, :numero_documento, :data_vencimento, presence: true

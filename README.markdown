@@ -189,12 +189,20 @@ Por exemplo, imagine que você quer sobrescrever a forma como é tratada a segun
        end
     end
 
+## Formatos (HTML, PDF e PNG)
+
+**Objetivos para as próximas versões: criar os formatos dos boletos de:**
+
+* HTML
+* PDF
+* PNG
+
 ## O que a gem não faz
 
 A gem não trata os arquivos de remessa e os arquivos de retorno do banco.
 
 Na minha opinião não deveria ser responsabilidade dessa gem.
-Essa gem **apenas emite o boleto**, com todas as informações necessárias para o pagamento.
+Essa gem **apenas emite o boleto**, com todas as informações necessárias do boleto.
 
 ## Contribuições
 
