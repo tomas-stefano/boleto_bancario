@@ -80,26 +80,22 @@ Exemplo:
 
 * TODO: Essa parte ainda pode mudar até a versão 0.0.1.
 
-HTML 5 é o formato suportado por enquanto. Para usar em Html, você precisa usar a gem **[boleto_bancario_html](https://github.com/tomas-stefano/boleto_bancario_html)**:
-
-    gem install boleto_bancario_html
-
-E colocar na classe:
+Colocar na classe:
 
 ```ruby
-  class Itau < BoletoBancario::Itau
-    def format
-      BoletoBancario::HTML5
-    end
+  class BoletoItau < BoletoBancario::Itau
+    respond_to :html, :pdf, :png
   end
 ```
 
 Para renderizar o html:
 
 ```ruby
-   itau = Itau.new
+   itau = BoletoItau.new
 
-   itau.render # Irá chamar o método render da instância do objeto passado no método format.
+   itau.respond_with # Irá chamar o método render da instância do objeto passado no método format.
+
+   itau.respond_with(:pdf)
 ```
 
 ### Criando um novo Formato
@@ -111,9 +107,19 @@ Basta criar um objeto que responda ao método **render**:
 ```ruby
    module BoletoBancario
      module Formato
+       class Html < Boleto
+         def render(*args)
+         end
+       end
+     end
+   end
+```
+
+```ruby
+   module BoletoBancario
+     module Formato
        class Pdf < Boleto
          def render(*args)
-           # ...
          end
        end
      end
