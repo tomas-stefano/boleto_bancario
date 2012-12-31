@@ -78,6 +78,44 @@ module BoletoBancario
         end
       end
 
+      describe "#valor_documento_formatado" do
+        context "when period" do
+          subject { described_class.new(:valor_documento => 123.45) }
+
+          its(:valor_formatado_para_codigo_de_barras) { should eq '0000012345' }
+        end
+
+        context "when less than ten" do
+          subject { described_class.new(:valor_documento => 5.0) }
+
+          its(:valor_formatado_para_codigo_de_barras) { should eq '0000000500'}
+        end
+
+        context "when have many decimal points" do
+          subject { described_class.new(:valor_documento => 10.999999) }
+
+          its(:valor_formatado_para_codigo_de_barras) { should eq '0000001099' }
+        end
+
+        context "when integer" do
+          subject { described_class.new(:valor_documento => 1_999) }
+
+          its(:valor_formatado_para_codigo_de_barras) { should eq '0000199900' }
+        end
+
+        context "when period with string" do
+          subject { described_class.new(:valor_documento => '236.91') }
+
+          its(:valor_formatado_para_codigo_de_barras) { should eq '0000023691' }
+        end
+
+        context "when period with string with many decimals" do
+          subject { described_class.new(:valor_documento => '10.999999') }
+
+          its(:valor_formatado_para_codigo_de_barras) { should eq '0000001099' }
+        end
+      end
+
       describe "#codigo_banco" do
         it { expect { subject.codigo_banco }.to raise_error(NotImplementedError) }
       end

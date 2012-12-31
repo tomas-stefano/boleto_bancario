@@ -85,28 +85,9 @@ shared_examples_for 'boleto bancario' do
   end
 
   describe "#valor_formatado_para_codigo_de_barras" do
-    before do
-      described_class.new.should respond_to(:valor_documento)
-      described_class.new.should respond_to(:valor_formatado_para_codigo_de_barras)
-    end
+    it { subject.should respond_to(:valor_documento) }
 
-    context "when period" do
-      subject { described_class.new(:valor_documento => 123.45) }
-
-      its(:valor_formatado_para_codigo_de_barras) { should eq '0000012345' }
-    end
-
-    context "when comma" do
-      subject { described_class.new(:valor_documento => '1.000,45') }
-
-      its(:valor_formatado_para_codigo_de_barras) { should eq '0000100045' }
-    end
-
-    context "when integer" do
-      subject { described_class.new(:valor_documento => 1_999) }
-
-      its(:valor_formatado_para_codigo_de_barras) { should eq '0000001999' }
-    end
+    it { subject.should respond_to(:valor_formatado_para_codigo_de_barras) }
   end
 
   describe "#codigo_de_barras" do
