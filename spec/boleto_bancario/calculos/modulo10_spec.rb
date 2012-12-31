@@ -9,6 +9,10 @@ module BoletoBancario
         Modulo10.new('7123457000').should eq '1'
       end
 
+      it "should accept the example from Banrisul" do
+        Modulo10.new('00009274').should eq '2'
+      end
+
       it "returns zero when number is 0" do
         Modulo10.new('0').should eq '0'
       end

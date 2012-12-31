@@ -27,6 +27,12 @@ module BoletoBancario
         it { should eq '1' }
       end
 
+      context 'with Banrisul example' do
+        subject { Modulo11FatorDe2a9.new('0419100100000550002110000000012283256304168') }
+
+        it { should eq '1' }
+      end
+
       context 'when calculations returns 11' do
         subject { Modulo11FatorDe2a9.new('1049107400000160000001100128701000901200298') }
 
