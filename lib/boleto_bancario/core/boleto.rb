@@ -168,6 +168,12 @@ module BoletoBancario
       #
       attr_accessor :local_pagamento
 
+      # Aceitar após o vencimento.
+      # Nessa gem utilizamos o campo aceite como Boolean.
+      # Obviamente, true para 'S' e false/nil para 'N'.
+      #
+      attr_accessor :aceite
+
       # Tamanho maximo do valor do documento do boleto.
       # Acredito que não existirá valor de documento nesse valor,
       # <b>porém a biblioteca precisa manter a consistência</b>.
@@ -255,6 +261,7 @@ module BoletoBancario
       #     bradesco.especie           = 'outra_especie_que_nao_seja_em_reais'
       #     bradesco.especie_documento = 'outra_especie_do_documento'
       #     bradesco.data_documento    = Date.tomorrow
+      #     bradesco.aceite            = false
       #   end
       #
       # @return [Hash] Código da Moeda sendo '9' (real). Espécie sendo 'R$' (real).
@@ -265,7 +272,8 @@ module BoletoBancario
           :especie           => 'R$',
           :especie_documento => 'DM',
           :local_pagamento   => 'PAGÁVEL EM QUALQUER BANCO ATÉ O VENCIMENTO',
-          :data_documento    => Date.today
+          :data_documento    => Date.today,
+          :aceite            => true
         }
       end
 
@@ -351,6 +359,19 @@ module BoletoBancario
       #
       def carteira_formatada
         carteira
+      end
+
+      # Se o aceite for 'true', retorna 'S'.
+      # Retorna 'N', caso contrário.
+      #
+      # @return [String]
+      #
+      def aceite_formatado
+        if @aceite.present?
+          'S'
+        else
+          'N'
+        end
       end
 
       # Fator de vencimento que é calculado a partir de uma data base.

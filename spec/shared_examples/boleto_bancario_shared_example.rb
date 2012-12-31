@@ -40,6 +40,18 @@ shared_examples_for 'boleto bancario' do
     its(:persisted?) { should be false }
   end
 
+  describe "#carteira_formatada" do
+    it { subject.should respond_to(:carteira_formatada) }
+  end
+
+  describe "#valor_documento_formatado" do
+    it { subject.should respond_to(:valor_formatado_para_codigo_de_barras) }
+  end
+
+  describe "#aceite_formatado" do
+    it { subject.should respond_to(:aceite_formatado) }
+  end
+
   describe "#codigo_do_banco" do
     before { subject.should respond_to(:codigo_banco) }
 

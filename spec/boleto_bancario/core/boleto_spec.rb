@@ -68,6 +68,7 @@ module BoletoBancario
           its(:cedente)           { should eq 'Nome da razao social' }
           its(:documento_cedente) { should eq '62.526.713/0001-40' }
           its(:sacado)            { should eq 'Teste' }
+          its(:aceite)            { should be true }
         end
       end
 
@@ -80,39 +81,59 @@ module BoletoBancario
 
       describe "#valor_documento_formatado" do
         context "when period" do
-          subject { described_class.new(:valor_documento => 123.45) }
+          before { subject.stub(:valor_documento).and_return(123.45) }
 
           its(:valor_formatado_para_codigo_de_barras) { should eq '0000012345' }
         end
 
         context "when less than ten" do
-          subject { described_class.new(:valor_documento => 5.0) }
+          before { subject.stub(:valor_documento).and_return(5.0) }
 
           its(:valor_formatado_para_codigo_de_barras) { should eq '0000000500'}
         end
 
         context "when have many decimal points" do
-          subject { described_class.new(:valor_documento => 10.999999) }
+          before { subject.stub(:valor_documento).and_return(10.999999) }
 
           its(:valor_formatado_para_codigo_de_barras) { should eq '0000001099' }
         end
 
         context "when integer" do
-          subject { described_class.new(:valor_documento => 1_999) }
+          before { subject.stub(:valor_documento).and_return(1_999) }
 
           its(:valor_formatado_para_codigo_de_barras) { should eq '0000199900' }
         end
 
         context "when period with string" do
-          subject { described_class.new(:valor_documento => '236.91') }
+          before { subject.stub(:valor_documento).and_return('236.91') }
 
           its(:valor_formatado_para_codigo_de_barras) { should eq '0000023691' }
         end
 
         context "when period with string with many decimals" do
-          subject { described_class.new(:valor_documento => '10.999999') }
+          before { subject.stub(:valor_documento).and_return('10.999999') }
 
           its(:valor_formatado_para_codigo_de_barras) { should eq '0000001099' }
+        end
+      end
+
+      describe "#aceite_formatado" do
+        context "when is true" do
+          subject { described_class.new(aceite: true) }
+
+          its(:aceite_formatado) { should eq 'S' }
+        end
+
+        context "when is false" do
+          subject { described_class.new(aceite: false) }
+
+          its(:aceite_formatado) { should eq 'N' }
+        end
+
+        context "when is nil" do
+          subject { described_class.new(aceite: nil) }
+
+          its(:aceite_formatado) { should eq 'N' }
         end
       end
 
