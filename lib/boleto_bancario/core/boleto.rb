@@ -168,11 +168,26 @@ module BoletoBancario
       #
       attr_accessor :local_pagamento
 
+      # Tamanho maximo do valor do documento do boleto.
+      # Acredito que não existirá valor de documento nesse valor,
+      # <b>porém a biblioteca precisa manter a consistência</b>.
+      #
+      # No código de barras o valor do documento precisa
+      # ter um tamanho de 8 caracteres para os reais (acrescentando zeros à esquerda),
+      # e 2 caracteres nos centavos (acrescentando zeros à esquerda).
+      #
+      # @return [Float] 99999999.99
+      #
+      def self.valor_documento_tamanho_maximo
+        99999999.99
+      end
+
       # Validações de todos os boletos
       #
       validates :carteira, :valor_documento, :numero_documento, :data_vencimento, presence: true
       validates :cedente, :endereco_cedente, presence: true
       validates :sacado,  :documento_sacado, presence: true
+      validates :valor_documento, numericality: { less_than_or_equal_to: valor_documento_tamanho_maximo }
       validate :data_vencimento_deve_ser_uma_data
 
       # Passing the attributes as Hash or block
