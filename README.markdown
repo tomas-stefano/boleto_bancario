@@ -25,14 +25,14 @@ Essa biblioteca é baseada em outras **ótimas** bibliotecas.
 
 ## Documentação
 
-Seguimos todas as documentações que estão dentro do repositório:
+Seguimos todas as documentações descritas abaixo:
 
 * [Bradesco](https://github.com/tomas-stefano/boleto_bancario/tree/master/documentacoes_dos_boletos/bradesco)
 * [Banco do Brasil](https://github.com/tomas-stefano/boleto_bancario/tree/master/documentacoes_dos_boletos/banco_brasil)
 * [Itaú](https://github.com/tomas-stefano/boleto_bancario/tree/master/documentacoes_dos_boletos/itau)
 * [Santander](https://github.com/tomas-stefano/boleto_bancario/tree/master/documentacoes_dos_boletos/santander)
 
-Se você tiver uma documentação do boleto, **mais atualizada**, venha contribuir para a gem. :)
+Se você tiver uma documentação do boleto, **mais atualizada**, gostaria de pedir que você me enviasse. :)
 
 ## Bancos Suportados
 
@@ -213,4 +213,3 @@ Seja um contribuidor. Você pode contribuir de N formas. Seguem elas:
 * Escrevendo novos formatos (PDF, PNG), e me avisando para divulgar no Readme.
 * Refatorando código!!
 * Fornecendo Feedback construtivo! (Sempre bem vindo!)
-

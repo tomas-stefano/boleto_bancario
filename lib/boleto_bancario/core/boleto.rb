@@ -473,7 +473,7 @@ module BoletoBancario
         false
       end
 
-      # Métodos usado para verificar se deve realizar a validação de tamanho do campo 'agência'.
+      # Método usado para verificar se deve realizar a validação de tamanho do campo 'agência'.
       # <b>Sobrescreva esse método na subclasse, caso você mesmo queira fazer as validações</b>.
       #
       # @return [True]
@@ -482,7 +482,16 @@ module BoletoBancario
         true
       end
 
-      # Métodos usado para verificar se deve realizar a validação de tamanho do campo 'agência'.
+      # Método usado para verificar se deve realizar a validação de tamanho do campo 'digito_agência'.
+      # <b>Sobrescreva esse método na subclasse, caso você mesmo queira fazer as validações</b>.
+      #
+      # @return [True]
+      #
+      def deve_validar_digito_agencia?
+        true
+      end
+
+      # Método usado para verificar se deve realizar a validação de tamanho do campo 'conta_corrente'.
       # <b>Sobrescreva esse método na subclasse, caso você mesmo queira fazer as validações</b>.
       #
       # @return [True]
@@ -491,7 +500,7 @@ module BoletoBancario
         true
       end
 
-      # Métodos usado para verificar se deve realizar a validação de tamanho do campo 'codigo_cedente'.
+      # Método usado para verificar se deve realizar a validação de tamanho do campo 'codigo_cedente'.
       # <b>Sobrescreva esse método na subclasse, caso você mesmo queira fazer as validações</b>.
       #
       # @return [True]
@@ -500,7 +509,7 @@ module BoletoBancario
         true
       end
 
-      # Métodos usado para verificar se deve realizar a validação de tamanho do campo 'numero_documento'.
+      # Método usado para verificar se deve realizar a validação de tamanho do campo 'numero_documento'.
       # <b>Sobrescreva esse método na subclasse, caso você mesmo queira fazer as validações</b>.
       #
       # @return [True]
@@ -509,7 +518,7 @@ module BoletoBancario
         true
       end
 
-      # Métodos usado para verificar se deve realizar a validação de tamanho do campo 'carteira'.
+      # Método usado para verificar se deve realizar a validação de tamanho do campo 'carteira'.
       # <b>Sobrescreva esse método na subclasse, caso você mesmo queira fazer as validações</b>.
       #
       # @return [True]

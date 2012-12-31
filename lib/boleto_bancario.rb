@@ -59,6 +59,7 @@ module BoletoBancario
   module Core
     autoload :Boleto,      'boleto_bancario/core/boleto'
     autoload :BancoBrasil, 'boleto_bancario/core/banco_brasil'
+    autoload :Banrisul,    'boleto_bancario/core/banrisul'
     autoload :Bradesco,    'boleto_bancario/core/bradesco'
     autoload :Itau,        'boleto_bancario/core/itau'
     autoload :Santander,   'boleto_bancario/core/santander'
@@ -76,6 +77,7 @@ module BoletoBancario
     autoload :Modulo11FatorDe2a9RestoZero, 'boleto_bancario/calculos/modulo11_fator_de2a9_resto_zero'
     autoload :Modulo11FatorDe2a7,          'boleto_bancario/calculos/modulo11_fator_de2a7'
     autoload :Modulo11FatorDe9a2RestoX,    'boleto_bancario/calculos/modulo11_fator_de9a2_resto_x'
+    autoload :ModuloNumeroDeControle,      'boleto_bancario/calculos/modulo_numero_de_controle'
     autoload :Digitos,                     'boleto_bancario/calculos/digitos'
   end
 
