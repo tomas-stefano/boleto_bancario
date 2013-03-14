@@ -1,4 +1,8 @@
 # encoding: utf-8
+require 'barby'
+require 'barby/barcode/code_25_interleaved'
+require 'barby/outputter/png_outputter'
+
 module BoletoBancario
   module Core
     # @abstract Métodos { #codigo_banco, #digito_codigo_banco, #agencia_codigo_cedente, #nosso_numero, #codigo_de_barras_do_banco}
@@ -6,6 +10,7 @@ module BoletoBancario
     #
     class Boleto
       include BoletoBancario::Calculos
+      include BoletoBancario::Renderers
 
       # Seguindo a interface do Active Model para:
       # * Validações;
@@ -484,6 +489,24 @@ module BoletoBancario
         LinhaDigitavel.new(codigo_de_barras)
       end
 
+      # TODO: create CodigoDeBarra ou ImagemBarra class? (ou algo parecido)
+
+      # https://github.com/wvanbergen/chunky_png/blob/master/spec/chunky_png/canvas/data_url_exporting_spec.rb
+      # @return [String]
+      def url_da_imagem_do_codigo_de_barras
+        imagem_do_codigo_de_barras.to_data_url
+      end
+
+      # @return [PNG::Canvas]
+      def imagem_do_codigo_de_barras
+        codigo_de_barras_codificado.to_image({ :height => 45, :width => 120 })
+      end
+
+      # @return [Barby::Code25Interleaved]
+      def codigo_de_barras_codificado
+        Barby::Code25Interleaved.new(codigo_de_barras)
+      end
+
       # Returns a string that <b>identifying the render path associated with the object</b>.
       #
       # <b>ActionPack uses this to find a suitable partial to represent the object.</b>
@@ -491,7 +514,7 @@ module BoletoBancario
       # @return [String]
       #
       def to_partial_path
-        "boleto_bancario/#{self.class.name.demodulize.underscore}"
+        "boleto_bancario/views/#{self.class.name.demodulize.underscore}"
       end
 
       # Seguindo a interface do Active Model.

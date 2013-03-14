@@ -15,7 +15,7 @@ module BoletoBancario
     #
     # === Carteiras suportadas
     #
-    # Segue abaixo as carteiras suportadas do itáu <b>seguindo a documentação</b>:
+    # Segue abaixo as carteiras suportadas do Santander <b>seguindo a documentação</b>:
     #
     #      _________________________________________________________________________
     #     | Carteira | Descrição                     | Testada/Homologada no banco |
@@ -54,6 +54,7 @@ module BoletoBancario
     # linha digitável. Ambos os métodos podem ser sobrescritos se você quiser também.
     #
     class Santander < Boleto
+      include ActionView::Helpers::NumberHelper
       # Campo IOF que será mostrado no código de barras.
       # Padrão é 0 (zero), conforme a documentação do Santander.
       # Para mais detalhes veja o método #iof.
@@ -265,6 +266,10 @@ module BoletoBancario
         return @iof.to_s if @iof.present?
 
         '0'
+      end
+
+      def to_html
+        HTMLRenderer.render(self)
       end
     end
   end
