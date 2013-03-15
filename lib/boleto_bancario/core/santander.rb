@@ -260,7 +260,6 @@ module BoletoBancario
       #
       # Seguradoras (Se 7% informar 7. Limitado a 9%)
       # <b>Demais clientes usar 0 (zero)</b>
-      # O padrão é zero.
       #
       # @return [String]
       #
