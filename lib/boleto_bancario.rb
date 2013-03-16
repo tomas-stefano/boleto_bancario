@@ -23,7 +23,7 @@ require 'action_view'
 # * Boleto Php: http://boletophp.com.br
 # * Stella Caelum: http://stella.caelum.com.br
 #
-# === Coreuições
+# === Contribuições
 #
 # Você pode contribuir de N formas. Seguem elas:
 #
@@ -80,6 +80,12 @@ module BoletoBancario
     autoload :Modulo11FatorDe9a2RestoX,    'boleto_bancario/calculos/modulo11_fator_de9a2_resto_x'
     autoload :ModuloNumeroDeControle,      'boleto_bancario/calculos/modulo_numero_de_controle'
     autoload :Digitos,                     'boleto_bancario/calculos/digitos'
+  end
+
+  # Módulo com os renderizadores, para HTML, PDF, etc
+  #
+  module Renderers
+    autoload :HTMLRenderer,   'boleto_bancario/renderers/html_renderer'
   end
 
   include Core
