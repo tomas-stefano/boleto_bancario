@@ -6,6 +6,7 @@ module BoletoBancario
     #
     class Boleto
       include BoletoBancario::Calculos
+      include BoletoBancario::Renderers
 
       # Seguindo a interface do Active Model para:
       # * Validações;
@@ -483,7 +484,7 @@ module BoletoBancario
       # @return [String]
       #
       def to_partial_path
-        "boleto_bancario/#{self.class.name.demodulize.underscore}"
+        "boleto_bancario/views/#{self.class.name.demodulize.underscore}"
       end
 
       # Seguindo a interface do Active Model.

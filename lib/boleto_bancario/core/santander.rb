@@ -272,7 +272,7 @@ module BoletoBancario
       end
 
       def to_html
-        BoletoBancario::Renderers::HTMLRenderer.render(self)
+        HTMLRenderer.render(self)
       end
     end
   end
