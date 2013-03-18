@@ -1,4 +1,8 @@
 # encoding: utf-8
+require 'barby'
+require 'barby/barcode/code_25_interleaved'
+require 'barby/outputter/png_outputter'
+
 module BoletoBancario
   module Renderers
     module HTMLRenderer
