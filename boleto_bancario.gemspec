@@ -19,6 +19,7 @@ Gem::Specification.new do |gem|
   gem.add_dependency "actionpack", "~> 3.2"
   gem.add_dependency "activemodel", "~> 3.2"
   gem.add_dependency "barby", "~> 0.5.1"
+  gem.add_dependency "chunky_png", "~> 1.2.7"
   gem.add_development_dependency "rspec", "~> 2.11"
   gem.add_development_dependency "valid_attribute", "~> 1.3"
   gem.add_development_dependency "pry", "~> 0.9"
