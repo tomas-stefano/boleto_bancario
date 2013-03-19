@@ -491,7 +491,7 @@ module BoletoBancario
 
       # @return [PNG::Canvas]
       def imagem_do_codigo_de_barras
-        codigo_de_barras_codificado.to_image
+        codigo_de_barras_codificado.to_image({ :height => 30, :width => 100 })
       end
 
       # @return [Barby::Code25Interleaved]
