@@ -5,7 +5,7 @@
     <style>
       div{
         font-family: arial;
-        size: 11px;
+        size: 10px;
       }
 
       .btn_print:hover{
@@ -141,7 +141,7 @@
             <td width="18%">
               <div align="center">
                 <font size="1" face="Arial, Helvetica, sans-serif">Data do Documento<br></font>
-              <font size="2" face="Arial, Helvetica, sans-serif"><%= Date.today %></font>
+              <font size="2" face="Arial, Helvetica, sans-serif"><%= Date.today.strftime("%d/%m/%Y") %></font>
             </div>
           </td>
             <td width="18%">
@@ -149,7 +149,7 @@
             <font size="3" face="Arial">
               <b>
                     <div align="right">
-                      <font size="2" face="Arial, Helvetica, sans-serif"><%= @boleto.data_vencimento%>&nbsp;</font>
+                      <font size="2" face="Arial, Helvetica, sans-serif"><%= @boleto.data_vencimento.strftime("%d/%m/%Y") %>&nbsp;</font>
                     </div>
                   </b>
                 </font>
@@ -179,7 +179,7 @@
               <div align="center">
                 <font size="1" face="Arial">Carteira/Nosso N&uacute;mero</font>
                 <font size="1" face="Arial, Helvetica, sans-serif"><br></font>
-                <font size="2" face="Arial"><%= @boleto.carteira %>/00016384650-5</font>
+                <font size="2" face="Arial"><%= @boleto.carteira %>/<%= @boleto.nosso_numero %></font>
               </div>
             </td>
           <td width="18%">
@@ -188,7 +188,7 @@
                 <b>
                   <div align="right">
                     <font size="2" face="Arial, Helvetica, sans-serif">
-                      <b><%= @boleto.valor_documento %></b>
+                      <b>R$ <%= @boleto.valor_documento.to_s.gsub('.',',') %>0</b>
                     </font>
                     <font size="3" face="Arial">
                       <b>
@@ -250,7 +250,7 @@
     <table width="640" border="0" cellpadding="0" cellspacing="0">
       <tbody><tr>
         <td valign="bottom" width="112"><font size="3" face="Arial, Helvetica, sans-serif"><img src="lib/boleto_bancario/views/logo.png" vspace="0" width="125" align="absbottom" height="37" hspace="1"></font></td>
-        <td valign="bottom" width="66" align="center"> <font size="3" face="Arial, Helvetica, sans-serif"><b><img src="img/traco.htm" width="3" align="absbottom" height="23">&nbsp;<font color="#999999"><%= @boleto.agencia %></font>&nbsp;</b></font><img src="img/traco_002.htm" width="3" align="absbottom" height="23">
+        <td valign="bottom" width="66" align="center"> <font size="3" face="Arial, Helvetica, sans-serif"><b><img src="img/traco.htm" width="3" align="absbottom" height="23">&nbsp;<font color="#999999">033</font>&nbsp;</b></font><img src="img/traco_002.htm" width="3" align="absbottom" height="23">
         </td>
         <td valign="bottom" width="462" align="right" nowrap="nowrap"><font size="3" face="Arial"><%= @boleto.linha_digitavel %>&nbsp;</font></td>
       </tr>
@@ -274,7 +274,7 @@
                 </font></td>
             </tr>
             <tr bgcolor="#cccccc">
-              <td align="right"><font face="Arial, Helvetica, sans-serif"><b><font size="3"><%= @boleto.data_vencimento%></font></b></font><font size="3" face="Arial"><b><font size="2" face="Arial, Helvetica, sans-serif">&nbsp;</font></b></font><font face="Arial, Helvetica, sans-serif"><br>
+              <td align="right"><font face="Arial, Helvetica, sans-serif"><b><font size="3"><%= @boleto.data_vencimento.strftime("%d/%m/%Y")  %></font></b></font><font size="3" face="Arial"><b><font size="2" face="Arial, Helvetica, sans-serif">&nbsp;</font></b></font><font face="Arial, Helvetica, sans-serif"><br>
                 </font></td>
             </tr>
           </tbody></table></td>
@@ -305,7 +305,7 @@
                 </div></td>
             </tr>
             <tr>
-              <td align="middle"> <div align="center"><font size="2" face="Arial, Helvetica, sans-serif"><%= Date.today %></font><br>
+              <td align="middle"> <div align="center"><font size="2" face="Arial, Helvetica, sans-serif"><%= Date.today.strftime("%d/%m/%Y") %></font><br>
                 </div></td>
             </tr>
           </tbody></table></td>
@@ -344,7 +344,7 @@
               <td nowrap="nowrap"> <div align="center"><font size="1" face="Arial">Data Processamento</font></div></td>
             </tr>
             <tr>
-              <td align="middle" nowrap="nowrap"> <div align="center"><font size="2" face="Arial"><%= Date.today %></font></div></td>
+              <td align="middle" nowrap="nowrap"> <div align="center"><font size="2" face="Arial"><%= Date.today.strftime("%d/%m/%Y") %></font></div></td>
             </tr>
           </tbody></table></td>
         <td width="140"> <table width="100%" border="0" cellpadding="0" cellspacing="0">
@@ -354,31 +354,21 @@
                 </font></td>
             </tr>
             <tr>
-              <td align="right"><font size="2" face="Arial, Helvetica, sans-serif"><b>25/00016384650-5</b></font><font size="3" face="Arial"><b><font size="2" face="Arial, Helvetica, sans-serif">&nbsp;</font></b></font><font face="Arial, Helvetica, sans-serif"><br>
+              <td align="right"><font size="2" face="Arial, Helvetica, sans-serif"><b><%= @boleto.nosso_numero %></b></font><font size="3" face="Arial"><b><font size="2" face="Arial, Helvetica, sans-serif">&nbsp;</font></b></font><font face="Arial, Helvetica, sans-serif"><br>
                 </font></td>
             </tr>
           </tbody></table></td>
       </tr>
       <tr align="center">
-        <td valign="top" width="103"> <table width="100%" border="0" cellpadding="0" cellspacing="0">
+        <td valign="top" width="39" align="center" colspan="2"> <table width="100%" align="center" border="0" cellpadding="0" cellspacing="0">
             <tbody><tr valign="top">
-              <td> <div align="center"><font size="1" face="Arial">Uso do Banco</font><br>
-                </div></td>
+              <td><font size="1" face="Arial">Carteira</font></td>
             </tr>
             <tr valign="top">
-              <td> <div align="center"><font size="2" face="Arial"> </font><br>
-                </div></td>
+              <td><font size="0.5" face="Arial"><%= @boleto.carteira %></font></td>
             </tr>
           </tbody></table></td>
-        <td valign="top" width="39" align="center"> <table width="100%" align="center" border="0" cellpadding="0" cellspacing="0">
-            <tbody><tr valign="top">
-              <td align="center"> <font size="1" face="Arial">Carteira</font></td>
-            </tr>
-            <tr valign="top">
-              <td align="center"><font size="2" face="Arial"><%= @boleto.carteira %></font></td>
-            </tr>
-          </tbody></table></td>
-        <td valign="top" width="93"> <table width="100%" border="0" cellpadding="0" cellspacing="0">
+        <td valign="top"> <table width="100%" border="0" cellpadding="0" cellspacing="0">
             <tbody><tr valign="top">
               <td> <div align="center"><font size="1" face="Arial"> Moeda</font><br>
                 </div></td>
@@ -414,7 +404,7 @@
                 Valor do Documento </font></td>
             </tr>
             <tr>
-              <td align="right" bgcolor="lightgrey" height="50%"><font face="Arial, Helvetica, sans-serif"><b><font size="2"><%= @boleto.valor_documento %></font></b></font><font size="3" face="Arial"><b><font size="2" face="Arial, Helvetica, sans-serif">&nbsp;</font></b></font></td>
+              <td align="right" bgcolor="lightgrey" height="50%"><font face="Arial, Helvetica, sans-serif"><b><font size="2">R$ <%= @boleto.valor_documento.to_s.gsub('.',',') %>0</font></b></font><font size="3" face="Arial"><b><font size="2" face="Arial, Helvetica, sans-serif">&nbsp;</font></b></font></td>
             </tr>
           </tbody></table></td>
       </tr>
@@ -482,11 +472,9 @@
     </tbody></table>
       <table width="637" border="0" cellpadding="0" cellspacing="0" height="86">
         <tbody><tr>
-          <td width="452" align="left" height="68"> <table width="100%" border="0" cellpadding="0" cellspacing="0">
+          <td width="452" align="left"> <table width="100%" border="0" cellpadding="0" cellspacing="0">
             <tbody>
-              <tr>
-                    <td valign="bottom" width="2%" height="36" nowrap="nowrap">&nbsp;</td>
-                    <td valign="bottom" width="96%" height="53"><img src=<%= @boleto.url_da_imagem_do_codigo_de_barras %>></td>
+              <tr><td valign="bottom" width="96%" height="53"><img src=<%= @boleto.url_da_imagem_do_codigo_de_barras %>></td>
                 </tr>
               </tbody>
       </table>
