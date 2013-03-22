@@ -110,6 +110,12 @@ module BoletoBancario
           its(:valor_formatado_para_codigo_de_barras) { should eq '0000023691' }
         end
 
+        context "when period with cents string ending in 0" do
+          before { subject.stub(:valor_documento).and_return('7.50') }
+
+          its(:valor_formatado_para_codigo_de_barras) { should eq '0000000750' }
+        end
+
         context "when period with string with many decimals" do
           before { subject.stub(:valor_documento).and_return('10.999999') }
 
