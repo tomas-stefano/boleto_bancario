@@ -10,7 +10,7 @@ module BoletoBancario
       def self.render(boleto=nil)
         return "Nenhum boleto foi passado" unless boleto
         @boleto = boleto
-        template_file = File.open("./lib/#{boleto.to_partial_path}.html.erb", 'r').read
+        template_file = File.open("lib/#{boleto.to_partial_path}.html.erb", 'r').read
         template = ERB.new(template_file)
         template.result(binding)
       end
