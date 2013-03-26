@@ -162,6 +162,12 @@ module BoletoBancario
       describe "#codigo_de_barras_do_banco" do
         it { expect { subject.codigo_de_barras_do_banco }.to raise_error(NotImplementedError) }
       end
+
+      describe "#to_partial_path" do
+        it "returns the relative path to the view template, based on the class name" do
+          expect(subject.to_partial_path).to eql "boleto_bancario/views/boleto"
+        end
+      end
     end
   end
 end
