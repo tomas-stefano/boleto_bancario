@@ -1,0 +1,503 @@
+<html>
+  <head>
+    <meta http-equiv="content-type" content="text/html">
+    <title>Boleto Santander</title>
+    <style>
+      div{
+        font-family: arial;
+        size: 11px;
+      }
+
+      .btn_print:hover{
+        color: #333333;
+        background-color: #e6e6e6;
+        *background-color: #d9d9d9;
+        cursor: pointer;
+        -webkit-appearance: button;
+      }
+
+      .btn_print {
+        display: inline-block;
+        *display: inline;
+        padding: 4px 14px;
+        margin-bottom: 0;
+        *margin-left: .3em;
+        font-size: 14px;
+        line-height: 20px;
+        *line-height: 20px;
+        color: #333333;
+        text-align: center;
+        text-shadow: 0 1px 1px rgba(255, 255, 255, 0.75);
+        vertical-align: middle;
+        cursor: pointer;
+        background-color: #f5f5f5;
+        *background-color: #e6e6e6;
+        background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#ffffff), to(#e6e6e6));
+        background-image: -webkit-linear-gradient(top, #ffffff, #e6e6e6);
+        background-image: -o-linear-gradient(top, #ffffff, #e6e6e6);
+        background-image: linear-gradient(to bottom, #ffffff, #e6e6e6);
+        background-image: -moz-linear-gradient(top, #ffffff, #e6e6e6);
+        background-repeat: repeat-x;
+        border: 1px solid #bbbbbb;
+        *border: 0;
+        border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
+        border-color: #e6e6e6 #e6e6e6 #bfbfbf;
+        border-bottom-color: #a2a2a2;
+        -webkit-border-radius: 4px;
+        -moz-border-radius: 4px;
+        border-radius: 4px;
+        filter: progid:dximagetransform.microsoft.gradient(startColorstr='#ffffffff', endColorstr='#ffe6e6e6', GradientType=0);
+        filter: progid:dximagetransform.microsoft.gradient(enabled=false);
+        *zoom: 1;
+        -webkit-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 1px 2px rgba(0, 0, 0, 0.05);
+        -moz-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 1px 2px rgba(0, 0, 0, 0.05);
+        box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 1px 2px rgba(0, 0, 0, 0.05);
+      }
+
+      .right{
+        float:right;
+      }
+
+      .editable_line{
+        float:right;text-align:right;padding-right:5px;margin-top:15px;margin-bottom:9px;width:400px;
+      }
+    </style>
+  </head>
+
+  <body  leftmargin="0" topmargin="0" text="#000000" vlink="#990000" alink="#ff0000" bgcolor="#ffffff" link="#aa0000">
+
+    <div style="width:640px; padding:12px 12px 12px 0">
+
+      <div style="clear:left">
+        <div style="float:left;margin-top:7px;">
+          <strong>Imprima e pague seu boleto</strong><br/>
+          em qualquer ag&ecirc;ncia banc&aacute;ria at&eacute; o vencimento.<br/>
+          N&atilde;o imprima em modo rascunho.
+        </div>
+        <div id="btn_print" class="btn_print right" style="margin-top:23px;" onClick="window.print();return false">
+          <img src="imgs/icon_print_14x14.png" width="14" height="14"> &nbsp;imprimir
+        </div>
+      </div>
+      <div style="clear:left">
+        <div style="float:left;margin-top:7px;">
+          <strong>Pague pelo internet banking</strong><br/>
+          utilize a linha edit&aacute;vel ao lado
+        </div>
+        <input type="text" value="03399.57391 45400.001231 45678.901021 1 56430000010000" class="editable_line">
+      </div>
+    </div>
+
+    <table width="640" border="0" cellpadding="0" cellspacing="0">
+      <tbody>
+        <tr>
+          <td>
+              <div align="right">
+                <font face="Arial, Helvetica, sans-serif">
+                  <i>
+                    <font size="1">Cortar nas linhas Pontilhadas&nbsp;&nbsp;</font>
+                  </i>
+                </font>
+              </div>
+            </td>
+        </tr>
+          <tr valign="top">
+            <td>
+              <img src="img/tesoura.gif" style="margin-bottom: 3px;" width="640" height="5">
+            </td>
+        </tr>
+      </tbody>
+    </table>
+    <table width="640" border="0" cellpadding="0" cellspacing="0">
+      <tbody>
+        <tr>
+            <td width="320">
+              <font size="3" face="Arial, Helvetica, sans-serif">
+                <img src="logo.png" vspace="0" width="112" align="absbottom" height="23" hspace="1">
+              </font>
+            </td>
+            <td valign="bottom" width="320" align="right">
+              <b>
+                <font size="3" face="Arial, Helvetica, sans-serif">Recibo do Sacado</font>
+              </b>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+    <table bordercolorlight="#FFFFFF" width="640" border="1" cellpadding="0" cellspacing="0">
+      <tbody>
+        <tr>
+            <td width="43%">
+              <font size="1" face="Arial, Helvetica, sans-serif">&nbsp;Cedente<br></font>
+              <font size="2" face="Arial, Helvetica, sans-serif">OLOOK COM ONLINE DE MODA LTDA</font>
+              <font size="1" face="Arial, Helvetica, sans-serif">&nbsp;</font>
+            </td>
+            <td width="21%">
+              <div align="center">
+                <font size="1" face="Arial, Helvetica, sans-serif">&nbsp;Ag&ecirc;ncia/Cod. Cedente<br></font>
+                <font size="2" face="Arial, Helvetica, sans-serif">3413 / 013002564-8</font>
+                <font size="1" face="Arial, Helvetica, sans-serif"></font>
+              </div>
+            </td>
+            <td width="18%">
+              <div align="center">
+                <font size="1" face="Arial, Helvetica, sans-serif">Data do Documento<br></font>
+              <font size="2" face="Arial, Helvetica, sans-serif">2013-03-19</font>
+            </div>
+          </td>
+            <td width="18%">
+              <font size="1" face="Arial, Helvetica, sans-serif">&nbsp;Vencimento</font>
+            <font size="3" face="Arial">
+              <b>
+                    <div align="right">
+                      <font size="2" face="Arial, Helvetica, sans-serif">2013-03-20&nbsp;</font>
+                    </div>
+                  </b>
+                </font>
+              </td>
+          </tr>
+          <tr>
+            <td width="43%">
+              <font size="1" face="Arial">&nbsp;Sacado </font>
+              <font size="1" face="Arial, Helvetica, sans-serif"><br></font>
+              <font size="2" face="Arial, Helvetica, sans-serif">
+                <b>&nbsp;</b>
+              </font>
+              <font size="2" face="Arial">
+                <b>Oliver Azevedo Barnes</b>
+              </font>
+              <font size="1" face="Arial, Helvetica, sans-serif">&nbsp;</font>
+            </td>
+            <td width="21%">
+              <div align="center">
+                <font size="1" face="Arial">N&uacute;mero Documento</font>
+                <font size="1" face="Arial, Helvetica, sans-serif"><br></font>
+                <font size="2" face="Arial">000012345678</font>
+                <font size="1" face="Arial, Helvetica, sans-serif"></font>
+              </div>
+            </td>
+            <td width="18%">
+              <div align="center">
+                <font size="1" face="Arial">Carteira/Nosso N&uacute;mero</font>
+                <font size="1" face="Arial, Helvetica, sans-serif"><br></font>
+                <font size="2" face="Arial">102/00016384650-5</font>
+              </div>
+            </td>
+          <td width="18%">
+            <font size="1" face="Arial, Helvetica, sans-serif">&nbsp;Valor do Documento<br></font>
+              <font size="3" face="Arial">
+                <b>
+                  <div align="right">
+                    <font size="2" face="Arial, Helvetica, sans-serif">
+                      <b>100.0</b>
+                    </font>
+                    <font size="3" face="Arial">
+                      <b>
+                        <font size="2" face="Arial, Helvetica, sans-serif">&nbsp;</font>
+                      </b>
+                    </font>
+                  </div>
+              </b>
+            </font>
+          </td>
+        </tr>
+          <tr>
+          <td colspan="4">
+            <table width="100%" border="0" cellpadding="0" cellspacing="0">
+                  <tbody>
+                    <tr>
+                  <td width="4"></td>
+                  <td width="626">
+                    <font style="font-size: 10px;" face="Arial">Demonstrativo
+                      <br>
+                            <b>
+                        ===============================================================<br>
+                        Pagamento<br>
+                        ===============================================================<br>
+                        <br>
+                            </b>
+                          </font>
+                        </td>
+                    </tr>
+              </tbody>
+            </table>
+          </td>
+          </tr>
+      </tbody>
+    </table>
+    <table width="640" border="0" cellpadding="2" cellspacing="0">
+      <tbody>
+        <tr>
+            <td width="100%" align="right">
+              <b>
+                <font size="1" face="Arial">Autentica&ccedil;&atilde;o mec&acirc;nica</font>
+              </b>
+              <br>
+            </td>
+          </tr>
+          <tr>
+            <td width="100%" align="middle" height="17">&nbsp; </td>
+          </tr>
+      </tbody>
+    </table>
+    <table width="640" border="0" cellpadding="0" cellspacing="0">
+      <tbody>
+        <tr valign="top">
+            <td>
+              <img src="img/tesoura.gif" style="margin-bottom: 3px;" width="640" height="5">
+              </td>
+      </tr>
+    </tbody></table>
+    <table width="640" border="0" cellpadding="0" cellspacing="0">
+      <tbody><tr>
+        <td valign="bottom" width="112"><font size="3" face="Arial, Helvetica, sans-serif"><img src="logo.png" vspace="0" width="112" align="absbottom" height="23" hspace="1"></font></td>
+        <td valign="bottom" width="66" align="center"> <font size="4" face="Arial, Helvetica, sans-serif"><b><img src="img/traco.htm" width="3" align="absbottom" height="23">&nbsp;<font color="#999999">3413</font>&nbsp;</b></font><img src="img/traco_002.htm" width="3" align="absbottom" height="23">
+        </td>
+        <td valign="bottom" width="462" align="right" nowrap="nowrap"><font size="3" face="Arial">03399.57391 45400.001231 45678.901021 1 56430000010000&nbsp;</font></td>
+      </tr>
+    </tbody></table>
+    <table bordercolorlight="#FFFFFF" width="640" border="1" cellpadding="1" cellspacing="0">
+      <tbody><tr>
+        <td colspan="6"> <table width="100%" border="0" cellpadding="0" cellspacing="0">
+            <tbody><tr>
+              <td valign="top" width="120"><font size="1" face="Arial, Helvetica, sans-serif">&nbsp;Local
+                de Pagamento</font><font face="Arial, Helvetica, sans-serif"><br>
+                <font size="3">&nbsp;&nbsp;&nbsp; </font><br>
+                </font></td>
+              <td valign="middle" width="370"><font size="2" face="Arial, Helvetica, sans-serif"><b>&nbsp;Pag&aacute;vel em qualquer banco at&eacute; o vencimento</b></font> <font face="Arial, Helvetica, sans-serif"><br>
+                </font></td>
+            </tr>
+          </tbody></table></td>
+        <td width="140"> <table bordercolorlight="#FFFFFF" width="100%" border="0" cellpadding="0" cellspacing="0" height="100%">
+            <tbody><tr bgcolor="#cccccc">
+              <td><font size="1" face="Arial, Helvetica, sans-serif">&nbsp;Vencimento
+                </font><font face="Arial, Helvetica, sans-serif"><br>
+                </font></td>
+            </tr>
+            <tr bgcolor="#cccccc">
+              <td align="right"><font face="Arial, Helvetica, sans-serif"><b><font size="3">2013-03-20</font></b></font><font size="3" face="Arial"><b><font size="2" face="Arial, Helvetica, sans-serif">&nbsp;</font></b></font><font face="Arial, Helvetica, sans-serif"><br>
+                </font></td>
+            </tr>
+          </tbody></table></td>
+      </tr>
+      <tr>
+        <td colspan="6" valign="top"> <table width="100%" border="0" cellpadding="0" cellspacing="0">
+            <tbody><tr>
+              <td valign="top"><font size="1" face="Arial">&nbsp;Cedente </font><br> </td>
+            </tr>
+            <tr>
+              <td valign="top"><font size="2" face="Arial"><b>&nbsp;OLOOK COM ONLINE DE MODA LTDA</b></font><br> </td>
+            </tr>
+          </tbody></table></td>
+        <td valign="top" width="140"> <table width="100%" border="0" cellpadding="1" cellspacing="1">
+            <tbody><tr>
+              <td><font size="1" face="Arial, Helvetica, sans-serif">&nbsp;Ag&ecirc;ncia/C&oacute;digo
+                Cedente</font></td>
+            </tr>
+            <tr>
+              <td align="right"><font size="2" face="Arial, Helvetica, sans-serif"><b>3413 / 5739454</b></font></td>
+            </tr>
+          </tbody></table></td>
+      </tr>
+      <tr>
+        <td width="103"> <table width="100%" border="0" cellpadding="0" cellspacing="0">
+            <tbody><tr>
+              <td> <div align="center"><font size="1" face="Arial">Data do documento</font><br>
+                </div></td>
+            </tr>
+            <tr>
+              <td align="middle"> <div align="center"><font size="2" face="Arial, Helvetica, sans-serif">2013-03-19</font><br>
+                </div></td>
+            </tr>
+          </tbody></table></td>
+        <td colspan="2"> <table width="100%" border="0" cellpadding="0" cellspacing="0">
+            <tbody><tr>
+              <td> <div align="center"><font size="1" face="Arial">No. do documento</font><br>
+                </div></td>
+            </tr>
+            <tr>
+              <td align="middle"> <div align="center"><font size="2" face="Arial, Helvetica, sans-serif">000012345678</font><br>
+                </div></td>
+            </tr>
+          </tbody></table></td>
+        <td width="65"> <table width="98%" border="0" cellpadding="0" cellspacing="0">
+            <tbody><tr>
+              <td> <div align="center"><font size="1" face="Arial">Esp&eacute;cie doc</font><br>
+                </div></td>
+            </tr>
+            <tr>
+              <td align="middle"> <div align="center"><font size="1" face="Arial"><font size="2">Outros</font></font><br>
+                </div></td>
+            </tr>
+          </tbody></table></td>
+        <td width="44"> <table width="100%" border="0" cellpadding="0" cellspacing="0">
+            <tbody><tr>
+              <td> <div align="center"><font size="1" face="Arial">&nbsp;Aceite</font><br>
+                </div></td>
+            </tr>
+            <tr>
+              <td align="middle"> <div align="center"><font size="2" face="Arial">N</font><br>
+                </div></td>
+            </tr>
+          </tbody></table></td>
+        <td width="126"> <table width="100%" border="0" cellpadding="0" cellspacing="0" height="100%">
+            <tbody><tr>
+              <td nowrap="nowrap"> <div align="center"><font size="1" face="Arial">Data Processamento</font></div></td>
+            </tr>
+            <tr>
+              <td align="middle" nowrap="nowrap"> <div align="center"><font size="2" face="Arial">2013-03-19</font></div></td>
+            </tr>
+          </tbody></table></td>
+        <td width="140"> <table width="100%" border="0" cellpadding="0" cellspacing="0">
+            <tbody><tr>
+              <td><font size="1" face="Arial, Helvetica, sans-serif">&nbsp;Nosso N&uacute;mero
+                </font><font face="Arial, Helvetica, sans-serif"><br>
+                </font></td>
+            </tr>
+            <tr>
+              <td align="right"><font size="2" face="Arial, Helvetica, sans-serif"><b>25/00016384650-5</b></font><font size="3" face="Arial"><b><font size="2" face="Arial, Helvetica, sans-serif">&nbsp;</font></b></font><font face="Arial, Helvetica, sans-serif"><br>
+                </font></td>
+            </tr>
+          </tbody></table></td>
+      </tr>
+      <tr align="center">
+        <td valign="top" width="103"> <table width="100%" border="0" cellpadding="0" cellspacing="0">
+            <tbody><tr valign="top">
+              <td> <div align="center"><font size="1" face="Arial">Uso do Banco</font><br>
+                </div></td>
+            </tr>
+            <tr valign="top">
+              <td> <div align="center"><font size="2" face="Arial"> </font><br>
+                </div></td>
+            </tr>
+          </tbody></table></td>
+        <td valign="top" width="39" align="center"> <table width="100%" align="center" border="0" cellpadding="0" cellspacing="0">
+            <tbody><tr valign="top">
+              <td align="center"> <font size="1" face="Arial">Carteira</font></td>
+            </tr>
+            <tr valign="top">
+              <td align="center"><font size="2" face="Arial">102</font></td>
+            </tr>
+          </tbody></table></td>
+        <td valign="top" width="93"> <table width="100%" border="0" cellpadding="0" cellspacing="0">
+            <tbody><tr valign="top">
+              <td> <div align="center"><font size="1" face="Arial"> Moeda</font><br>
+                </div></td>
+            </tr>
+            <tr valign="top">
+              <td> <div align="center"><font size="2" face="Arial">R$</font><br>
+                </div></td>
+            </tr>
+          </tbody></table></td>
+        <td colspan="2" valign="top"> <table width="100%" border="0" cellpadding="0" cellspacing="0">
+            <tbody><tr valign="top">
+              <td> <div align="center"><font size="1" face="Arial">Quantidade</font><br>
+                </div></td>
+            </tr>
+            <tr valign="top">
+              <td> <div align="center"><br>
+                </div></td>
+            </tr>
+          </tbody></table></td>
+        <td valign="top" width="126"> <table width="100%" border="0" cellpadding="0" cellspacing="0">
+            <tbody><tr valign="top">
+              <td> <div align="center"><font size="1" face="Arial"> Valor</font><br>
+                </div></td>
+            </tr>
+            <tr valign="top">
+              <td> <div align="center"><font size="2" face="Arial"> </font><br>
+                </div></td>
+            </tr>
+          </tbody></table></td>
+        <td valign="top" width="140"> <table width="100%" border="0" cellpadding="0" cellspacing="0" height="100%">
+            <tbody><tr>
+              <td bgcolor="lightgrey" height="50%"><font size="1" face="Arial, Helvetica, sans-serif">&nbsp;(=)
+                Valor do Documento </font></td>
+            </tr>
+            <tr>
+              <td align="right" bgcolor="lightgrey" height="50%"><font face="Arial, Helvetica, sans-serif"><b><font size="2">100.0</font></b></font><font size="3" face="Arial"><b><font size="2" face="Arial, Helvetica, sans-serif">&nbsp;</font></b></font></td>
+            </tr>
+          </tbody></table></td>
+      </tr>
+      <tr>
+        <td colspan="6" rowspan="5" valign="top"> <table width="100%" border="0" cellpadding="0" cellspacing="0">
+            <tbody><tr valign="center">
+              <td colspan="2" height="23"><font size="2" face="Arial"><b>&nbsp;Instru&ccedil;&otilde;es
+                </b><br>
+                </font></td>
+            </tr>
+            <tr valign="top">
+              <td width="4">
+              </td>
+              <td width="457"><font style="font-size: 10px;" face="Arial">Sr. Caixa, n&atilde;o receber ap&oacute;s o vencimento<br>
+              <br>
+              </font>
+              <font style="font-size: 11px;" face="Courier New">
+              <br>
+              <br>
+              <br>
+              <br>
+              <br>
+              </font>
+              </td>
+            </tr>
+          </tbody></table></td>
+        <td valign="top" width="140"><font style="font-size: 10px;" face="Arial">&nbsp;(-) Descontos/Abatimento
+          <br><br>
+          </font></td>
+      </tr>
+      <tr>
+        <td valign="top" width="140"><font style="font-size: 10px;" face="Arial">&nbsp;(-) Outras
+          Dedu&ccedil;&otilde;es <br><br>
+          </font></td>
+      </tr>
+      <tr>
+        <td valign="top" width="140"><font style="font-size: 10px;" face="Arial">&nbsp;(+) Mora/Multa
+          <br><br>
+          </font></td>
+      </tr>
+      <tr>
+        <td valign="top" width="140"><font style="font-size: 10px;" face="Arial">&nbsp;(+) Outros
+          Acr&eacute;scimos <br><br>
+          </font></td>
+      </tr>
+      <tr>
+        <td valign="top" width="140" bgcolor="#cccccc"><font style="font-size: 10px;" face="Arial">&nbsp;(=)
+          Valor Cobrado <br><br>
+          </font></td>
+      </tr>
+      <tr>
+        <td colspan="5"> <table width="100%" border="0" cellpadding="0" cellspacing="0">
+            <tbody><tr>
+              <td valign="top" width="100"><font size="1" face="Arial, Helvetica, sans-serif">&nbsp;Sacado
+                </font><font face="Arial, Helvetica, sans-serif"><br>
+                </font></td>
+              <td valign="top" width="100%" height="40"><font size="1" face="Arial, Helvetica, sans-serif">&nbsp;Oliver Azevedo Barnes<br>
+                &nbsp;Fern&atilde;o Dias, 251/ - Pinheiros<br>
+                &nbsp;05427-010 - S&atilde;o Paulo, S&atilde;o Paulo</font></td>
+            </tr>
+          </tbody></table></td>
+        <td colspan="2" valign="bottom" align="middle"><b><font size="3" face="Arial">&nbsp;Ficha
+          de Compensa&ccedil;&atilde;o </font></b></td>
+      </tr>
+    </tbody></table>
+      <table width="637" border="0" cellpadding="0" cellspacing="0" height="86">
+        <tbody><tr>
+          <td width="452" align="left" height="68"> <table width="100%" border="0" cellpadding="0" cellspacing="0">
+            <tbody>
+              <tr>
+                    <td valign="bottom" width="4%" height="36" nowrap="nowrap">&nbsp;</td>
+                    <td valign="bottom" width="96%" height="53"><img src=data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAakAAAB4AQAAAABgQjDIAAAAsElEQVR4nO3PMQqDMABG4eIRCgUnh7pIh8zi3pA54BgPEdC5s0IOkYxC5pDu4pyhuNjBSSj0Cu0dpFCE/+3f8KLPlm7RYVNge2WPmR4nVp2YoE8+ljJUA0sEo7FMmhD4XMrpWo28rnks6ybEgg67eQMDAwMDAwMDAwMDAwMDAwMDAwMD+xe7pP6dOf1yxp9t3iuiC7cY51e1tITYtFfZXee26+yqupasxhe7eQP7DfsCq8dpPNENfXoAAAAASUVORK5CYII=></td>
+                </tr>
+              </tbody>
+      </table>
+      <font size="2" face="Arial">&nbsp;</font>
+        <font size="1" face="Arial, Helvetica, sans-serif"></font>
+        </td>
+        <td valign="top" width="223" align="center" height="68">
+        <font size="1" face="Arial">
+        <center>Autentica&ccedil;&atilde;o Mec&acirc;nica</center>
+        </font></td>
+    </tr></tbody>
+    </table>
+  </body>
+</html>

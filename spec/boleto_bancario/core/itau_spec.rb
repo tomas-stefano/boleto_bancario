@@ -329,7 +329,7 @@ module BoletoBancario
       end
 
       describe "#to_partial_path" do
-        its(:to_partial_path) { should eq 'boleto_bancario/itau' }
+        its(:to_partial_path) { should eq 'boleto_bancario/views/itau' }
       end
     end
   end
