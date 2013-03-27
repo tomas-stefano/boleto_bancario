@@ -2,6 +2,7 @@
 require 'barby'
 require 'barby/barcode/code_25_interleaved'
 require 'barby/outputter/png_outputter'
+require 'pry'
 
 module BoletoBancario
   module Renderers
@@ -16,8 +17,8 @@ module BoletoBancario
 
       protected
 
-        def template_file
-          File.open(File.expand_path(File.dirname(__FILE__), "../lib/#{boleto.to_partial_path}.html.erb"), 'r').read
+        def self.template_file
+          File.open(File.expand_path("./lib/#{@boleto.to_partial_path}.html.erb"), 'r').read
         end
     end
   end
