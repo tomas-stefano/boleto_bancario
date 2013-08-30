@@ -15,9 +15,9 @@ Gem::Specification.new do |gem|
   gem.require_paths = ["lib"]
   gem.version       = BoletoBancario::VERSION
 
-  gem.add_dependency "activesupport", "~> 3.2"
-  gem.add_dependency "activemodel", "~> 3.2"
-  gem.add_development_dependency "rspec", "~> 2.11"
+  gem.add_dependency "activesupport", "~> 4"
+  gem.add_dependency "activemodel", "~> 4"
+  gem.add_development_dependency "rspec", "~> 2"
   gem.add_development_dependency "valid_attribute", "~> 1.3"
   gem.add_development_dependency "pry", "~> 0.9"
   gem.add_development_dependency "simplecov", "~> 0.2"
