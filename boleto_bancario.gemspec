@@ -3,15 +3,15 @@ require File.expand_path('../lib/boleto_bancario/version', __FILE__)
 
 Gem::Specification.new do |gem|
   gem.authors       = ["Tomas D'Stefano", "Conectiva Consultoria"]
-  gem.email         = ["code@conectivaconsultoria.com.br"]
+  gem.email         = ["tomas_stefano@successoft.com", "code@conectivaconsultoria.com.br"]
   gem.description   = %q{Emissão de Boletos Bancários em Ruby}
   gem.summary       = %q{Emissão de Boletos Bancários em Ruby}
-  gem.homepage      = "https://github.com/conectiva/boleto_bancario"
+  gem.homepage      = "https://github.com/tomas-stefano/boleto_bancario"
 
   gem.files         = `git ls-files`.split($\).reject { |f| File.extname(f) == '.pdf' }
   gem.executables   = gem.files.grep(%r{^bin/}).map{ |f| File.basename(f) }
   gem.test_files    = gem.files.grep(%r{^(test|spec|features)/})
-  gem.name          = "conectiva-boleto_bancario"
+  gem.name          = "boleto_bancario"
   gem.require_paths = ["lib"]
   gem.version       = BoletoBancario::VERSION
 
