@@ -174,6 +174,16 @@ module BoletoBancario
       #
       attr_accessor :aceite
 
+      # Campos de instruções.
+      # São permitidas até seis linhas de instruções a serem mostradas no boleto
+
+      attr_accessor :instrucoes1, 
+                    :instrucoes2, 
+                    :instrucoes3, 
+                    :instrucoes4, 
+                    :instrucoes5,
+                    :instrucoes6
+
       # Tamanho maximo do valor do documento do boleto.
       # Acredito que não existirá valor de documento nesse valor,
       # <b>porém a biblioteca precisa manter a consistência</b>.

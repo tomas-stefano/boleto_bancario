@@ -18,7 +18,13 @@ module BoletoBancario
               :cedente          => 'Nome da razao social',
               :sacado           => 'Teste',
               :documento_sacado => '725.275.005-10',
-              :endereco_sacado  => 'Rua teste, 23045'
+              :endereco_sacado  => 'Rua teste, 23045',
+              :instrucoes1      => 'Lembrar de algo 1',
+              :instrucoes2      => 'Lembrar de algo 2',
+              :instrucoes3      => 'Lembrar de algo 3',
+              :instrucoes4      => 'Lembrar de algo 4',
+              :instrucoes5      => 'Lembrar de algo 5',
+              :instrucoes6      => 'Lembrar de algo 6',
             )
           end
 
@@ -38,6 +44,13 @@ module BoletoBancario
           its(:documento_sacado)  { should eq '725.275.005-10' }
           its(:endereco_sacado)   { should eq 'Rua teste, 23045'}
           its(:local_pagamento)   { should eq 'PAGÁVEL EM QUALQUER BANCO ATÉ O VENCIMENTO' }
+          its(:instrucoes1)       { should eq 'Lembrar de algo 1'}
+          its(:instrucoes2)       { should eq 'Lembrar de algo 2'}
+          its(:instrucoes3)       { should eq 'Lembrar de algo 3'}
+          its(:instrucoes4)       { should eq 'Lembrar de algo 4'}
+          its(:instrucoes5)       { should eq 'Lembrar de algo 5'}
+          its(:instrucoes6)       { should eq 'Lembrar de algo 6'}
+
         end
 
         context 'when passing a block' do
@@ -54,6 +67,12 @@ module BoletoBancario
               boleto.cedente            = 'Nome da razao social'
               boleto.documento_cedente  = '62.526.713/0001-40'
               boleto.sacado             = 'Teste'
+              boleto.instrucoes1        = 'Lembrar de algo 1'
+              boleto.instrucoes2        = 'Lembrar de algo 2'
+              boleto.instrucoes3        = 'Lembrar de algo 3'
+              boleto.instrucoes4        = 'Lembrar de algo 4'
+              boleto.instrucoes5        = 'Lembrar de algo 5'
+              boleto.instrucoes6        = 'Lembrar de algo 6'
             end
           end
 
@@ -69,6 +88,12 @@ module BoletoBancario
           its(:documento_cedente) { should eq '62.526.713/0001-40' }
           its(:sacado)            { should eq 'Teste' }
           its(:aceite)            { should be true }
+          its(:instrucoes1)       { should eq 'Lembrar de algo 1' }
+          its(:instrucoes2)       { should eq 'Lembrar de algo 2' }
+          its(:instrucoes3)       { should eq 'Lembrar de algo 3' }
+          its(:instrucoes4)       { should eq 'Lembrar de algo 4' }
+          its(:instrucoes5)       { should eq 'Lembrar de algo 5' }
+          its(:instrucoes6)       { should eq 'Lembrar de algo 6' }
         end
       end
 
