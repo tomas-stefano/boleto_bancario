@@ -2,8 +2,8 @@
 require File.expand_path('../lib/boleto_bancario/version', __FILE__)
 
 Gem::Specification.new do |gem|
-  gem.authors       = ["Tomas D'Stefano", "Conectiva Consultoria"]
-  gem.email         = ["tomas_stefano@successoft.com", "code@conectivaconsultoria.com.br"]
+  gem.authors       = ["Tomas D'Stefano"]
+  gem.email         = ["tomas_stefano@successoft.com"]
   gem.description   = %q{Emissão de Boletos Bancários em Ruby}
   gem.summary       = %q{Emissão de Boletos Bancários em Ruby}
   gem.homepage      = "https://github.com/tomas-stefano/boleto_bancario"
