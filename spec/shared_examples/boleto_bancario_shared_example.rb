@@ -55,13 +55,13 @@ shared_examples_for 'boleto bancario' do
   describe "#codigo_do_banco" do
     before { subject.should respond_to(:codigo_banco) }
 
-    it { expect { subject.codigo_banco }.to_not raise_error(NotImplementedError) }
+    it { expect { subject.codigo_banco }.to_not raise_error() }
   end
 
   describe "#digito_do_codigo_do_banco" do
     before { subject.should respond_to(:digito_codigo_banco) }
 
-    it { expect { subject.digito_codigo_banco }.to_not raise_error(NotImplementedError) }
+    it { expect { subject.digito_codigo_banco }.to_not raise_error() }
   end
 
   describe "#codigo_banco_formatado" do
@@ -77,13 +77,13 @@ shared_examples_for 'boleto bancario' do
   describe "#agencia_codigo_cedente" do
     before { subject.should respond_to(:agencia_codigo_cedente) }
 
-    it { expect { subject.agencia_codigo_cedente }.to_not raise_error(NotImplementedError) }
+    it { expect { subject.agencia_codigo_cedente }.to_not raise_error() }
   end
 
   describe "#nosso_numero" do
     before { subject.should respond_to(:nosso_numero) }
 
-    it { expect { subject.nosso_numero }.to_not raise_error(NotImplementedError) }
+    it { expect { subject.nosso_numero }.to_not raise_error() }
   end
 
   describe "#carteira_formatada" do
@@ -93,7 +93,7 @@ shared_examples_for 'boleto bancario' do
   describe "#codigo_de_barras_do_banco" do
     before { subject.should respond_to(:codigo_de_barras_do_banco) }
 
-    it { expect { subject.codigo_de_barras_do_banco }.to_not raise_error(NotImplementedError) }
+    it { expect { subject.codigo_de_barras_do_banco }.to_not raise_error() }
   end
 
   describe "#valor_formatado_para_codigo_de_barras" do
