@@ -177,12 +177,16 @@ module BoletoBancario
       # Campos de instruções.
       # São permitidas até seis linhas de instruções a serem mostradas no boleto
 
-      attr_accessor :instrucoes1, 
-                    :instrucoes2, 
-                    :instrucoes3, 
-                    :instrucoes4, 
+      attr_accessor :instrucoes1,
+                    :instrucoes2,
+                    :instrucoes3,
+                    :instrucoes4,
                     :instrucoes5,
                     :instrucoes6
+
+      # Caminho do logo do banco.
+      #
+      attr_accessor :logo
 
       # Tamanho maximo do valor do documento do boleto.
       # Acredito que não existirá valor de documento nesse valor,
