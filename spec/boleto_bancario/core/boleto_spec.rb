@@ -4,6 +4,34 @@ require 'spec_helper'
 module BoletoBancario
   module Core
     describe Boleto do
+      describe '.model_name' do
+        it 'returns Boleto' do
+          expect(Boleto.model_name).to eq 'BoletoBancario::Core::Boleto'
+        end
+      end
+
+      describe '.human_attribute_name' do
+        it 'respond to internationalization attribute' do
+          expect(Boleto).to respond_to(:human_attribute_name)
+        end
+      end
+
+      describe '#to_partial_path' do
+        subject(:boleto) { Boleto.new }
+
+        it 'returns the path from class name' do
+          expect(boleto.to_partial_path).to eq 'boleto_bancario/boleto'
+        end
+      end
+
+      describe '#to_model' do
+        subject(:boleto) { Boleto.new }
+
+        it 'returns the same object for comparison purposes' do
+          expect(boleto.to_model).to eq boleto
+        end
+      end
+
       describe '#initialize' do
         context 'when passing a Hash' do
           subject do
@@ -98,7 +126,7 @@ module BoletoBancario
       end
 
       describe "#carteira_formatada" do
-        it "should return 'carteira' as default" do
+        it "returns 'carteira' as default" do
           subject.stub(:carteira).and_return('Foo')
           subject.carteira_formatada.should eq 'Foo'
         end

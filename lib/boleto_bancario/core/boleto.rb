@@ -12,10 +12,7 @@ module BoletoBancario
       # * Internacionalização;
       # * Nomes das classes para serem manipuladas;
       #
-      include ActiveModel::Validations
-      include ActiveModel::Conversion
-      extend  ActiveModel::Naming
-      extend  ActiveModel::Translation
+      include ActiveModel::Model
 
       # Nome/Razão social que aparece no campo 'Cedente' no boleto.
       #
