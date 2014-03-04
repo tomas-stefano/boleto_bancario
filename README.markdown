@@ -123,10 +123,13 @@ Segue os attributos dos boletos:
 
 Agora você pode emitir um boleto, **usando a classe criada no exemplo acima**:
 
+```ruby
     BoletoItau.new(conta_corrente: '89755', agencia: '0097', :carteira => '195')
+```
 
 Você pode usar blocos se quiser:
 
+```ruby
     BoletoItau.new do |boleto|
       boleto_itau.conta_corrente        = '89755'
       boleto_itau.digito_conta_corrente = '1'
@@ -142,6 +145,7 @@ Você pode usar blocos se quiser:
       boleto_itau.valor_documento       = 31678.99
       boleto_itau.seu_numero            = 1234
     end
+```
 
 **Cada banco possui suas próprias validações de campo e de tamanho**.
 Primeiramente, **antes de renderizar qualquer boleto você precisar verificar se esse o boleto é válido**.
