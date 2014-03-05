@@ -1,5 +1,5 @@
-require 'boleto_bancario'
-require 'valid_attribute'
+require 'bundler/setup'
+Bundler.require(:default, :development)
 
 Dir[File.join(File.dirname(__FILE__), 'shared_examples/**/*.rb')].each do |file|
   require(file)
