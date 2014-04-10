@@ -11,11 +11,6 @@ module BoletoBancario
           should_not have_valid(:agencia).when(nil, "", "1234")
         end
 
-        it "digito agencia should have 2 digits (NC)" do
-          should have_valid(:digito_agencia).when("12")
-          should_not have_valid(:digito_agencia).when(nil, "", "1", "123")
-        end
-
         it "codigo cedente should have 07 digits" do
           should have_valid(:codigo_cedente).when("1234567", "12", "12345")
           should_not have_valid(:codigo_cedente).when(nil, "", "12345678", "123456789")
@@ -83,7 +78,7 @@ module BoletoBancario
       end
 
       describe "#agencia_codigo_cedente" do
-        subject { Banrisul.new(agencia: '100', digito_agencia: '81', codigo_cedente: '0000001', digito_codigo_cedente: '83') }
+        subject { Banrisul.new(agencia: '100', codigo_cedente: '0000001', digito_codigo_cedente: '83') }
 
         its(:agencia_codigo_cedente) { should eq '100.81 0000001.83' }
       end
@@ -114,7 +109,6 @@ module BoletoBancario
             Banrisul.new do |boleto|
               boleto.numero_documento = 22832563
               boleto.agencia          = 100
-              boleto.digito_agencia   = 81
               boleto.data_vencimento  = Date.parse('2004-07-04')
               boleto.codigo_cedente   = "0000001"
               boleto.valor_documento  = 5.0

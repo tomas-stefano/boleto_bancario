@@ -81,11 +81,6 @@ module BoletoBancario
       #
       attr_accessor :agencia
 
-      # Dígito da agência. Campo auto explicativo.
-      # Alguns bancos tem o agência, enquanto outros não possuem.
-      #
-      attr_accessor :digito_agencia
-
       # Número da Conta corrente. Campo auto explicativo.
       #
       attr_accessor :conta_corrente
@@ -511,15 +506,6 @@ module BoletoBancario
       # @return [True]
       #
       def deve_validar_agencia?
-        true
-      end
-
-      # Método usado para verificar se deve realizar a validação de tamanho do campo 'digito_agência'.
-      # <b>Sobrescreva esse método na subclasse, caso você mesmo queira fazer as validações</b>.
-      #
-      # @return [True]
-      #
-      def deve_validar_digito_agencia?
         true
       end
 

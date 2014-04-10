@@ -206,7 +206,7 @@ module BoletoBancario
       # @return [String]
       #
       def agencia_codigo_cedente
-        "#{agencia}-#{digito_agencia} / #{codigo_cedente}"
+        "#{agencia} / #{codigo_cedente}"
       end
 
       # Mostra o campo nosso número calculando o dígito verificador do nosso número.

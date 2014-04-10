@@ -128,7 +128,6 @@ module BoletoBancario
       # Validações de tamanho para os campos abaixo:
       #
       # * Agencia
-      # * Digito verificador da agencia
       # * Conta corrente
       # * Digito verificador da conta corrente
       # * Número do documento
@@ -159,7 +158,6 @@ module BoletoBancario
       # Você precisará analisar o efeito no #codigo_de_barras, #nosso_numero e na
       # #linha_digitável (ambos podem ser sobreescritos também).
       #
-      validates :digito_agencia,        length: { maximum: 1  }
       validates :digito_conta_corrente, length: { maximum: 1  }
       validates :agencia,          length: { maximum: tamanho_maximo_agencia          }, if: :deve_validar_agencia?
       validates :conta_corrente,   length: { maximum: tamanho_maximo_conta_corrente   }, if: :deve_validar_conta_corrente?
@@ -218,6 +216,14 @@ module BoletoBancario
       #
       def digito_codigo_banco
         '2'
+      end
+
+      # Dígito do código da agência. Precisa mostrar esse dígito no boleto.
+      #
+      # @return [String] Dígito da agência calculado usando o Modulo11FatorDe9a2.
+      #
+      def digito_agencia
+        Modulo11FatorDe9a2.new(agencia)
       end
 
       # Campo preenchido com:

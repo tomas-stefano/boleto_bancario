@@ -91,9 +91,9 @@ module BoletoBancario
       end
 
       describe "#agencia_codigo_cedente" do
-        subject { Santander.new(agencia: '0235', digito_agencia: '6', codigo_cedente: '1625462') }
+        subject { Santander.new(agencia: '0235', codigo_cedente: '1625462') }
 
-        its(:agencia_codigo_cedente) { should eq '0235-6 / 1625462' }
+        its(:agencia_codigo_cedente) { should eq '0235 / 1625462' }
       end
 
       describe "#nosso_numero" do
@@ -110,7 +110,6 @@ module BoletoBancario
             santander.valor_documento  = 2952.95
             santander.carteira         = '102'
             santander.agencia          = 1333
-            santander.digito_agencia   = 1
             santander.data_vencimento  = Date.parse('2012-12-28')
           end
         end
