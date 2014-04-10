@@ -67,11 +67,6 @@ module BoletoBancario
             end
           end
         end
-
-        describe "#digito_conta_corrente" do
-          it { should have_valid(:digito_conta_corrente).when('1', '2', '3') }
-          it { should_not have_valid(:digito_conta_corrente).when('12', nil, '123', '') }
-        end
       end
 
       describe "#numero_documento" do
@@ -145,7 +140,7 @@ module BoletoBancario
       end
 
       describe "#agencia_codigo_cedente" do
-        subject { Itau.new(:agencia => '0057', :conta_corrente => '12345', :digito_conta_corrente => '7') }
+        subject { Itau.new(:agencia => '0057', :conta_corrente => '12345') }
 
         it "should return the agency and bank account with digit" do
           subject.agencia_codigo_cedente.should eq '0057 / 12345-7'
@@ -256,7 +251,6 @@ module BoletoBancario
               boleto.numero_documento      = '12345678'
               boleto.agencia               = '0057'
               boleto.conta_corrente        = '12345'
-              boleto.digito_conta_corrente = '7'
             end
           end
 
@@ -317,7 +311,6 @@ module BoletoBancario
             boleto.carteira              = '175'
             boleto.agencia               = 1565
             boleto.conta_corrente        = 13877
-            boleto.digito_conta_corrente = 1
             boleto.numero_documento      = 12345678
             boleto.data_vencimento       = Date.parse('2012-12-21')
             boleto.valor_documento       = 2952.95

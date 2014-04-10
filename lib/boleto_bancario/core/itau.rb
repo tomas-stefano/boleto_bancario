@@ -198,7 +198,6 @@ module BoletoBancario
       # * Dígito da conta corrente
       #
       validates :agencia, :conta_corrente, :digito_conta_corrente, presence: true
-      validates :digito_conta_corrente, length: { maximum: 1 }
 
       # Validações de tamanho para os campos abaixo:
       #
@@ -296,6 +295,14 @@ module BoletoBancario
       #
       def digito_codigo_banco
         '7'
+      end
+
+      # Dígito da conta corrente. Precisa mostrar esse dígito no boleto.
+      #
+      # @return [String] Dígito da conta corrente calculado apartir do Modulo10.
+      #
+      def digito_conta_corrente
+        Modulo10.new("#{agencia}#{conta_corrente}")
       end
 
       # Agência, conta corrente and dígito da conta corrente formatado.

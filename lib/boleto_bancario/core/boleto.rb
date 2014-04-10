@@ -85,11 +85,6 @@ module BoletoBancario
       #
       attr_accessor :conta_corrente
 
-      # Dígito da conta corrente. Campo auto explicativo.
-      # Alguns bancos tem o dígito da conta corrente outros não.
-      #
-      attr_accessor :digito_conta_corrente
-
       # Código da moeda. Campo auto explicativo.
       # Padrão '9' (Real).
       #
@@ -211,7 +206,6 @@ module BoletoBancario
       # @option options [String] :documento_cedente
       # @option options [String] :endereco_cedente
       # @option options [String] :conta_corrente
-      # @option options [String] :digito_conta_corrente
       # @option options [String] :agencia
       # @option options [Date]   :data_vencimento
       # @option options [String] :numero_documento

@@ -132,7 +132,6 @@ Você pode usar blocos se quiser:
 ```ruby
     BoletoItau.new do |boleto|
       boleto_itau.conta_corrente        = '89755'
-      boleto_itau.digito_conta_corrente = '1'
       boleto_itau.agencia               = '0097'
       boleto_itau.carteira              = '198'
       boleto_itau.cedente               = 'Razao Social da Empresa'

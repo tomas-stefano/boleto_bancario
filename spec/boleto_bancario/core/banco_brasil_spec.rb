@@ -17,11 +17,6 @@ module BoletoBancario
           it { should_not have_valid(:conta_corrente).when('123456789', nil, '') }
         end
 
-        context "#digito_conta_corrente" do
-          it { should have_valid(:digito_conta_corrente).when('1') }
-          it { should_not have_valid(:digito_conta_corrente).when('12', nil, '') }
-        end
-
         context "#codigo_cedente" do
           it { should have_valid(:codigo_cedente).when('1234', '123456', '1234567', '12345678') }
           it { should_not have_valid(:codigo_cedente).when('123', '1', '12', nil, '') }
@@ -145,7 +140,7 @@ module BoletoBancario
       end
 
       describe "#agencia_codigo_cedente" do
-        subject { BancoBrasil.new(agencia: 9999, conta_corrente: 99999, digito_conta_corrente: 7) }
+        subject { BancoBrasil.new(agencia: 9999, conta_corrente: 99999) }
 
         its(:agencia_codigo_cedente) { should eq '9999-6 / 00099999-7' }
       end
@@ -267,7 +262,6 @@ module BoletoBancario
               banco_brasil.numero_documento      = 90801
               banco_brasil.agencia               = 7123
               banco_brasil.conta_corrente        = 19345
-              banco_brasil.digito_conta_corrente = 7
               banco_brasil.data_vencimento       = Date.parse('2012-12-28')
               banco_brasil.codigo_cedente        = 4321
             end
@@ -285,7 +279,6 @@ module BoletoBancario
               banco_brasil.numero_documento      = 12901
               banco_brasil.agencia               = 5030
               banco_brasil.conta_corrente        = 14204195
-              banco_brasil.digito_conta_corrente = 7
               banco_brasil.data_vencimento       = Date.parse('2012-12-28')
               banco_brasil.codigo_cedente        = 555444
             end
@@ -303,7 +296,6 @@ module BoletoBancario
               banco_brasil.numero_documento      = 12345678911234567
               banco_brasil.agencia               = 5030
               banco_brasil.conta_corrente        = 14204195
-              banco_brasil.digito_conta_corrente = 7
               banco_brasil.data_vencimento       = Date.parse('2012-12-28')
               banco_brasil.codigo_cedente        = 555444
             end
@@ -321,7 +313,6 @@ module BoletoBancario
               banco_brasil.numero_documento      = 12345678911234567
               banco_brasil.agencia               = 5030
               banco_brasil.conta_corrente        = 14204195
-              banco_brasil.digito_conta_corrente = 7
               banco_brasil.data_vencimento       = Date.parse('2012-12-28')
               banco_brasil.codigo_cedente        = 555444
             end
@@ -339,7 +330,6 @@ module BoletoBancario
               banco_brasil.numero_documento      = 87654
               banco_brasil.agencia               = 9999
               banco_brasil.conta_corrente        = 99999
-              banco_brasil.digito_conta_corrente = 7
               banco_brasil.data_vencimento       = Date.parse('2012-12-28')
               banco_brasil.codigo_cedente        = 7777777
             end
@@ -357,7 +347,6 @@ module BoletoBancario
               banco_brasil.numero_documento      = 87654
               banco_brasil.agencia               = 9999
               banco_brasil.conta_corrente        = 99999
-              banco_brasil.digito_conta_corrente = 7
               banco_brasil.data_vencimento       = Date.parse('2012-12-28')
               banco_brasil.codigo_cedente        = 77777778
             end

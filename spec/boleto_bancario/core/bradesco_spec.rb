@@ -13,9 +13,6 @@ module BoletoBancario
         it { should have_valid(:conta_corrente).when('1', '123', '1234') }
         it { should_not have_valid(:conta_corrente).when('12345678', '123456789', nil, '') }
 
-        it { should have_valid(:digito_conta_corrente).when('1', '4', 'X') }
-        it { should_not have_valid(:digito_conta_corrente).when(nil, '', '12', '123') }
-
         it { should have_valid(:carteira).when(6, '6', '13') }
         it { should_not have_valid(:carteira).when('', nil, '102', '123') }
 
@@ -100,7 +97,7 @@ module BoletoBancario
       end
 
       describe "#agencia_codigo_cedente" do
-        subject { Bradesco.new(agencia: '1172', conta_corrente: '0403005', digito_conta_corrente: '2') }
+        subject { Bradesco.new(agencia: '1172', conta_corrente: '0403005') }
 
         its(:agencia_codigo_cedente) { should eq '1172-10 / 0403005-2'}
       end
@@ -135,7 +132,6 @@ module BoletoBancario
               boleto.data_vencimento       = Date.parse('2012-12-28')
               boleto.agencia               = 1172
               boleto.conta_corrente        = 403005
-              boleto.digito_conta_corrente = 2
             end
           end
 
@@ -152,7 +148,6 @@ module BoletoBancario
               boleto.data_vencimento       = Date.parse('2012-12-28')
               boleto.agencia               = 1172
               boleto.conta_corrente        = 403005
-              boleto.digito_conta_corrente = 2
             end
           end
 

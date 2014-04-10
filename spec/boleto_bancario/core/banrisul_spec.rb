@@ -16,11 +16,6 @@ module BoletoBancario
           should_not have_valid(:codigo_cedente).when(nil, "", "12345678", "123456789")
         end
 
-        it "numero_controle_codigo_cedente should have 2 digits" do
-          should have_valid(:digito_codigo_cedente).when("12")
-          should_not have_valid(:digito_codigo_cedente).when(nil, "", "1", "123", "1234")
-        end
-
         it "numero documento should have 8 digits" do
           should have_valid(:numero_documento).when("12345678", "1234")
           should_not have_valid(:numero_documento).when(nil, "", "123456789")
@@ -78,7 +73,7 @@ module BoletoBancario
       end
 
       describe "#agencia_codigo_cedente" do
-        subject { Banrisul.new(agencia: '100', codigo_cedente: '0000001', digito_codigo_cedente: '83') }
+        subject { Banrisul.new(agencia: '100', codigo_cedente: '0000001') }
 
         its(:agencia_codigo_cedente) { should eq '100.81 0000001.83' }
       end

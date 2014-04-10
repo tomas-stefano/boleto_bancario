@@ -118,8 +118,6 @@ module BoletoBancario
 
       validates :codigo_cedente, :agencia, :digito_agencia, :conta_corrente, :digito_conta_corrente, presence: true
 
-      validates :digito_conta_corrente, length: { maximum: 1  }
-
       # Validações de Agencia e Conta corrente.
       #
       validates :agencia,          length: { maximum: tamanho_maximo_agencia        }, if: :deve_validar_agencia?
@@ -219,6 +217,14 @@ module BoletoBancario
       #
       def digito_agencia
         Modulo11FatorDe9a2RestoX.new(agencia)
+      end
+
+      # Dígito da conta corrente. Precisa mostrar esse dígito no boleto.
+      #
+      # @return [String] Dígito da conta corrente calculado apartir do Modulo11FatorDe9a2RestoX.
+      #
+      def digito_conta_corrente
+        Modulo11FatorDe9a2RestoX.new(conta_corrente)
       end
 
       # Campo Agencia / Código do Cedente
