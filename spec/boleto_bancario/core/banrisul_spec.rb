@@ -20,6 +20,11 @@ module BoletoBancario
           should have_valid(:numero_documento).when("12345678", "1234")
           should_not have_valid(:numero_documento).when(nil, "", "123456789")
         end
+
+        it "carteira is supported" do
+          should have_valid(:carteira).when('00', '08', 0, 8)
+          should_not have_valid(:carteira).when(nil, '', '5', '20', '100')
+        end
       end
 
       describe "#agencia" do

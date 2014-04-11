@@ -351,6 +351,14 @@ module BoletoBancario
         "#{real.rjust(8, '0')}#{centavos.rjust(2, '0')}"
       end
 
+      # Força a carteira a retornar o valor como string
+      #
+      # @return [String]
+      #
+      def carteira
+        @carteira.to_s if @carteira.present?
+      end
+
       # Embora o padrão seja mostrar o número da carteira no boleto,
       # <b>alguns bancos</b> requerem que seja mostrado um valor diferente na carteira.
       # <b>Para essas exceções, sobrescreva esse método na subclasse.</b>
@@ -530,7 +538,7 @@ module BoletoBancario
         true
       end
 
-      # Método usado para verificar se deve realizar a validação de tamanho do campo 'carteira'.
+      # Método usado para verificar se deve realizar a validação do campo 'carteira'.
       # <b>Sobrescreva esse método na subclasse, caso você mesmo queira fazer as validações</b>.
       #
       # @return [True]

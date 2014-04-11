@@ -17,9 +17,6 @@ shared_examples_for 'boleto bancario' do
     it { should have_valid(:numero_documento).when('09890') }
     it { should_not have_valid(:numero_documento).when(nil, '') }
 
-    it { should have_valid(:carteira).when('10', '75') }
-    it { should_not have_valid(:carteira).when(nil, '') }
-
     it { should have_valid(:sacado).when('Teste', 'Outro Teste') }
     it { should_not have_valid(:sacado).when(nil, '') }
 

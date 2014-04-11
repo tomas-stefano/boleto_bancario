@@ -13,11 +13,11 @@ module BoletoBancario
         it { should have_valid(:conta_corrente).when('1', '123', '1234') }
         it { should_not have_valid(:conta_corrente).when('12345678', '123456789', nil, '') }
 
-        it { should have_valid(:carteira).when(6, '6', '13') }
-        it { should_not have_valid(:carteira).when('', nil, '102', '123') }
-
         it { should have_valid(:numero_documento).when(12345678911, '12345678911', '13') }
         it { should_not have_valid(:numero_documento).when('', nil, 123456789112, 1234567891113) }
+
+        it { should have_valid(:carteira).when('03', '06', '09', '19', '21', '22', 3, 9, 19, 21, 22) }
+        it { should_not have_valid(:carteira).when(nil, '', '05', '20', '100') }
       end
 
       describe "#agencia" do

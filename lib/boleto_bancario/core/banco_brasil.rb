@@ -116,12 +116,24 @@ module BoletoBancario
         17
       end
 
+      # <b>Carteiras suportadas.</b>
+      #
+      # <b>Método criado para validar se a carteira informada é suportada.</b>
+      #
+      # @return [Array]
+      #
+      def self.carteiras_suportadas
+        %w[12 16 17 18]
+      end
+
       validates :codigo_cedente, :agencia, :digito_agencia, :conta_corrente, :digito_conta_corrente, presence: true
 
-      # Validações de Agencia e Conta corrente.
+      # Validações de Agencia, Conta corrente e Carteira.
       #
       validates :agencia,          length: { maximum: tamanho_maximo_agencia        }, if: :deve_validar_agencia?
       validates :conta_corrente,   length: { maximum: tamanho_maximo_conta_corrente }, if: :deve_validar_conta_corrente?
+
+      validates :carteira, inclusion: { in: carteiras_suportadas }, if: :deve_validar_carteira?
 
       # Validações do número do documento.
       #

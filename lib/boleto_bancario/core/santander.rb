@@ -80,17 +80,6 @@ module BoletoBancario
         12
       end
 
-      # Tamanho máximo da carteira.
-      # O tamanho máximo é justamente 2 porque no código de barras só é permitido 2 posições para este campo.
-      #
-      # <b>Método criado justamente para ficar documentado o tamanho máximo aceito até a data corrente.</b>
-      #
-      # @return [Fixnum] 2
-      #
-      def self.tamanho_maximo_carteira
-        3
-      end
-
       # Tamanho máximo do código do cedente emitido no Boleto.
       # O tamanho máximo é justamente 7 porque no código de barras só é permitido 7 posições para este campo.
       #
@@ -102,14 +91,24 @@ module BoletoBancario
         7
       end
 
-      # Validações de tamanho para os campos abaixo:
+      # <b>Carteiras suportadas.</b>
+      #
+      # <b>Método criado para validar se a carteira informada é suportada.</b>
+      #
+      # @return [Array]
+      #
+      def self.carteiras_suportadas
+        %w[101 102 121]
+      end
+
+      # Validações para os campos abaixo:
       #
       # * Número do documento
       # * Conta Corrente
       # * Agencia
       # * Carteira
       #
-      # Se você quiser sobrescrever os tamanhos permitidos, <b>ficará a sua responsabilidade.</b>
+      # Se você quiser sobrescrever os metodos, <b>ficará a sua responsabilidade.</b>
       # Basta você sobrescrever os métodos de validação:
       #
       #    class Santander < BoletoBancario::Core::Santander
@@ -124,6 +123,10 @@ module BoletoBancario
       #       def self.tamanho_maximo_numero_documento
       #         9
       #       end
+      #
+      #       def self.carteiras_suportadas
+      #         %w[101 102 121]
+      #       end
       #    end
       #
       # Obs.: Mudar as regras de validação podem influenciar na emissão do boleto em si.
@@ -135,7 +138,8 @@ module BoletoBancario
       validates :agencia,          length: { maximum: tamanho_maximo_agencia          }, if: :deve_validar_agencia?
       validates :codigo_cedente,   length: { maximum: tamanho_maximo_codigo_cedente   }, if: :deve_validar_codigo_cedente?
       validates :numero_documento, length: { maximum: tamanho_maximo_numero_documento }, if: :deve_validar_numero_documento?
-      validates :carteira,         length: { maximum: tamanho_maximo_carteira         }, if: :deve_validar_carteira?
+
+      validates :carteira, inclusion: { in: carteiras_suportadas }, if: :deve_validar_carteira?
 
       # @return [String] 4 caracteres
       #
@@ -153,12 +157,6 @@ module BoletoBancario
       #
       def numero_documento
         @numero_documento.to_s.rjust(12, '0') if @numero_documento.present?
-      end
-
-      # @return [String] 3 caracteres
-      #
-      def carteira
-        @carteira.to_s.rjust(3, '0') if @carteira.present?
       end
 
       # Formata a carteira dependendo se ela é registrada ou não.

@@ -16,8 +16,8 @@ module BoletoBancario
         it { should have_valid(:numero_documento).when('1', '12', '123', '123456789112') }
         it { should_not have_valid(:numero_documento).when('1234567891123', nil, '') }
 
-        it { should have_valid(:carteira).when('1', '12', '123') }
-        it { should_not have_valid(:carteira).when('1234', nil, '') }
+        it { should have_valid(:carteira).when('101', '102', '121', 101, 102, 121) }
+        it { should_not have_valid(:carteira).when(nil, '', '05', '20', '100', '120') }
       end
 
       describe "#agencia" do
@@ -58,9 +58,9 @@ module BoletoBancario
 
       describe "#carteira" do
         context "when have a value" do
-          subject { Santander.new(carteira: '1') }
+          subject { Santander.new(carteira: '101') }
 
-          its(:carteira) { should eq '001' }
+          its(:carteira) { should eq '101' }
         end
 
         context "when is nil" do

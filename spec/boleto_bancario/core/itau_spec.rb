@@ -6,9 +6,9 @@ module BoletoBancario
       it_should_behave_like 'boleto bancario'
 
       describe "on validations" do
-        describe "#carteira" do
-          it { should have_valid(:carteira).when('109', '107', '175', 109, 198) }
-          it { should_not have_valid(:carteira).when('10912', '10790', '17523', '1451') }
+        context "#carteira" do
+          it { should have_valid(:carteira).when('107', '109', '174', '175', '196', '198', '126', '131', '146', '122', '142', '143', '150', '168', 109, 131, 168) }
+          it { should_not have_valid(:carteira).when(nil, '', '05', '20', '100', '115', '145', '170') }
         end
 
         describe "#numero_documento" do

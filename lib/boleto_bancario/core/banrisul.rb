@@ -58,11 +58,23 @@ module BoletoBancario
         8
       end
 
+      # <b>Carteiras suportadas.</b>
+      #
+      # <b>Método criado para validar se a carteira informada é suportada.</b>
+      #
+      # @return [Array]
+      #
+      def self.carteiras_suportadas
+        %w[00 08]
+      end
+
       validates :agencia, :digito_agencia, :codigo_cedente, :digito_codigo_cedente, presence: true
 
       validates :agencia,               length: { maximum: maximo_agencia          }, if: :deve_validar_agencia?
       validates :codigo_cedente,        length: { maximum: maximo_codigo_cedente   }, if: :deve_validar_codigo_cedente?
       validates :numero_documento,      length: { maximum: maximo_numero_documento }, if: :deve_validar_numero_documento?
+
+      validates :carteira, inclusion: { in: carteiras_suportadas }, if: :deve_validar_carteira?
 
       # @return [String] 3 caracteres
       #
@@ -80,6 +92,12 @@ module BoletoBancario
       #
       def codigo_cedente
         @codigo_cedente.to_s.rjust(7, '0') if @codigo_cedente.present?
+      end
+
+      # @return [String] 2 caracteres
+      #
+      def carteira
+        @carteira.to_s.rjust(2, '0') if @carteira.present?
       end
 
       # @return [String] Código do Banco descrito na documentação.
