@@ -194,7 +194,7 @@ module BoletoBancario
       validates :carteira, :valor_documento, :numero_documento, :data_vencimento, presence: true
       validates :cedente, :endereco_cedente, presence: true
       validates :sacado,  :documento_sacado, presence: true
-      validates :valor_documento, numericality: { less_than_or_equal_to: valor_documento_tamanho_maximo }
+      validates :valor_documento, numericality: { less_than_or_equal_to: ->(object) { object.class.valor_documento_tamanho_maximo } }
       validate :data_vencimento_deve_ser_uma_data
 
       # Passing the attributes as Hash or block

@@ -133,7 +133,7 @@ module BoletoBancario
       validates :agencia,          length: { maximum: tamanho_maximo_agencia        }, if: :deve_validar_agencia?
       validates :conta_corrente,   length: { maximum: tamanho_maximo_conta_corrente }, if: :deve_validar_conta_corrente?
 
-      validates :carteira, inclusion: { in: carteiras_suportadas }, if: :deve_validar_carteira?
+      validates :carteira, inclusion: { in: ->(object) { object.class.carteiras_suportadas } }, if: :deve_validar_carteira?
 
       # Validações do número do documento.
       #

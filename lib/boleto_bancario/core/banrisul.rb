@@ -74,7 +74,7 @@ module BoletoBancario
       validates :codigo_cedente,        length: { maximum: maximo_codigo_cedente   }, if: :deve_validar_codigo_cedente?
       validates :numero_documento,      length: { maximum: maximo_numero_documento }, if: :deve_validar_numero_documento?
 
-      validates :carteira, inclusion: { in: carteiras_suportadas }, if: :deve_validar_carteira?
+      validates :carteira, inclusion: { in: ->(object) { object.class.carteiras_suportadas } }, if: :deve_validar_carteira?
 
       # @return [String] 3 caracteres
       #

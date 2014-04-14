@@ -160,7 +160,7 @@ module BoletoBancario
       validates :conta_corrente,   length: { maximum: tamanho_maximo_conta_corrente   }, if: :deve_validar_conta_corrente?
       validates :numero_documento, length: { maximum: tamanho_maximo_numero_documento }, if: :deve_validar_numero_documento?
 
-      validates :carteira, inclusion: { in: carteiras_suportadas }, if: :deve_validar_carteira?
+      validates :carteira, inclusion: { in: ->(object) { object.class.carteiras_suportadas } }, if: :deve_validar_carteira?
 
       # @return [String] 7 caracteres
       #
