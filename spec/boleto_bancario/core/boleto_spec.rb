@@ -166,6 +166,12 @@ module BoletoBancario
 
           its(:valor_formatado_para_codigo_de_barras) { should eq '0000001099' }
         end
+
+        context "when the cents is not broken" do
+          before { subject.stub(:valor_documento).and_return(229.5) }
+
+          its(:valor_formatado_para_codigo_de_barras) { should eq '0000022950'}
+        end
       end
 
       describe "#aceite_formatado" do
