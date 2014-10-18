@@ -116,15 +116,24 @@ module BoletoBancario
         17
       end
 
+      # <b>Carteiras suportadas.</b>
+      #
+      # <b>Método criado para validar se a carteira informada é suportada.</b>
+      #
+      # @return [Array]
+      #
+      def self.carteiras_suportadas
+        %w[12 16 17 18]
+      end
+
       validates :codigo_cedente, :agencia, :digito_agencia, :conta_corrente, :digito_conta_corrente, presence: true
 
-      validates :digito_agencia,        length: { maximum: 1  }
-      validates :digito_conta_corrente, length: { maximum: 1  }
-
-      # Validações de Agencia e Conta corrente.
+      # Validações de Agencia, Conta corrente e Carteira.
       #
       validates :agencia,          length: { maximum: tamanho_maximo_agencia        }, if: :deve_validar_agencia?
       validates :conta_corrente,   length: { maximum: tamanho_maximo_conta_corrente }, if: :deve_validar_conta_corrente?
+
+      validates :carteira, inclusion: { in: ->(object) { object.class.carteiras_suportadas } }, if: :deve_validar_carteira?
 
       # Validações do número do documento.
       #
@@ -212,6 +221,22 @@ module BoletoBancario
       #
       def digito_codigo_banco
         '9'
+      end
+
+      # Dígito do código da agência. Precisa mostrar esse dígito no boleto.
+      #
+      # @return [String] Dígito da agência calculado apartir do Modulo11FatorDe9a2RestoX.
+      #
+      def digito_agencia
+        Modulo11FatorDe9a2RestoX.new(agencia)
+      end
+
+      # Dígito da conta corrente. Precisa mostrar esse dígito no boleto.
+      #
+      # @return [String] Dígito da conta corrente calculado apartir do Modulo11FatorDe9a2RestoX.
+      #
+      def digito_conta_corrente
+        Modulo11FatorDe9a2RestoX.new(conta_corrente)
       end
 
       # Campo Agencia / Código do Cedente

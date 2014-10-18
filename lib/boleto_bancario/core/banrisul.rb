@@ -25,17 +25,12 @@ module BoletoBancario
     #    boleto = BoletoBanrisul.new do |boleto|
     #      boleto.numero_documento      = 22832563
     #      boleto.agencia               = 100
-    #      boleto.digito_agencia        = 81
     #      boleto.data_vencimento       = Date.parse('2004-07-04')
     #      boleto.codigo_cedente        = "0000001"
-    #      boleto.digito_codigo_cedente = "83"
     #      boleto.valor_documento       = 5.0
     #    end
     #
     class Banrisul < Boleto
-      # Número de controle
-      attr_accessor :digito_codigo_cedente
-
       # Tamanho máximo de uma agência no Banrisul (sem número de controle).
       # <b>Método criado justamente para ficar documentado o tamanho máximo aceito até a data corrente.</b>
       #
@@ -43,15 +38,6 @@ module BoletoBancario
       #
       def self.maximo_agencia
         3
-      end
-
-      # Tamanho máximo do número de controle da agência.
-      # <b>Método criado justamente para ficar documentado o tamanho máximo aceito até a data corrente.</b>
-      #
-      # @return [Fixnum] 4
-      #
-      def self.maximo_digito_agencia
-        2
       end
 
       # Tamanho máximo do código cedente.
@@ -63,15 +49,6 @@ module BoletoBancario
         7
       end
 
-      # Tamanho máximo de um dígito do código do cedente.
-      # <b>Método criado justamente para ficar documentado o tamanho máximo aceito até a data corrente.</b>
-      #
-      # @return [Fixnum] 2
-      #
-      def self.maximo_digito_codigo_cedente
-        2
-      end
-
       # Tamanho máximo do número do documento.
       # <b>Método criado justamente para ficar documentado o tamanho máximo aceito até a data corrente.</b>
       #
@@ -81,13 +58,23 @@ module BoletoBancario
         8
       end
 
+      # <b>Carteiras suportadas.</b>
+      #
+      # <b>Método criado para validar se a carteira informada é suportada.</b>
+      #
+      # @return [Array]
+      #
+      def self.carteiras_suportadas
+        %w[00 08]
+      end
+
       validates :agencia, :digito_agencia, :codigo_cedente, :digito_codigo_cedente, presence: true
 
       validates :agencia,               length: { maximum: maximo_agencia          }, if: :deve_validar_agencia?
-      validates :digito_agencia,        length: { is: maximo_digito_agencia        }, if: :deve_validar_digito_agencia?
       validates :codigo_cedente,        length: { maximum: maximo_codigo_cedente   }, if: :deve_validar_codigo_cedente?
-      validates :digito_codigo_cedente, length: { is: maximo_digito_codigo_cedente }, if: :deve_validar_digito_codigo_cedente?
       validates :numero_documento,      length: { maximum: maximo_numero_documento }, if: :deve_validar_numero_documento?
+
+      validates :carteira, inclusion: { in: ->(object) { object.class.carteiras_suportadas } }, if: :deve_validar_carteira?
 
       # @return [String] 3 caracteres
       #
@@ -107,6 +94,12 @@ module BoletoBancario
         @codigo_cedente.to_s.rjust(7, '0') if @codigo_cedente.present?
       end
 
+      # @return [String] 2 caracteres
+      #
+      def carteira
+        @carteira.to_s.rjust(2, '0') if @carteira.present?
+      end
+
       # @return [String] Código do Banco descrito na documentação.
       #
       def codigo_banco
@@ -119,6 +112,22 @@ module BoletoBancario
       #
       def digito_codigo_banco
         '8'
+      end
+
+      # Dígito do código da agência. Precisa mostrar esse dígito no boleto.
+      #
+      # @return [String] Dígito da agência calculado apartir do ModuloNumeroDeControle.
+      #
+      def digito_agencia
+        ModuloNumeroDeControle.new(agencia)
+      end
+
+      # Dígito do código do cedente. Precisa mostrar esse dígito no boleto.
+      #
+      # @return [String] Dígito do código do cedente calculado apartir do ModuloNumeroDeControle.
+      #
+      def digito_codigo_cedente
+        ModuloNumeroDeControle.new(codigo_cedente)
       end
 
       # Retorna a Agencia, digito da agencia, código do cedente e o dígito do código do cedente.
@@ -167,15 +176,6 @@ module BoletoBancario
       #
       def tipo_da_cobranca
         "2"
-      end
-
-      # Método usado para verificar se deve realizar a validação de tamanho do campo 'digito_codigo_cedente'.
-      # <b>Sobrescreva esse método na subclasse, caso você mesmo queira fazer as validações</b>.
-      #
-      # @return [True]
-      #
-      def deve_validar_digito_codigo_cedente?
-        true
       end
     end
   end

@@ -16,8 +16,8 @@ module BoletoBancario
         it { should have_valid(:numero_documento).when('1', '12', '123', '123456789112') }
         it { should_not have_valid(:numero_documento).when('1234567891123', nil, '') }
 
-        it { should have_valid(:carteira).when('1', '12', '123') }
-        it { should_not have_valid(:carteira).when('1234', nil, '') }
+        it { should have_valid(:carteira).when('101', '102', '121', 101, 102, 121) }
+        it { should_not have_valid(:carteira).when(nil, '', '05', '20', '100', '120') }
       end
 
       describe "#agencia" do
@@ -58,9 +58,9 @@ module BoletoBancario
 
       describe "#carteira" do
         context "when have a value" do
-          subject { Santander.new(carteira: '1') }
+          subject { Santander.new(carteira: '101') }
 
-          its(:carteira) { should eq '001' }
+          its(:carteira) { should eq '101' }
         end
 
         context "when is nil" do
@@ -91,9 +91,9 @@ module BoletoBancario
       end
 
       describe "#agencia_codigo_cedente" do
-        subject { Santander.new(agencia: '0235', digito_agencia: '6', codigo_cedente: '1625462') }
+        subject { Santander.new(agencia: '0235', codigo_cedente: '1625462') }
 
-        its(:agencia_codigo_cedente) { should eq '0235-6 / 1625462' }
+        its(:agencia_codigo_cedente) { should eq '0235 / 1625462' }
       end
 
       describe "#nosso_numero" do
@@ -110,7 +110,6 @@ module BoletoBancario
             santander.valor_documento  = 2952.95
             santander.carteira         = '102'
             santander.agencia          = 1333
-            santander.digito_agencia   = 1
             santander.data_vencimento  = Date.parse('2012-12-28')
           end
         end

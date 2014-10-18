@@ -81,19 +81,9 @@ module BoletoBancario
       #
       attr_accessor :agencia
 
-      # Dígito da agência. Campo auto explicativo.
-      # Alguns bancos tem o agência, enquanto outros não possuem.
-      #
-      attr_accessor :digito_agencia
-
       # Número da Conta corrente. Campo auto explicativo.
       #
       attr_accessor :conta_corrente
-
-      # Dígito da conta corrente. Campo auto explicativo.
-      # Alguns bancos tem o dígito da conta corrente outros não.
-      #
-      attr_accessor :digito_conta_corrente
 
       # Código da moeda. Campo auto explicativo.
       # Padrão '9' (Real).
@@ -204,7 +194,7 @@ module BoletoBancario
       validates :carteira, :valor_documento, :numero_documento, :data_vencimento, presence: true
       validates :cedente, :endereco_cedente, presence: true
       validates :sacado,  :documento_sacado, presence: true
-      validates :valor_documento, numericality: { less_than_or_equal_to: valor_documento_tamanho_maximo }
+      validates :valor_documento, numericality: { less_than_or_equal_to: ->(object) { object.class.valor_documento_tamanho_maximo } }
       validate :data_vencimento_deve_ser_uma_data
 
       # Passing the attributes as Hash or block
@@ -216,7 +206,6 @@ module BoletoBancario
       # @option options [String] :documento_cedente
       # @option options [String] :endereco_cedente
       # @option options [String] :conta_corrente
-      # @option options [String] :digito_conta_corrente
       # @option options [String] :agencia
       # @option options [Date]   :data_vencimento
       # @option options [String] :numero_documento
@@ -359,7 +348,15 @@ module BoletoBancario
       def valor_formatado_para_codigo_de_barras
         valor_documento_formatado = (Integer(valor_documento.to_f * 100) / Float(100))
         real, centavos            = valor_documento_formatado.to_s.split(/\./)
-        "#{real.rjust(8, '0')}#{centavos.rjust(2, '0')}"
+        "#{real.rjust(8, '0')}#{centavos.ljust(2, '0')}"
+      end
+
+      # Força a carteira a retornar o valor como string
+      #
+      # @return [String]
+      #
+      def carteira
+        @carteira.to_s if @carteira.present?
       end
 
       # Embora o padrão seja mostrar o número da carteira no boleto,
@@ -514,15 +511,6 @@ module BoletoBancario
         true
       end
 
-      # Método usado para verificar se deve realizar a validação de tamanho do campo 'digito_agência'.
-      # <b>Sobrescreva esse método na subclasse, caso você mesmo queira fazer as validações</b>.
-      #
-      # @return [True]
-      #
-      def deve_validar_digito_agencia?
-        true
-      end
-
       # Método usado para verificar se deve realizar a validação de tamanho do campo 'conta_corrente'.
       # <b>Sobrescreva esse método na subclasse, caso você mesmo queira fazer as validações</b>.
       #
@@ -550,7 +538,7 @@ module BoletoBancario
         true
       end
 
-      # Método usado para verificar se deve realizar a validação de tamanho do campo 'carteira'.
+      # Método usado para verificar se deve realizar a validação do campo 'carteira'.
       # <b>Sobrescreva esse método na subclasse, caso você mesmo queira fazer as validações</b>.
       #
       # @return [True]

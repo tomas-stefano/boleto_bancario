@@ -80,6 +80,7 @@ module BoletoBancario
     autoload :Modulo11FatorDe2a9
     autoload :Modulo11FatorDe2a9RestoZero
     autoload :Modulo11FatorDe2a7
+    autoload :Modulo11FatorDe9a2
     autoload :Modulo11FatorDe9a2RestoX
     autoload :ModuloNumeroDeControle
     autoload :Digitos

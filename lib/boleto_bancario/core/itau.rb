@@ -180,15 +180,14 @@ module BoletoBancario
         7
       end
 
-      # Tamanho máximo da carteira.
-      # O tamanho máximo é justamente 3 porque no código de barras só é permitido 3 posições para este campo.
+      # <b>Carteiras suportadas.</b>
       #
-      # <b>Método criado justamente para ficar documentado o tamanho máximo aceito até a data corrente.</b>
+      # <b>Método criado para validar se a carteira informada é suportada.</b>
       #
-      # @return [Fixnum] 3
+      # @return [Array]
       #
-      def self.tamanho_maximo_carteira
-        3
+      def self.carteiras_suportadas
+        %w[107 109 174 175 196 198 126 131 146 122 142 143 150 168]
       end
 
       # Campos obrigatórios
@@ -198,16 +197,15 @@ module BoletoBancario
       # * Dígito da conta corrente
       #
       validates :agencia, :conta_corrente, :digito_conta_corrente, presence: true
-      validates :digito_conta_corrente, length: { maximum: 1 }
 
-      # Validações de tamanho para os campos abaixo:
+      # Validações para os campos abaixo:
       #
       # * Número do documento
       # * Conta Corrente
       # * Agencia
       # * Carteira
       #
-      # Se você quiser sobrescrever os tamanhos permitidos, ficará a sua responsabilidade.
+      # Se você quiser sobrescrever os metodos, ficará a sua responsabilidade.
       # Basta você sobrescrever os métodos de validação:
       #
       #    class BoletoItau < BoletoBancario::Core::Itau
@@ -222,6 +220,9 @@ module BoletoBancario
       #       def self.tamanho_maximo_numero_documento
       #         9
       #       end
+      #       def self.carteiras_suportadas
+      #         %w[107 109 174 175 196 198 126 131 146 122 142 143 150 168]
+      #       end
       #    end
       #
       # Obs.: Mudar as regras de validação podem influenciar na emissão do boleto em si.
@@ -231,7 +232,8 @@ module BoletoBancario
       validates :numero_documento, length: { maximum: tamanho_maximo_numero_documento }, if: :deve_validar_numero_documento?
       validates :conta_corrente,   length: { maximum: tamanho_maximo_conta_corrente   }, if: :deve_validar_conta_corrente?
       validates :agencia,          length: { maximum: tamanho_maximo_agencia          }, if: :deve_validar_agencia?
-      validates :carteira,         length: { maximum: tamanho_maximo_carteira         }, if: :deve_validar_carteira?
+
+      validates :carteira, inclusion: { in: ->(object) { object.class.carteiras_suportadas } }, if: :deve_validar_carteira?
 
       # Campos obrigatórios e validações de tamanho para os campos:
       #
@@ -296,6 +298,14 @@ module BoletoBancario
       #
       def digito_codigo_banco
         '7'
+      end
+
+      # Dígito da conta corrente. Precisa mostrar esse dígito no boleto.
+      #
+      # @return [String] Dígito da conta corrente calculado apartir do Modulo10.
+      #
+      def digito_conta_corrente
+        Modulo10.new("#{agencia}#{conta_corrente}")
       end
 
       # Agência, conta corrente and dígito da conta corrente formatado.

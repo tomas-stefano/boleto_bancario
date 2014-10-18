@@ -42,7 +42,7 @@ module BoletoBancario
     #    Bradesco.new do |boleto|
     #      boleto.conta_corrente   = '89755'
     #      boleto.agencia          = '0097'
-    #      boleto.carteira         = '198'
+    #      boleto.carteira         = '03'
     #      boleto.numero_documento = '12345678'
     #      boleto.codigo_cedente   = '909014'
     #    end
@@ -112,29 +112,26 @@ module BoletoBancario
         11
       end
 
-      # Tamanho máximo da carteira.
-      # O tamanho máximo é justamente 2 porque no código de barras só é permitido 2 posições para este campo.
+      # <b>Carteiras suportadas.</b>
       #
-      # <b>Método criado justamente para ficar documentado o tamanho máximo aceito até a data corrente.</b>
+      # <b>Método criado para validar se a carteira informada é suportada.</b>
       #
-      # @return [Fixnum] 2
+      # @return [Array]
       #
-      def self.tamanho_maximo_carteira
-        2
+      def self.carteiras_suportadas
+        %w[03 06 09 19 21 22]
       end
 
       validates :agencia, :digito_agencia, :conta_corrente, :digito_conta_corrente, presence: true
 
-      # Validações de tamanho para os campos abaixo:
+      # Validações para os campos abaixo:
       #
       # * Agencia
-      # * Digito verificador da agencia
       # * Conta corrente
-      # * Digito verificador da conta corrente
       # * Número do documento
       # * Carteira
       #
-      # Se você quiser sobrescrever os tamanhos permitidos, ficará a sua responsabilidade.
+      # Se você quiser sobrescrever os metodos, ficará a sua responsabilidade.
       # Basta você sobrescrever os métodos de validação:
       #
       #    class Bradesco < BoletoBancario::Core::Bradesco
@@ -150,8 +147,8 @@ module BoletoBancario
       #         9
       #       end
       #
-      #       def self.tamanho_maximo_carteira
-      #         2
+      #       def self.carteiras_suportadas
+      #         %w[03 06 09 19 21 22]
       #       end
       #    end
       #
@@ -159,12 +156,11 @@ module BoletoBancario
       # Você precisará analisar o efeito no #codigo_de_barras, #nosso_numero e na
       # #linha_digitável (ambos podem ser sobreescritos também).
       #
-      validates :digito_agencia,        length: { maximum: 1  }
-      validates :digito_conta_corrente, length: { maximum: 1  }
       validates :agencia,          length: { maximum: tamanho_maximo_agencia          }, if: :deve_validar_agencia?
       validates :conta_corrente,   length: { maximum: tamanho_maximo_conta_corrente   }, if: :deve_validar_conta_corrente?
       validates :numero_documento, length: { maximum: tamanho_maximo_numero_documento }, if: :deve_validar_numero_documento?
-      validates :carteira,         length: { maximum: tamanho_maximo_carteira         }, if: :deve_validar_carteira?
+
+      validates :carteira, inclusion: { in: ->(object) { object.class.carteiras_suportadas } }, if: :deve_validar_carteira?
 
       # @return [String] 7 caracteres
       #
@@ -218,6 +214,22 @@ module BoletoBancario
       #
       def digito_codigo_banco
         '2'
+      end
+
+      # Dígito do código da agência. Precisa mostrar esse dígito no boleto.
+      #
+      # @return [String] Dígito da agência calculado usando o Modulo11FatorDe9a2.
+      #
+      def digito_agencia
+        Modulo11FatorDe9a2.new(agencia)
+      end
+
+      # Dígito da conta corrente. Precisa mostrar esse dígito no boleto.
+      #
+      # @return [String] Dígito da conta corrente calculado apartir do Modulo11FatorDe9a2.
+      #
+      def digito_conta_corrente
+        Modulo11FatorDe9a2.new(conta_corrente)
       end
 
       # Campo preenchido com:

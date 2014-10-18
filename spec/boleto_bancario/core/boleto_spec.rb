@@ -41,7 +41,6 @@ module BoletoBancario
               :data_vencimento  => Date.new(2012, 10, 10),
               :carteira         => '175',
               :agencia          => '0098',
-              :digito_agencia   => '1',
               :conta_corrente   => '98701',
               :cedente          => 'Nome da razao social',
               :sacado           => 'Teste',
@@ -61,7 +60,6 @@ module BoletoBancario
           its(:data_vencimento)   { should eq Date.new(2012, 10, 10) }
           its(:carteira)          { should eq '175' }
           its(:agencia)           { should eq '0098' }
-          its(:digito_agencia)    { should eq '1' }
           its(:conta_corrente)    { should eq '98701' }
           its(:codigo_moeda)      { should eq '9' }
           its(:cedente)           { should eq 'Nome da razao social' }
@@ -167,6 +165,12 @@ module BoletoBancario
           before { subject.stub(:valor_documento).and_return('10.999999') }
 
           its(:valor_formatado_para_codigo_de_barras) { should eq '0000001099' }
+        end
+
+        context "when the cents is not broken" do
+          before { subject.stub(:valor_documento).and_return(229.5) }
+
+          its(:valor_formatado_para_codigo_de_barras) { should eq '0000022950'}
         end
       end
 

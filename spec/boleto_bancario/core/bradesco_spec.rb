@@ -10,20 +10,14 @@ module BoletoBancario
         it { should have_valid(:agencia).when('1', '123', '1234') }
         it { should_not have_valid(:agencia).when('12345', '123456', '1234567', nil, '') }
 
-        it { should have_valid(:digito_agencia).when('1', 'X', '4') }
-        it { should_not have_valid(:digito_agencia).when(nil, '', '12', '123') }
-
         it { should have_valid(:conta_corrente).when('1', '123', '1234') }
         it { should_not have_valid(:conta_corrente).when('12345678', '123456789', nil, '') }
 
-        it { should have_valid(:digito_conta_corrente).when('1', '4', 'X') }
-        it { should_not have_valid(:digito_conta_corrente).when(nil, '', '12', '123') }
-
-        it { should have_valid(:carteira).when(6, '6', '13') }
-        it { should_not have_valid(:carteira).when('', nil, '102', '123') }
-
         it { should have_valid(:numero_documento).when(12345678911, '12345678911', '13') }
         it { should_not have_valid(:numero_documento).when('', nil, 123456789112, 1234567891113) }
+
+        it { should have_valid(:carteira).when('03', '06', '09', '19', '21', '22', 3, 9, 19, 21, 22) }
+        it { should_not have_valid(:carteira).when(nil, '', '05', '20', '100') }
       end
 
       describe "#agencia" do
@@ -103,9 +97,9 @@ module BoletoBancario
       end
 
       describe "#agencia_codigo_cedente" do
-        subject { Bradesco.new(agencia: '1172', digito_agencia: '0', conta_corrente: '0403005', digito_conta_corrente: '2') }
+        subject { Bradesco.new(agencia: '1172', conta_corrente: '0403005') }
 
-        its(:agencia_codigo_cedente) { should eq '1172-0 / 0403005-2'}
+        its(:agencia_codigo_cedente) { should eq '1172-10 / 0403005-2'}
       end
 
       describe "#nosso_numero" do
@@ -137,9 +131,7 @@ module BoletoBancario
               boleto.valor_documento       = 2952.95
               boleto.data_vencimento       = Date.parse('2012-12-28')
               boleto.agencia               = 1172
-              boleto.digito_agencia        = 0
               boleto.conta_corrente        = 403005
-              boleto.digito_conta_corrente = 2
             end
           end
 
@@ -155,9 +147,7 @@ module BoletoBancario
               boleto.valor_documento       = 2959.78
               boleto.data_vencimento       = Date.parse('2012-12-28')
               boleto.agencia               = 1172
-              boleto.digito_agencia        = 0
               boleto.conta_corrente        = 403005
-              boleto.digito_conta_corrente = 2
             end
           end
 
