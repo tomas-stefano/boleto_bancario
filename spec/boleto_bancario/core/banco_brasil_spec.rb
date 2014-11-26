@@ -68,6 +68,13 @@ module BoletoBancario
           it { should have_valid(:numero_documento).when('123456789', '1235', '1234567') }
           it { should_not have_valid(:numero_documento).when(nil, '', '1234567890', '12345678911234567') }
         end
+
+        context "when 'codigo_cedente' unsupported" do
+          subject { BancoBrasil.new(codigo_cedente: 12345) }
+
+          it { should have_valid(:numero_documento).when('123456789', '1235', '1234567', '1234567890', '12345678911234567') }
+          it { should_not have_valid(:numero_documento).when(nil, '') }
+        end
       end
 
       describe "#agencia" do

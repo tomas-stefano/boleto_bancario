@@ -191,7 +191,7 @@ module BoletoBancario
       # @return [String]
       #
       def numero_documento
-        if @numero_documento.present?
+        if @numero_documento.present? and numero_documento_esperado[tamanho_codigo_cedente].present?
           @numero_documento.to_s.rjust(numero_documento_esperado[tamanho_codigo_cedente], '0')
         else
           @numero_documento
