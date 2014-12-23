@@ -85,17 +85,17 @@ Você pode usar as próprias classes da gem, porém, **recomendo criar uma subcl
 ### Exemplo
 
 ```ruby
-  class BoletoItau < BoletoBancario::Itau
-  end
+class BoletoItau < BoletoBancario::Itau
+end
 
-  class BoletoSantander < BoletoBancario::Santander
-  end
+class BoletoSantander < BoletoBancario::Santander
+end
 
-  class BoletoBradesco < BoletoBancario::Bradesco
-  end
+class BoletoBradesco < BoletoBancario::Bradesco
+end
 
-  class BoletoBancoBrasil < BoletoBancario::BancoBrasil
-  end
+class BoletoBancoBrasil < BoletoBancario::BancoBrasil
+end
 ```
 
 Segue os attributos dos boletos:
@@ -124,60 +124,64 @@ Segue os attributos dos boletos:
 Agora você pode emitir um boleto, **usando a classe criada no exemplo acima**:
 
 ```ruby
-    BoletoItau.new(conta_corrente: '89755', agencia: '0097', :carteira => '195')
+BoletoItau.new(conta_corrente: '89755', agencia: '0097', :carteira => '195')
 ```
 
 Você pode usar blocos se quiser:
 
 ```ruby
-    boleto_itau = BoletoItau.new do |boleto|
-      boleto.conta_corrente        = '89755'
-      boleto.agencia               = '0097'
-      boleto.carteira              = '198'
-      boleto.cedente               = 'Razao Social da Empresa'
-      boleto.codigo_cedente        = '90901'
-      boleto.endereco_cedente      = 'Rua nome da rua, 9999'
-      boleto.numero_documento      = '12345678'
-      boleto.sacado                = 'Nome do Sacado'
-      boleto.documento_sacado      = '35433793990'
-      boleto.data_vencimento       = Date.tomorrow
-      boleto.valor_documento       = 31678.99
-      boleto.seu_numero            = 1234
-    end
+boleto_itau = BoletoItau.new do |boleto|
+  boleto.conta_corrente        = '89755'
+  boleto.agencia               = '0097'
+  boleto.carteira              = '198'
+  boleto.cedente               = 'Razao Social da Empresa'
+  boleto.codigo_cedente        = '90901'
+  boleto.endereco_cedente      = 'Rua nome da rua, 9999'
+  boleto.numero_documento      = '12345678'
+  boleto.sacado                = 'Nome do Sacado'
+  boleto.documento_sacado      = '35433793990'
+  boleto.data_vencimento       = Date.tomorrow
+  boleto.valor_documento       = 31678.99
+  boleto.seu_numero            = 1234
+end
 ```
 
 **Cada banco possui suas próprias validações de campo e de tamanho**.
 Primeiramente, **antes de renderizar qualquer boleto você precisar verificar se esse o boleto é válido**.
 
-    if boleto_itau.valid?
-       # Renderiza o boleto itau
-    else
-       # Trata os erros
-    end
+```ruby
+if boleto_itau.valid?
+   # Renderiza o boleto itau
+else
+   # Trata os erros
+end
+```
 
 ### Campos do Boleto
 
 Segue abaixo os métodos para serem chamados, no momento de renderizar os boletos. Os campos são de mesmo nome:
 
-    boleto_itau.codigo_banco_formatado # Retorna o código do banco, junto com seu dígito
+```ruby
+boleto_itau.codigo_banco_formatado # Retorna o código do banco, junto com seu dígito
 
-    boleto_itau.codigo_de_barras
+boleto_itau.codigo_de_barras
 
-    boleto_itau.linha_digitavel
+boleto_itau.linha_digitavel
 
-    boleto_itau.nosso_numero
+boleto_itau.nosso_numero
 
-    boleto_itau.agencia_codigo_cedente
+boleto_itau.agencia_codigo_cedente
 
-    boleto_itau.carteira_formatada # Formata a carteira, para mostrar no boleto.
+boleto_itau.carteira_formatada # Formata a carteira, para mostrar no boleto.
 
-    boleto_itau.numero_documento
+boleto_itau.numero_documento
 
-    boleto_itau.valor_documento
+boleto_itau.valor_documento
 
-    boleto_itau.especie
+boleto_itau.especie
 
-    boleto_itau.especie_documento
+boleto_itau.especie_documento
+```
 
 ## Sobrescrevendo comportamentos
 
@@ -186,15 +190,17 @@ Você pode sobrescrever os comportamentos na subclasse.
 Por exemplo, imagine que você quer sobrescrever a forma como é tratada a segunda parte do código de barras.
 **Seguindo a interface da classe BoletoBancario::Boleto** fica bem simples:
 
-    class BoletoItau < BoletoBancario::Itau
-       def codigo_de_barras_do_banco
-         # Sua implementação ...
-       end
-    end
+```ruby
+class BoletoItau < BoletoBancario::Itau
+  def codigo_de_barras_do_banco
+   # Sua implementação ...
+  end
+end
+```
 
 ## Formatos (HTML, PDF e PNG)
 
-**Objetivos para as próximas versões: criar os formatos dos boletos de:**
+### Objetivos para as próximas versões: criar os formatos dos boletos de:
 
 * HTML
 * PDF
