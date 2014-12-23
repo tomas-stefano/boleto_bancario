@@ -131,18 +131,18 @@ Você pode usar blocos se quiser:
 
 ```ruby
     BoletoItau.new do |boleto|
-      boleto_itau.conta_corrente        = '89755'
-      boleto_itau.agencia               = '0097'
-      boleto_itau.carteira              = '198'
-      boleto_itau.cedente               = 'Razao Social da Empresa'
-      boleto_itau.codigo_cedente        = '90901'
-      boleto_itau.endereco_cedente      = 'Rua nome da rua, 9999'
-      boleto_itau.numero_documento      = '12345678'
-      boleto_itau.sacado                = 'Nome do Sacado'
-      boleto_itau.documento_sacado      = '35433793990'
-      boleto_itau.data_vencimento       = Date.tomorrow
-      boleto_itau.valor_documento       = 31678.99
-      boleto_itau.seu_numero            = 1234
+      boleto.conta_corrente        = '89755'
+      boleto.agencia               = '0097'
+      boleto.carteira              = '198'
+      boleto.cedente               = 'Razao Social da Empresa'
+      boleto.codigo_cedente        = '90901'
+      boleto.endereco_cedente      = 'Rua nome da rua, 9999'
+      boleto.numero_documento      = '12345678'
+      boleto.sacado                = 'Nome do Sacado'
+      boleto.documento_sacado      = '35433793990'
+      boleto.data_vencimento       = Date.tomorrow
+      boleto.valor_documento       = 31678.99
+      boleto.seu_numero            = 1234
     end
 ```
 
