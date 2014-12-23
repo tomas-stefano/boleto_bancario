@@ -130,7 +130,7 @@ Agora você pode emitir um boleto, **usando a classe criada no exemplo acima**:
 Você pode usar blocos se quiser:
 
 ```ruby
-    BoletoItau.new do |boleto|
+    boleto_itau = BoletoItau.new do |boleto|
       boleto.conta_corrente        = '89755'
       boleto.agencia               = '0097'
       boleto.carteira              = '198'
