@@ -27,6 +27,11 @@ module BoletoBancario
           it { should_not have_valid(:carteira).when(nil, '', '5', '20', '100', 14, 19) }
         end
 
+        describe "#valor_documento" do
+          it { should have_valid(:valor_documento).when(1, 1.99, 100.99, 99_999_999.99, '100.99') }
+          it { should_not have_valid(:valor_documento).when(nil, '', '100,99', 100_000_000.99) }
+        end
+
         context "when 'carteira' is 16 and 'codigo_cedente' 6 digits" do
           subject { BancoBrasil.new(carteira: 16, codigo_cedente: 123456) }
 

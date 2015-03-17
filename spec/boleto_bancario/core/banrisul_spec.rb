@@ -25,6 +25,11 @@ module BoletoBancario
           should have_valid(:carteira).when('00', '08', 0, 8)
           should_not have_valid(:carteira).when(nil, '', '5', '20', '100')
         end
+
+        describe "#valor_documento" do
+          it { should have_valid(:valor_documento).when(1, 1.99, 100.99, 99_999_999.99, '100.99') }
+          it { should_not have_valid(:valor_documento).when(nil, '', '100,99', 100_000_000.99) }
+        end
       end
 
       describe "#agencia" do
