@@ -64,6 +64,7 @@ module BoletoBancario
     autoload :Banrisul
     autoload :Bradesco
     autoload :Caixa
+    autoload :Hsbc
     autoload :Itau
     autoload :Santander
   end
