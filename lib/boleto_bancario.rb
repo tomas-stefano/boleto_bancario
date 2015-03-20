@@ -67,6 +67,7 @@ module BoletoBancario
     autoload :Hsbc
     autoload :Itau
     autoload :Santander
+    autoload :Sicredi
   end
 
   # Módulo que possui classes que realizam os cálculos dos campos que serão mostrados nos boletos.
