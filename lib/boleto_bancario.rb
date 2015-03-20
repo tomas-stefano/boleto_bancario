@@ -66,6 +66,7 @@ module BoletoBancario
     autoload :Caixa
     autoload :Hsbc
     autoload :Itau
+    autoload :Real
     autoload :Santander
     autoload :Sicredi
   end
