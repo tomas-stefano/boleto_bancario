@@ -68,6 +68,7 @@ module BoletoBancario
     autoload :Itau
     autoload :Real
     autoload :Santander
+    autoload :Sicoob
     autoload :Sicredi
   end
 
