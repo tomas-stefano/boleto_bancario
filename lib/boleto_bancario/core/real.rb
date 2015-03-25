@@ -50,6 +50,16 @@ module BoletoBancario
         13
       end
 
+      # <b>Carteiras suportadas.</b>
+      #
+      # <b>Método criado para validar se a carteira informada é suportada.</b>
+      #
+      # @return [Array]
+      #
+      def self.carteiras_suportadas
+        %w[00 20 31 42 47 85]
+      end
+
       # Validações para os campos abaixo:
       #
       # * Agencia
@@ -83,6 +93,8 @@ module BoletoBancario
       validates :conta_corrente,   length: { maximum: tamanho_maximo_conta_corrente   }, if: :deve_validar_conta_corrente?
       validates :numero_documento, length: { maximum: tamanho_maximo_numero_documento }, if: :deve_validar_numero_documento?
 
+      validates :carteira, inclusion: { in: ->(object) { object.class.carteiras_suportadas } }, if: :deve_validar_carteira?
+
       # @return [String] 4 caracteres
       #
       def agencia
@@ -101,10 +113,10 @@ module BoletoBancario
         @numero_documento.to_s.rjust(13, '0') if @numero_documento.present?
       end
 
-      # @return [String] Cobrança Simples
+      # @return [String] 2 caracteres
       #
       def carteira
-        '20'
+        @carteira.to_s.rjust(2, '0') if @carteira.present?
       end
 
       # @return [String] Código do Banco descrito na documentação.

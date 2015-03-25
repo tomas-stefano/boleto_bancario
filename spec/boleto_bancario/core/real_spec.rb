@@ -16,6 +16,9 @@ module BoletoBancario
         it { should have_valid(:numero_documento).when('1', '12', '123', '1234567891123') }
         it { should_not have_valid(:numero_documento).when('12345678911234', nil, '') }
 
+        it { should have_valid(:carteira).when('0', 20, '31', 42, '47', 85) }
+        it { should_not have_valid(:carteira).when(nil, '1', 2, '123') }
+
         it { should have_valid(:valor_documento).when(1, 1.99, 100.99, 99_999_999.99, '100.99') }
         it { should_not have_valid(:valor_documento).when(nil, '', '100,99', 100_000_000.99) }
       end
@@ -57,7 +60,15 @@ module BoletoBancario
       end
 
       describe "#carteira" do
-        its(:carteira) { should eq '20' }
+        context "when have a value" do
+          subject { Real.new(carteira: '20') }
+
+          its(:carteira) { should eq '20' }
+        end
+
+        context "when is nil" do
+          its(:carteira) { should be nil }
+        end
       end
 
       describe "#codigo_banco" do
