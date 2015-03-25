@@ -8,6 +8,11 @@ module BoletoBancario
     # A documentação na qual essa implementação foi baseada está localizada na pasta
     # 'documentacoes_dos_boletos/sicoob' dentro dessa biblioteca.
     #
+    # === Código da Carteira
+    #
+    #   '1' - Cobrança SEM registro
+    #   '9' - Cobrança COM registro
+    #
     class Sicoob < Boleto
       # Tamanho máximo de uma agência no Banco Sicoob.
       # <b>Método criado justamente para ficar documentado o tamanho máximo aceito até a data corrente.</b>
@@ -34,6 +39,16 @@ module BoletoBancario
       #
       def self.tamanho_maximo_numero_documento
         6
+      end
+
+      # <b>Carteiras suportadas.</b>
+      #
+      # <b>Método criado para validar se a carteira informada é suportada.</b>
+      #
+      # @return [Array]
+      #
+      def self.carteiras_suportadas
+        %w[1 9]
       end
 
       # Validações para os campos abaixo:
@@ -69,6 +84,8 @@ module BoletoBancario
       validates :codigo_cedente,   length: { maximum: tamanho_maximo_codigo_cedente   }, if: :deve_validar_codigo_cedente?
       validates :numero_documento, length: { maximum: tamanho_maximo_numero_documento }, if: :deve_validar_numero_documento?
 
+      validates :carteira, inclusion: { in: ->(object) { object.class.carteiras_suportadas } }, if: :deve_validar_carteira?
+
       # @return [String] 4 caracteres
       #
       def agencia
@@ -85,14 +102,6 @@ module BoletoBancario
       #
       def numero_documento
         @numero_documento.to_s.rjust(6, '0') if @numero_documento.present?
-      end
-
-      # Conforme descrito na documentação a carteira SEM registro é a numero 1.
-      #
-      # @return [String]
-      #
-      def carteira
-        1
       end
 
       # @return [String] Código do Banco descrito na documentação.
