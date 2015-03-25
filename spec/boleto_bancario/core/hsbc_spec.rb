@@ -15,6 +15,9 @@ module BoletoBancario
 
         it { should have_valid(:valor_documento).when(1, 1.99, 100.99, 99_999_999.99, '100.99') }
         it { should_not have_valid(:valor_documento).when(nil, '', '100,99', 100_000_000.00) }
+
+        it { should have_valid(:carteira).when('CNR') }
+        it { should_not have_valid(:carteira).when(nil, '', '5', 'CSB') }
       end
 
       describe "#codigo_cedente" do
@@ -41,9 +44,9 @@ module BoletoBancario
         end
       end
 
-      its(:carteira) { should eq '2' }
-
       its(:codigo_banco) { should eq '399' }
+
+      its(:digito_codigo_banco) { should eq '9' }
 
       describe "#nosso_numero" do
         subject { Hsbc.new(codigo_cedente: '7984135', numero_documento: '4716881775613', data_vencimento: Date.parse('2009-05-22')) }

@@ -10,8 +10,8 @@ module BoletoBancario
     #
     # === Carteiras
     #      ______________________________________________
-    #     | Carteira | Descrição               | Formato |
-    #     |    2     | Cobrança não Registrada | CNR     |
+    #     | Carteira | Descrição               | Produto |
+    #     |    CNR   | Cobrança não Registrada |    2    |
     #     |______________________________________________|
     #
     class Hsbc < Boleto
@@ -31,6 +31,15 @@ module BoletoBancario
       #
       def self.tamanho_maximo_numero_documento
         13
+      end
+
+      # <b>Carteiras suportadas.</b>
+      # <b>Método criado para validar se a carteira informada é suportada.</b>
+      #
+      # @return [Array]
+      #
+      def self.carteiras_suportadas
+        %w[CNR]
       end
 
       # Validações para os campos abaixo:
@@ -60,6 +69,8 @@ module BoletoBancario
       validates :codigo_cedente,   length: { maximum: tamanho_maximo_codigo_cedente   }, if: :deve_validar_codigo_cedente?
       validates :numero_documento, length: { maximum: tamanho_maximo_numero_documento }, if: :deve_validar_numero_documento?
 
+      validates :carteira, inclusion: { in: ->(object) { object.class.carteiras_suportadas } }, if: :deve_validar_carteira?
+
       # @return [String] 7 caracteres
       #
       def codigo_cedente
@@ -72,15 +83,7 @@ module BoletoBancario
         @numero_documento.to_s.rjust(13, '0') if @numero_documento.present?
       end
 
-      # Para Cobrança NÃO registrada usar: <b>CNR</b>
-      #
-      # @return [String]
-      #
-      def carteira_formatada
-        'CNR'
-      end
-
-      def carteira
+      def produto
         '2'
       end
 
@@ -93,7 +96,7 @@ module BoletoBancario
       # @return [String] Não possui dígito do código do banco.
       #
       def digito_codigo_banco
-        ''
+        '9'
       end
 
       # Campo Agência / Código do Cedente
@@ -152,7 +155,7 @@ module BoletoBancario
       # @return [String]
       #
       def codigo_de_barras_do_banco
-        "#{codigo_cedente}#{numero_documento}#{data_vencimento_formato_juliano}#{carteira}"
+        "#{codigo_cedente}#{numero_documento}#{data_vencimento_formato_juliano}#{produto}"
       end
 
       # Data do vencimento no formato Juliano composta por 4 dígitos
