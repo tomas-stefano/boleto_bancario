@@ -13,8 +13,8 @@ module BoletoBancario
     #
     #      __________________________________________
     #     | Carteira | Descrição                     |
-    #     |    11    | Cobrança Simples com registro |
-    #     |    31    | Cobrança Simples sem registro |
+    #     |    03    | Cobrança Simples sem registro |
+    #     |    C     | Cobrança Simples sem registro |
     #     |__________________________________________|
     #
     class Sicredi < Boleto
@@ -66,7 +66,7 @@ module BoletoBancario
       # @return [Array]
       #
       def self.carteiras_suportadas
-        %w[11 31]
+        %w[03 C]
       end
 
       # Tamanho máximo do número do documento emitido no Boleto.
@@ -165,7 +165,7 @@ module BoletoBancario
       # @return [String]
       #
       def carteira_formatada
-        '1'
+        tipo_carteira
       end
 
       # @return [String] Código do Banco descrito na documentação.
@@ -186,6 +186,18 @@ module BoletoBancario
       #
       def agencia_codigo_cedente
         "#{agencia}.#{posto}.#{conta_corrente}"
+      end
+
+      # @return [String] Código referente ao tipo de cobrança
+      #
+      def tipo_cobranca
+        "3" # Somente sem registro
+      end
+
+      # @return [String] Código referente ao tipo de carteira
+      #
+      def tipo_carteira
+        "1"
       end
 
       # Mostra o campo nosso número calculando o dígito verificador do nosso número. AA/BXXXXX-D onde:
@@ -212,8 +224,9 @@ module BoletoBancario
 
       # Digito verificador do nosso número
       # Calculado atravez do modulo 11 com peso de 2 a 9 da direta para a esquerda.
-      #            __________________________________________________________________
-      #  _________| Agencia | Posto | Conta Corrente | Ano | Byte | Numero Documento |
+      #  ____________________________________________________________________________
+      # |         | Agencia | Posto | Conta Corrente | Ano | Byte | Numero Documento |
+      # |---------|---------|-------|----------------|-----|------|------------------|
       # | Tamanho |    04   |   02  |       05       |  02 |  01  |        05        |
       # |_________|__________________________________________________________________|
       #
@@ -240,7 +253,7 @@ module BoletoBancario
       # @return [String]
       #
       def codigo_de_barras_do_banco
-        codigo = "#{carteira}#{nosso_numero_codigo_de_barras}#{agencia}#{posto}#{conta_corrente}#{valor_expresso}0"
+        codigo = "#{tipo_cobranca}#{tipo_carteira}#{nosso_numero_codigo_de_barras}#{agencia}#{posto}#{conta_corrente}#{valor_expresso}0"
 
         codigo_dv = Modulo11FatorDe2a9RestoZero.new(codigo)
 

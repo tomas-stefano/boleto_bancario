@@ -16,7 +16,7 @@ module BoletoBancario
         it { should have_valid(:numero_documento).when('1', '12', '123', '12345') }
         it { should_not have_valid(:numero_documento).when('123456', nil, '') }
 
-        it { should have_valid(:carteira).when('11', '31', 11, 31) }
+        it { should have_valid(:carteira).when('03', 'C') }
         it { should_not have_valid(:carteira).when(nil, '', '05', '20', '100', '120') }
 
         it { should have_valid(:posto).when('1', '56', 34, 99) }
@@ -67,9 +67,9 @@ module BoletoBancario
 
       describe "#carteira" do
         context "when have a value" do
-          subject { Sicredi.new(carteira: '11') }
+          subject { Sicredi.new(carteira: '03') }
 
-          its(:carteira) { should eq '11' }
+          its(:carteira) { should eq '03' }
         end
 
         context "when is nil" do
@@ -79,13 +79,13 @@ module BoletoBancario
 
       describe "#carteira_formatada" do
         context "when is registered" do
-          subject { Sicredi.new(carteira: 11) }
+          subject { Sicredi.new(carteira: '03') }
 
           its(:carteira_formatada) { should eq '1' }
         end
 
         context "when isn't registered" do
-          subject { Sicredi.new(carteira: 31) }
+          subject { Sicredi.new(carteira: 'C') }
 
           its(:carteira_formatada) { should eq '1' }
         end
@@ -93,6 +93,18 @@ module BoletoBancario
 
       describe "#codigo_banco" do
         its(:codigo_banco) { should eq '748' }
+      end
+
+      describe "#digito_codigo_banco" do
+        its(:digito_codigo_banco) { should eq 'X' }
+      end
+
+      describe "#tipo_cobranca" do
+        its(:tipo_cobranca) { should eq '3' }
+      end
+
+      describe "#tipo_carteira" do
+        its(:tipo_carteira) { should eq '1' }
       end
 
       describe "#digito_codigo_banco" do
@@ -126,7 +138,7 @@ module BoletoBancario
             sicredi.conta_corrente   = '62918'
             sicredi.posto            = 34
             sicredi.byte_id          = 3
-            sicredi.carteira         = '31'
+            sicredi.carteira         = '03'
             sicredi.numero_documento = 87264
             sicredi.valor_documento  = 8013.65
             sicredi.data_vencimento  = Date.parse('2006-10-29')
