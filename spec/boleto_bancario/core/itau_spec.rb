@@ -26,6 +26,11 @@ module BoletoBancario
           it { should_not have_valid(:agencia).when('12345', nil, '123456', '') }
         end
 
+        describe "#valor_documento" do
+          it { should have_valid(:valor_documento).when(1, 1.99, 100.99, 99_999_999.99, '100.99') }
+          it { should_not have_valid(:valor_documento).when(nil, '', '100,99', 100_000_000.99) }
+        end
+
         describe "#codigo_cedente" do
           %w(107 122 142 143 196 198).each do |carteira_especial|
             context "when 'carteira' is special: #{carteira_especial}" do

@@ -11,9 +11,6 @@ shared_examples_for 'boleto bancario' do
     it { should have_valid(:endereco_cedente).when('Rua Itapaiuna') }
     it { should_not have_valid(:endereco_cedente).when(nil, '') }
 
-    it { should have_valid(:valor_documento).when(1, 1.99, 100.99, 99_999_999.99, '100.99') }
-    it { should_not have_valid(:valor_documento).when(nil, '', '100,99', 100_000_000.99) }
-
     it { should have_valid(:numero_documento).when('09890') }
     it { should_not have_valid(:numero_documento).when(nil, '') }
 

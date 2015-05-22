@@ -63,8 +63,13 @@ module BoletoBancario
     autoload :BancoBrasil
     autoload :Banrisul
     autoload :Bradesco
+    autoload :Caixa
+    autoload :Hsbc
     autoload :Itau
+    autoload :Real
     autoload :Santander
+    autoload :Sicoob
+    autoload :Sicredi
   end
 
   # Módulo que possui classes que realizam os cálculos dos campos que serão mostrados nos boletos.
