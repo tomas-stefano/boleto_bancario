@@ -27,10 +27,16 @@ Essa biblioteca é baseada em outras **ótimas** bibliotecas.
 
 Seguimos todas as documentações descritas abaixo:
 
-* [Bradesco](https://github.com/tomas-stefano/boleto_bancario/tree/master/documentacoes_dos_boletos/bradesco)
-* [Banco do Brasil](https://github.com/tomas-stefano/boleto_bancario/tree/master/documentacoes_dos_boletos/banco_brasil)
-* [Itaú](https://github.com/tomas-stefano/boleto_bancario/tree/master/documentacoes_dos_boletos/itau)
-* [Santander](https://github.com/tomas-stefano/boleto_bancario/tree/master/documentacoes_dos_boletos/santander)
+* [Banco do Brasil](documentacoes_dos_boletos/banco_brasil)
+* [Banrisul](documentacoes_dos_boletos/banrisul)
+* [Bradesco](documentacoes_dos_boletos/Bradesco)
+* [Caixa](documentacoes_dos_boletos/Caixa)
+* [HSBC](documentacoes_dos_boletos/HASBC)
+* [Itaú](documentacoes_dos_boletos/Itau)
+* [Real](documentacoes_dos_boletos/Real)
+* [Santander](documentacoes_dos_boletos/santander)
+* [Sicoob](documentacoes_dos_boletos/Sicoob)
+* [Sicredi](documentacoes_dos_boletos/Sicredi)
 
 Se você tiver uma documentação do boleto, **mais atualizada**, gostaria de pedir que você me enviasse. :)
 
@@ -56,8 +62,8 @@ Para todos os bancos e carteiras implementadas, **seguimos as documentações** 
     <td>Esperando Contribuição</td>
   </tr>
   <tr>
-    <td>Itaú</td>
-    <td>107, 109, 122, 142, 143, 126, 174, 175, 196, 198, 131, 146, 150, 168.</td>
+    <td>Banrisul</td>
+    <td>00, 08.</td>
     <td>Esperando Contribuição</td>
   </tr>
   <tr>
@@ -66,8 +72,38 @@ Para todos os bancos e carteiras implementadas, **seguimos as documentações** 
     <td>Esperando Contribuição</td>
   </tr>
   <tr>
+    <td>Caixa</td>
+    <td>14, 24.</td>
+    <td>Esperando Contribuição</td>
+  </tr>
+  <tr>
+    <td>HSBC</td>
+    <td>CNR.</td>
+    <td>Esperando Contribuição</td>
+  </tr>
+  <tr>
+    <td>Itaú</td>
+    <td>107, 109, 122, 142, 143, 126, 174, 175, 196, 198, 131, 146, 150, 168.</td>
+    <td>Esperando Contribuição</td>
+  </tr>
+  <tr>
+    <td>Real</td>
+    <td>00, 20, 31, 42, 47, 85.</td>
+    <td>Esperando Contribuição</td>
+  </tr>
+  <tr>
     <td>Santander</td>
     <td>101, 102, 121.</td>
+    <td>Esperando Contribuição</td>
+  </tr>
+  <tr>
+    <td>Sicoob</td>
+    <td>1, 9.</td>
+    <td>Esperando Contribuição</td>
+  </tr>
+  <tr>
+    <td>Sicredi</td>
+    <td>03, C.</td>
     <td>Esperando Contribuição</td>
   </tr>
 </table>
