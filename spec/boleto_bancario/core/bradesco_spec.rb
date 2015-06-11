@@ -27,11 +27,11 @@ module BoletoBancario
         context "when have a value" do
           subject { Bradesco.new(:agencia => 2) }
 
-          its(:agencia) { should eq '0002' }
+          it { expect(subject.agencia).to eq '0002' }
         end
 
         context "when is nil" do
-          its(:agencia) { should be nil }
+          it { expect(subject.agencia).to be nil }
         end
       end
 
@@ -39,11 +39,11 @@ module BoletoBancario
         context "when have a value" do
           subject { Bradesco.new(:conta_corrente => 1) }
 
-          its(:conta_corrente) { should eq '0000001' }
+          it { expect(subject.conta_corrente).to eq '0000001' }
         end
 
         context "when is nil" do
-          its(:conta_corrente) { should be nil }
+          it { expect(subject.conta_corrente).to be nil }
         end
       end
 
@@ -51,11 +51,11 @@ module BoletoBancario
         context "when have a value" do
           subject { Bradesco.new(:numero_documento => 1234) }
 
-          its(:numero_documento) { should eq '00000001234' }
+          it { expect(subject.numero_documento).to eq '00000001234' }
         end
 
         context "when is nil" do
-          its(:numero_documento) { should be nil }
+          it { expect(subject.numero_documento).to be nil }
         end
       end
 
@@ -63,11 +63,11 @@ module BoletoBancario
         context "when have a value" do
           subject { Bradesco.new(:carteira => 3) }
 
-          its(:carteira) { should eq '03' }
+          it { expect(subject.carteira).to eq '03' }
         end
 
         context "when is nil" do
-          its(:carteira) { should be nil }
+          it { expect(subject.carteira).to be nil }
         end
       end
 
@@ -75,53 +75,53 @@ module BoletoBancario
         context "when carteira is '21'" do
           subject { Bradesco.new(:carteira => 21) }
 
-          its(:carteira_formatada) { should eq '21 – Cobrança Interna Com Registro' }
+          it { expect(subject.carteira_formatada).to eq '21 – Cobrança Interna Com Registro' }
         end
 
         context "when carteira is '22'" do
           subject { Bradesco.new(:carteira => 22) }
 
-          its(:carteira_formatada) { should eq '22 – Cobrança Interna sem registro' }
+          it { expect(subject.carteira_formatada).to eq '22 – Cobrança Interna sem registro' }
         end
 
         context "when carteira is '03'" do
           subject { Bradesco.new(:carteira => 3) }
 
-          its(:carteira_formatada) { should eq '03' }
+          it { expect(subject.carteira_formatada).to eq '03' }
         end
       end
 
       describe "#codigo_banco" do
-        its(:codigo_banco) { should eq '237' }
+        it { expect(subject.codigo_banco).to eq '237' }
       end
 
       describe "#digito_codigo_banco" do
-        its(:digito_codigo_banco) { should eq '2' }
+        it { expect(subject.digito_codigo_banco).to eq '2' }
       end
 
       describe "#agencia_codigo_cedente" do
         subject { Bradesco.new(agencia: '1172', conta_corrente: '0403005') }
 
-        its(:agencia_codigo_cedente) { should eq '1172-10 / 0403005-2'}
+        it { expect(subject.agencia_codigo_cedente).to eq '1172-10 / 0403005-2' }
       end
 
       describe "#nosso_numero" do
         context "documentation example" do
           subject { Bradesco.new(:carteira => '19', :numero_documento => '00000000002') }
 
-          its(:nosso_numero) { should eq '19/00000000002-8' }
+          it { expect(subject.nosso_numero).to eq '19/00000000002-8' }
         end
 
         context "more examples from documentation" do
           subject { Bradesco.new(:carteira => '19', :numero_documento => '00000000001') }
 
-          its(:nosso_numero) { should eq '19/00000000001-P' }
+          it { expect(subject.nosso_numero).to eq '19/00000000001-P' }
         end
 
         context "more examples" do
           subject { Bradesco.new(:carteira => '06', :numero_documento => '00075896452') }
 
-          its(:nosso_numero) { should eq '06/00075896452-5' }
+          it { expect(subject.nosso_numero).to eq '06/00075896452-5' }
         end
       end
 
@@ -138,8 +138,8 @@ module BoletoBancario
             end
           end
 
-          its(:codigo_de_barras) { should eq '23796556100002952951172060007589645204030050' }
-          its(:linha_digitavel)  { should eq '23791.17209 60007.589645 52040.300502 6 55610000295295' }
+          it { expect(subject.codigo_de_barras).to eq '23796556100002952951172060007589645204030050' }
+          it { expect(subject.linha_digitavel).to eq '23791.17209 60007.589645 52040.300502 6 55610000295295' }
         end
 
         context "when carteira '09'" do
@@ -154,8 +154,8 @@ module BoletoBancario
             end
           end
 
-          its(:codigo_de_barras) { should eq '23791556100002959781172090017589645104030050' }
-          its(:linha_digitavel) { should eq '23791.17209 90017.589640 51040.300504 1 55610000295978' }
+          it { expect(subject.codigo_de_barras).to eq '23791556100002959781172090017589645104030050' }
+          it { expect(subject.linha_digitavel).to eq '23791.17209 90017.589640 51040.300504 1 55610000295978' }
         end
       end
     end

@@ -24,11 +24,11 @@ module BoletoBancario
         context "when have a value" do
           subject { Hsbc.new(codigo_cedente: '1') }
 
-          its(:codigo_cedente) { should eq '0000001' }
+          it { expect(subject.codigo_cedente).to eq '0000001' }
         end
 
         context "when is nil" do
-          its(:codigo_cedente) { should be nil }
+          it { expect(subject.codigo_cedente).to be nil }
         end
       end
 
@@ -36,22 +36,22 @@ module BoletoBancario
         context "when have a value" do
           subject { Hsbc.new(numero_documento: 1234) }
 
-          its(:numero_documento) { should eq '0000000001234' }
+          it { expect(subject.numero_documento).to eq '0000000001234' }
         end
 
         context "when is nil" do
-          its(:numero_documento) { should be nil }
+          it { expect(subject.numero_documento).to be nil }
         end
       end
 
-      its(:codigo_banco) { should eq '399' }
+      it { expect(subject.codigo_banco).to eq '399' }
 
-      its(:digito_codigo_banco) { should eq '9' }
+      it { expect(subject.digito_codigo_banco).to eq '9' }
 
       describe "#nosso_numero" do
         subject { Hsbc.new(codigo_cedente: '7984135', numero_documento: '4716881775613', data_vencimento: Date.parse('2009-05-22')) }
 
-        its(:nosso_numero) { should eq '4716881775613440' }
+        it { expect(subject.nosso_numero).to eq '4716881775613440' }
       end
 
       describe "#codigo_de_barras" do
@@ -64,8 +64,8 @@ module BoletoBancario
           end
         end
 
-        its(:codigo_de_barras) { should eq '39991963000003740583485910000000004386204942' }
-        its(:linha_digitavel)  { should eq '39993.48596 10000.000009 43862.049426 1 96300000374058' }
+        it { expect(subject.codigo_de_barras).to eq '39991963000003740583485910000000004386204942' }
+        it { expect(subject.linha_digitavel).to eq '39993.48596 10000.000009 43862.049426 1 96300000374058' }
       end
     end
   end

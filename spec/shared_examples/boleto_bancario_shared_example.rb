@@ -31,7 +31,7 @@ shared_examples_for 'boleto bancario' do
   describe "#persisted?" do
     before { subject.should respond_to(:persisted?) }
 
-    its(:persisted?) { should be false }
+    it { expect(subject.persisted?).to be false }
   end
 
   describe "#carteira_formatada" do

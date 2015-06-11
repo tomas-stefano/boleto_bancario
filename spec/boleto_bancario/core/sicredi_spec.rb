@@ -33,11 +33,11 @@ module BoletoBancario
         context "when have a value" do
           subject { Sicredi.new(agencia: '530') }
 
-          its(:agencia) { should eq '0530' }
+          it { expect(subject.agencia).to eq '0530' }
         end
 
         context "when is nil" do
-          its(:agencia) { should be nil }
+          it { expect(subject.agencia).to be nil }
         end
       end
 
@@ -45,11 +45,11 @@ module BoletoBancario
         context "when have a value" do
           subject { Sicredi.new(conta_corrente: '96') }
 
-          its(:conta_corrente) { should eq '00096' }
+          it { expect(subject.conta_corrente).to eq '00096' }
         end
 
         context "when is nil" do
-          its(:conta_corrente) { should be nil }
+          it { expect(subject.conta_corrente).to be nil }
         end
       end
 
@@ -57,11 +57,11 @@ module BoletoBancario
         context "when have a value" do
           subject { Sicredi.new(numero_documento: '1') }
 
-          its(:numero_documento) { should eq '00001' }
+          it { expect(subject.numero_documento).to eq '00001' }
         end
 
         context "when is nil" do
-          its(:numero_documento) { should be nil }
+          it { expect(subject.numero_documento).to be nil }
         end
       end
 
@@ -69,11 +69,11 @@ module BoletoBancario
         context "when have a value" do
           subject { Sicredi.new(carteira: '03') }
 
-          its(:carteira) { should eq '03' }
+          it { expect(subject.carteira).to eq '03' }
         end
 
         context "when is nil" do
-          its(:carteira) { should be nil }
+          it { expect(subject.carteira).to be nil }
         end
       end
 
@@ -81,40 +81,36 @@ module BoletoBancario
         context "when is registered" do
           subject { Sicredi.new(carteira: '03') }
 
-          its(:carteira_formatada) { should eq '1' }
+          it { expect(subject.carteira_formatada).to eq '1' }
         end
 
         context "when isn't registered" do
           subject { Sicredi.new(carteira: 'C') }
 
-          its(:carteira_formatada) { should eq '1' }
+          it { expect(subject.carteira_formatada).to eq '1' }
         end
       end
 
       describe "#codigo_banco" do
-        its(:codigo_banco) { should eq '748' }
+        it { expect(subject.codigo_banco).to eq '748' }
       end
 
       describe "#digito_codigo_banco" do
-        its(:digito_codigo_banco) { should eq 'X' }
+        it { expect(subject.digito_codigo_banco).to eq 'X' }
       end
 
       describe "#tipo_cobranca" do
-        its(:tipo_cobranca) { should eq '3' }
+        it { expect(subject.tipo_cobranca).to eq '3' }
       end
 
       describe "#tipo_carteira" do
-        its(:tipo_carteira) { should eq '1' }
-      end
-
-      describe "#digito_codigo_banco" do
-        its(:digito_codigo_banco) { should eq 'X' }
+        it { expect(subject.tipo_carteira).to eq '1' }
       end
 
       describe "#agencia_codigo_beneficiario" do
         subject { Sicredi.new(agencia: '7190', posto: 2, conta_corrente: '25439') }
 
-        its(:agencia_codigo_cedente) { should eq '7190.02.25439' }
+        it { expect(subject.agencia_codigo_cedente).to eq '7190.02.25439' }
       end
 
       describe "#nosso_numero" do
@@ -128,7 +124,7 @@ module BoletoBancario
           end
         end
 
-        its(:nosso_numero) { should eq '15/972815-9' }
+        it { expect(subject.nosso_numero).to eq '15/972815-9' }
       end
 
       describe "#codigo_de_barras" do
@@ -145,8 +141,8 @@ module BoletoBancario
           end
         end
 
-        its(:codigo_de_barras) { should eq '74894330900008013653115387264581363462918104' }
-        its(:linha_digitavel)  { should eq '74893.11535 87264.581361 34629.181040 4 33090000801365' }
+        it { expect(subject.codigo_de_barras).to eq '74894330900008013653115387264581363462918104' }
+        it { expect(subject.linha_digitavel).to eq '74893.11535 87264.581361 34629.181040 4 33090000801365' }
       end
     end
   end

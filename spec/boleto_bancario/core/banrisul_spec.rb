@@ -36,13 +36,13 @@ module BoletoBancario
         context "when have a value" do
           subject { Banrisul.new(agencia: '34') }
 
-          its(:agencia) { should eq '034' }
+          it { expect(subject.agencia).to eq '034' }
         end
 
         context "when is nil" do
           subject { Banrisul.new(agencia: nil) }
 
-          its(:agencia) { should be nil }
+          it { expect(subject.agencia).to be nil }
         end
       end
 
@@ -50,13 +50,13 @@ module BoletoBancario
         context "when have a value" do
           subject { Banrisul.new(numero_documento: '1234') }
 
-          its(:numero_documento) { should eq '00001234' }
+          it { expect(subject.numero_documento).to eq '00001234' }
         end
 
         context "when is nil" do
           subject { Banrisul.new(numero_documento: nil) }
 
-          its(:numero_documento) { should be nil }
+          it { expect(subject.numero_documento).to be nil }
         end
       end
 
@@ -64,47 +64,47 @@ module BoletoBancario
         context "when have a value" do
           subject { Banrisul.new(codigo_cedente: '1234') }
 
-          its(:codigo_cedente) { should eq '0001234' }
+          it { expect(subject.codigo_cedente).to eq '0001234' }
         end
 
         context "when is nil" do
           subject { Banrisul.new(codigo_cedente: nil) }
 
-          its(:codigo_cedente) { should be nil }
+          it { expect(subject.codigo_cedente).to be nil }
         end
       end
 
       describe "#codigo_banco" do
-        its(:codigo_banco) { should eq '041' }
+        it { expect(subject.codigo_banco).to eq '041' }
       end
 
       describe "#digito_codigo_banco" do
-        its(:digito_codigo_banco) { should eq '8' }
+        it { expect(subject.digito_codigo_banco).to eq '8' }
       end
 
       describe "#agencia_codigo_cedente" do
         subject { Banrisul.new(agencia: '100', codigo_cedente: '0000001') }
 
-        its(:agencia_codigo_cedente) { should eq '100.81 0000001.83' }
+        it { expect(subject.agencia_codigo_cedente).to eq '100.81 0000001.83' }
       end
 
       describe "#nosso_numero" do
         context "using one example from documentation" do
           subject { Banrisul.new(numero_documento: '00009194') }
 
-          its(:nosso_numero) { should eq '00009194.38' }
+          it { expect(subject.nosso_numero).to eq '00009194.38' }
         end
 
         context "using other example from documentation" do
           subject { Banrisul.new(numero_documento: '00009274') }
 
-          its(:nosso_numero) { should eq '00009274.22' }
+          it { expect(subject.nosso_numero).to eq '00009274.22' }
         end
 
         context "another example" do
           subject { Banrisul.new(numero_documento: '22832563') }
 
-          its(:nosso_numero) { should eq '22832563.51' }
+          it { expect(subject.nosso_numero).to eq '22832563.51' }
         end
       end
 
@@ -120,8 +120,8 @@ module BoletoBancario
             end
           end
 
-          its(:codigo_de_barras) { should eq '04197246200000005002110000000012283256304168' }
-          its(:linha_digitavel)  { should eq '04192.11008 00000.012286 32563.041683 7 24620000000500' }
+          it { expect(subject.codigo_de_barras).to eq '04197246200000005002110000000012283256304168' }
+          it { expect(subject.linha_digitavel).to eq '04192.11008 00000.012286 32563.041683 7 24620000000500' }
         end
       end
     end

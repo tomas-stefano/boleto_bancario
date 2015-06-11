@@ -27,11 +27,11 @@ module BoletoBancario
         context "when have a value" do
           subject { Caixa.new(agencia: 2) }
 
-          its(:agencia) { should eq '0002' }
+          it { expect(subject.agencia).to eq '0002' }
         end
 
         context "when is nil" do
-          its(:agencia) { should be nil }
+          it { expect(subject.agencia).to be nil }
         end
       end
 
@@ -39,11 +39,11 @@ module BoletoBancario
         context "when have a value" do
           subject { Caixa.new(codigo_cedente: '1') }
 
-          its(:codigo_cedente) { should eq '000001' }
+          it { expect(subject.codigo_cedente).to eq '000001' }
         end
 
         context "when is nil" do
-          its(:codigo_cedente) { should be nil }
+          it { expect(subject.codigo_cedente).to be nil }
         end
       end
 
@@ -51,11 +51,11 @@ module BoletoBancario
         context "when have a value" do
           subject { Caixa.new(numero_documento: 1234) }
 
-          its(:numero_documento) { should eq '000000000001234' }
+          it { expect(subject.numero_documento).to eq '000000000001234' }
         end
 
         context "when is nil" do
-          its(:numero_documento) { should be nil }
+          it { expect(subject.numero_documento).to be nil }
         end
       end
 
@@ -63,32 +63,32 @@ module BoletoBancario
         context "when have a value" do
           subject { Caixa.new(carteira: '24') }
 
-          its(:carteira) { should eq '24' }
+          it { expect(subject.carteira).to eq '24' }
         end
 
         context "when is nil" do
-          its(:carteira) { should be nil }
+          it { expect(subject.carteira).to be nil }
         end
       end
 
       describe "#codigo_banco" do
-        its(:codigo_banco) { should eq '104' }
+        it { expect(subject.codigo_banco).to eq '104' }
       end
 
       describe "#digito_codigo_banco" do
-        its(:digito_codigo_banco) { should eq '0' }
+        it { expect(subject.digito_codigo_banco).to eq '0' }
       end
 
       describe "#agencia_codigo_cedente" do
         subject { Caixa.new(agencia: '0235', codigo_cedente: '162546') }
 
-        its(:agencia_codigo_cedente) { should eq '0235 / 162546-2' }
+        it { expect(subject.agencia_codigo_cedente).to eq '0235 / 162546-2' }
       end
 
       describe "#nosso_numero" do
         subject { Caixa.new(carteira: '24', numero_documento: '863245679215648') }
 
-        its(:nosso_numero) { should eq '24863245679215648-2' }
+        it { expect(subject.nosso_numero).to eq '24863245679215648-2' }
       end
 
       describe "#codigo_de_barras" do
@@ -103,8 +103,8 @@ module BoletoBancario
           end
         end
 
-        its(:codigo_de_barras) { should eq '10492636900002952957921578946137541896436250' }
-        its(:linha_digitavel)  { should eq '10497.92151 78946.137540 18964.362505 2 63690000295295' }
+        it { expect(subject.codigo_de_barras).to eq '10492636900002952957921578946137541896436250' }
+        it { expect(subject.linha_digitavel).to eq '10497.92151 78946.137540 18964.362505 2 63690000295295' }
       end
     end
   end

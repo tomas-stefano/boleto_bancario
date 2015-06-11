@@ -77,20 +77,20 @@ module BoletoBancario
       describe "#numero_documento" do
         subject { Itau.new(:numero_documento => '123') }
 
-        its(:numero_documento) { should eq '00000123' }
+        it { expect(subject.numero_documento).to eq '00000123' }
       end
 
       describe "#seu_numero" do
         context "when have a value" do
           subject { Itau.new(:seu_numero => '11804') }
 
-          its(:seu_numero) { should eq '0011804' }
+          it { expect(subject.seu_numero).to eq '0011804' }
         end
 
         context "when is nil" do
           subject { Itau.new(:seu_numero => nil) }
 
-          its(:seu_numero) { should be nil }
+          it { expect(subject.seu_numero).to be nil }
         end
       end
 
@@ -98,13 +98,13 @@ module BoletoBancario
         context "when have a value" do
           subject { Itau.new(:agencia => '001') }
 
-          its(:agencia) { should eq '0001' }
+          it { expect(subject.agencia).to eq '0001' }
         end
 
         context "when is nil" do
           subject { Itau.new(:agencia => nil) }
 
-          its(:agencia) { should be nil }
+          it { expect(subject.agencia).to be nil }
         end
       end
 
@@ -112,13 +112,13 @@ module BoletoBancario
         context "when have a value" do
           subject { Itau.new(:conta_corrente => 9013) }
 
-          its(:conta_corrente) { should eq '09013' }
+          it { expect(subject.conta_corrente).to eq '09013' }
         end
 
         context "when is nil" do
           subject { Itau.new(:conta_corrente => nil) }
 
-          its(:conta_corrente) { should be nil }
+          it { expect(subject.conta_corrente).to be nil }
         end
       end
 
@@ -126,22 +126,22 @@ module BoletoBancario
         context "when have a value" do
           subject { Itau.new(:codigo_cedente => 1987) }
 
-          its(:codigo_cedente) { should eq '01987' }
+          it { expect(subject.codigo_cedente).to eq '01987' }
         end
 
         context "when is nil" do
           subject { Itau.new(:codigo_cedente => nil) }
 
-          its(:codigo_cedente) { should be nil }
+          it { expect(subject.codigo_cedente).to be nil }
         end
       end
 
       describe "#codigo_banco" do
-        its(:codigo_banco) { should eq '341' }
+        it { expect(subject.codigo_banco).to eq '341' }
       end
 
       describe "#digito_codigo_banco" do
-        its(:digito_codigo_banco) { should eq '7' }
+        it { expect(subject.digito_codigo_banco).to eq '7' }
       end
 
       describe "#agencia_codigo_cedente" do
@@ -229,13 +229,13 @@ module BoletoBancario
           context "when 'carteira' is special: #{carteira_especial}" do
             subject { Itau.new(carteira: carteira_especial) }
 
-            its(:carteira_especial?) { should be true }
+            it { expect(subject.carteira_especial?).to be true }
           end
 
           context "when 'carteira' is special: #{carteira_especial} as numeric" do
             subject { Itau.new(carteira: carteira_especial.to_i) }
 
-            its(:carteira_especial?) { should be true }
+            it { expect(subject.carteira_especial?).to be true }
           end
         end
 
@@ -243,7 +243,7 @@ module BoletoBancario
           context "when 'carteira' isn't special: #{carteira}" do
             subject { Itau.new(carteira: carteira) }
 
-            its(:carteira_especial?) { should be false }
+            it { expect(subject.carteira_especial?).to be false }
           end
         end
       end
@@ -259,7 +259,7 @@ module BoletoBancario
             end
           end
 
-          its(:codigo_de_barras_do_banco) { should eq '1091234567800057123457000' }
+          it { expect(subject.codigo_de_barras_do_banco).to eq '1091234567800057123457000' }
         end
 
         context "when special 'carteira'" do
@@ -275,37 +275,37 @@ module BoletoBancario
           context "when 'carteira' is 107" do
             let(:carteira) { '107' }
 
-            its(:codigo_de_barras_do_banco) { should eq '1071234567811089549478620' }
+            it { expect(subject.codigo_de_barras_do_banco).to eq '1071234567811089549478620' }
           end
 
           context "when 'carteira' is 122" do
             let(:carteira) { '122' }
 
-            its(:codigo_de_barras_do_banco) { should eq '1221234567811089549478610' }
+            it { expect(subject.codigo_de_barras_do_banco).to eq '1221234567811089549478610' }
           end
 
           context "when 'carteira' is 142" do
             let(:carteira) { '142' }
 
-            its(:codigo_de_barras_do_banco) { should eq '1421234567811089549478690' }
+            it { expect(subject.codigo_de_barras_do_banco).to eq '1421234567811089549478690' }
           end
 
           context "when 'carteira' is 143" do
             let(:carteira) { '143' }
 
-            its(:codigo_de_barras_do_banco) { should eq '1431234567811089549478670' }
+            it { expect(subject.codigo_de_barras_do_banco).to eq '1431234567811089549478670' }
           end
 
           context "when 'carteira' is 196" do
             let(:carteira) { '196' }
 
-            its(:codigo_de_barras_do_banco) { should eq '1961234567811089549478650' }
+            it { expect(subject.codigo_de_barras_do_banco).to eq '1961234567811089549478650' }
           end
 
           context "when 'carteira' is 198" do
             let(:carteira) { '198' }
 
-            its(:codigo_de_barras_do_banco) { should eq '1981234567811089549478610' }
+            it { expect(subject.codigo_de_barras_do_banco).to eq '1981234567811089549478610' }
           end
         end
       end
@@ -322,12 +322,11 @@ module BoletoBancario
           end
         end
 
-        # Grep this example from boleto php demo page.
-        its(:linha_digitavel) { should eq '34191.75124 34567.861561 51387.710000 1 55540000295295' }
+        it { expect(subject.linha_digitavel).to eq '34191.75124 34567.861561 51387.710000 1 55540000295295' }
       end
 
       describe "#to_partial_path" do
-        its(:to_partial_path) { should eq 'boleto_bancario/itau' }
+        it { expect(subject.to_partial_path).to eq 'boleto_bancario/itau' }
       end
     end
   end
