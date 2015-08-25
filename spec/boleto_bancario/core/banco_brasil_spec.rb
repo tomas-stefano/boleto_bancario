@@ -86,13 +86,13 @@ module BoletoBancario
         context "when have a value" do
           subject { BancoBrasil.new(:agencia => '001') }
 
-          its(:agencia) { should eq '0001' }
+          it { expect(subject.agencia).to eq '0001' }
         end
 
         context "when is nil" do
           subject { BancoBrasil.new(:agencia => nil) }
 
-          its(:agencia) { should be nil }
+          it { expect(subject.agencia).to be nil }
         end
       end
 
@@ -100,13 +100,13 @@ module BoletoBancario
         context "when have a value" do
           subject { BancoBrasil.new(:conta_corrente => 913) }
 
-          its(:conta_corrente) { should eq '00000913' }
+          it { expect(subject.conta_corrente).to eq '00000913' }
         end
 
         context "when is nil" do
           subject { BancoBrasil.new(:conta_corrente => nil) }
 
-          its(:conta_corrente) { should be nil }
+          it { expect(subject.codigo_cedente).to be nil }
         end
       end
 
@@ -114,77 +114,77 @@ module BoletoBancario
         context "when have 'codigo_cedente' 4 digits" do
           subject { BancoBrasil.new(:numero_documento => 913, :codigo_cedente => 1234) }
 
-          its(:numero_documento) { should eq '0000913' }
+          it { expect(subject.numero_documento).to eq '0000913' }
         end
 
         context "when have 'codigo_cedente' 6 digits" do
           subject { BancoBrasil.new(:numero_documento => 913, :codigo_cedente => 123456) }
 
-          its(:numero_documento) { should eq '00913' }
+          it { expect(subject.numero_documento).to eq '00913' }
         end
 
         context "when have 'codigo_cedente' 7 digits" do
           subject { BancoBrasil.new(:numero_documento => 913, :codigo_cedente => 1234567) }
 
-          its(:numero_documento) { should eq '0000000913' }
+          it { expect(subject.numero_documento).to eq '0000000913' }
         end
 
         context "when have 'codigo_cedente' 8 digits" do
           subject { BancoBrasil.new(:numero_documento => 913, :codigo_cedente => 12345678) }
 
-          its(:numero_documento) { should eq '000000913' }
+          it { expect(subject.numero_documento).to eq '000000913' }
         end
 
         context "when is nil" do
           subject { BancoBrasil.new(:numero_documento => nil) }
 
-          its(:numero_documento) { should be nil }
+          it { expect(subject.numero_documento).to be nil }
         end
 
         context "when 'codigo_cedente' is nil" do
           subject { BancoBrasil.new(:numero_documento => '12') }
 
-          its(:numero_documento) { should eq '12' }
+          it { expect(subject.numero_documento).to eq '12' }
         end
       end
 
       describe "#codigo_banco" do
-        its(:codigo_banco) { should eq '001' }
+        it { expect(subject.codigo_banco).to eq '001' }
       end
 
       describe "#digito_codigo_banco" do
-        its(:digito_codigo_banco) { should eq '9' }
+        it { expect(subject.digito_codigo_banco).to eq '9' }
       end
 
       describe "#agencia_codigo_cedente" do
         subject { BancoBrasil.new(agencia: 9999, conta_corrente: 99999) }
 
-        its(:agencia_codigo_cedente) { should eq '9999-6 / 00099999-7' }
+        it { expect(subject.agencia_codigo_cedente).to eq '9999-6 / 00099999-7' }
       end
 
       describe "#nosso_numero" do
         context "when 'codigo_cedente 4 digits" do
           subject { BancoBrasil.new(codigo_cedente: 1234, numero_documento: 1984) }
 
-          its(:nosso_numero) { should eq '12340001984-7' }
+          it { expect(subject.nosso_numero).to eq '12340001984-7' }
         end
 
         context "when 'codigo_cedente 6 digits" do
           subject { BancoBrasil.new(codigo_cedente: 123456, numero_documento: 1984) }
 
-          its(:nosso_numero) { should eq '12345601984-2' }
+          it { expect(subject.nosso_numero).to eq '12345601984-2' }
         end
 
         context "when 'codigo_cedente 7 digits" do
           subject { BancoBrasil.new(codigo_cedente: 1234567, numero_documento: 1984) }
 
-          its(:nosso_numero) { should eq '12345670000001984' }
+          it { expect(subject.nosso_numero).to eq '12345670000001984' }
         end
 
         context "when 'codigo_cedente 8 digits" do
           subject { BancoBrasil.new(codigo_cedente: 12345678, numero_documento: 1984) }
 
-          its(:nosso_numero) { should eq '12345678000001984' }
+          it { expect(subject.nosso_numero).to eq '12345678000001984' }
         end
       end
 
@@ -192,13 +192,13 @@ module BoletoBancario
         context "when is true" do
           subject { BancoBrasil.new(codigo_cedente: 1234) }
 
-          its(:codigo_cedente_quatro_digitos?) { should be true }
+          it { expect(subject.codigo_cedente_quatro_digitos?).to be true }
         end
 
         context "when is false" do
           subject { BancoBrasil.new(codigo_cedente: 12345) }
 
-          its(:codigo_cedente_quatro_digitos?) { should be false }
+          it { expect(subject.codigo_cedente_quatro_digitos?).to be false }
         end
       end
 
@@ -206,13 +206,13 @@ module BoletoBancario
         context "when is true" do
           subject { BancoBrasil.new(codigo_cedente: 123456) }
 
-          its(:codigo_cedente_seis_digitos?) { should be true }
+          it { expect(subject.codigo_cedente_seis_digitos?).to be true }
         end
 
         context "when is false" do
           subject { BancoBrasil.new(codigo_cedente: 1234567) }
 
-          its(:codigo_cedente_seis_digitos?) { should be false }
+          it { expect(subject.codigo_cedente_seis_digitos?).to be false }
         end
       end
 
@@ -220,13 +220,13 @@ module BoletoBancario
         context "when is true" do
           subject { BancoBrasil.new(codigo_cedente: 1234567) }
 
-          its(:codigo_cedente_sete_digitos?) { should be true }
+          it { expect(subject.codigo_cedente_sete_digitos?).to be true }
         end
 
         context "when is false" do
           subject { BancoBrasil.new(codigo_cedente: 12345678) }
 
-          its(:codigo_cedente_sete_digitos?) { should be false }
+          it { expect(subject.codigo_cedente_sete_digitos?).to be false }
         end
       end
 
@@ -234,13 +234,13 @@ module BoletoBancario
         context "when is true" do
           subject { BancoBrasil.new(codigo_cedente: 12345678) }
 
-          its(:codigo_cedente_oito_digitos?) { should be true }
+          it { expect(subject.codigo_cedente_oito_digitos?).to be true }
         end
 
         context "when is false" do
           subject { BancoBrasil.new(codigo_cedente: 123456789) }
 
-          its(:codigo_cedente_oito_digitos?) { should be false }
+          it { expect(subject.codigo_cedente_oito_digitos?).to be false }
         end
       end
 
@@ -248,25 +248,25 @@ module BoletoBancario
         context "when 'carteira' 18, 'numero_documento' 17 digits and 'codigo_cedente' 6 digits" do
           subject { BancoBrasil.new(numero_documento: 12345678911234567, carteira: 18, codigo_cedente: 123456) }
 
-          its(:nosso_numero_dezessete_posicoes?) { should be true }
+          it { expect(subject.nosso_numero_dezessete_posicoes?).to be true }
         end
 
         context "when 'carteira' 16, 'numero_documento' 17 digits and 'codigo_cedente' 6 digits" do
           subject { BancoBrasil.new(numero_documento: 12345678911234567, carteira: 16, codigo_cedente: 123456) }
 
-          its(:nosso_numero_dezessete_posicoes?) { should be true }
+          it { expect(subject.nosso_numero_dezessete_posicoes?).to be true }
         end
 
         context "when is 'carteira' is not supported" do
           subject { BancoBrasil.new(numero_documento: 123456789, carteira: 12, codigo_cedente: 123456) }
 
-          its(:nosso_numero_dezessete_posicoes?) { should be false }
+          it { expect(subject.nosso_numero_dezessete_posicoes?).to be false }
         end
 
         context "when is 'codigo_cedente' is not supported" do
           subject { BancoBrasil.new(numero_documento: 123456789, carteira: 16, codigo_cedente: 1234567) }
 
-          its(:nosso_numero_dezessete_posicoes?) { should be false }
+          it { expect(subject.nosso_numero_dezessete_posicoes?).to be false }
         end
       end
 
@@ -284,8 +284,8 @@ module BoletoBancario
             end
           end
 
-          its(:codigo_de_barras) { should eq '00193556100002952954321009080171230001934518' }
-          its(:linha_digitavel)  { should eq '00194.32103 09080.171235 00019.345180 3 55610000295295' }
+          it { expect(subject.codigo_de_barras).to eq '00193556100002952954321009080171230001934518' }
+          it { expect(subject.linha_digitavel).to eq '00194.32103 09080.171235 00019.345180 3 55610000295295' }
         end
 
         context "'codigo_cedente' with 6 digits" do
@@ -301,8 +301,8 @@ module BoletoBancario
             end
           end
 
-          its(:codigo_de_barras) { should eq '00197556100014001995554441290150301420419518' }
-          its(:linha_digitavel)  { should eq '00195.55440 41290.150303 14204.195185 7 55610001400199' }
+          it { expect(subject.codigo_de_barras).to eq '00197556100014001995554441290150301420419518' }
+          it { expect(subject.linha_digitavel).to eq '00195.55440 41290.150303 14204.195185 7 55610001400199' }
         end
 
         context "'codigo_cedente' with 6 digits and 'nosso numero' with 17 digits" do
@@ -318,9 +318,8 @@ module BoletoBancario
             end
           end
 
-          its(:linha_digitavel)  { should eq "" }
+          it { expect(subject.linha_digitavel).to eq '' }
         end
-
 
         context "'codigo_cedente' with 6 digits and 'nosso numero' with 17 digits" do
           subject do
@@ -335,8 +334,8 @@ module BoletoBancario
             end
           end
 
-          its(:codigo_de_barras) { should eq '00194556100014001995554441234567891123456721' }
-          its(:linha_digitavel)  { should eq "00195.55440 41234.567893 11234.567219 4 55610001400199" }
+          it { expect(subject.codigo_de_barras).to eq '00194556100014001995554441234567891123456721' }
+          it { expect(subject.linha_digitavel).to eq '00195.55440 41234.567893 11234.567219 4 55610001400199' }
         end
 
         context "'codigo_cedente' with 7 digits" do
@@ -352,8 +351,8 @@ module BoletoBancario
             end
           end
 
-          its(:codigo_de_barras) { should eq '00197556100002952950000007777777000008765418' }
-          its(:linha_digitavel)  { should eq '00190.00009 07777.777009 00087.654182 7 55610000295295' }
+          it { expect(subject.codigo_de_barras).to eq '00197556100002952950000007777777000008765418' }
+          it { expect(subject.linha_digitavel).to eq '00190.00009 07777.777009 00087.654182 7 55610000295295' }
         end
 
         context "'codigo_cedente' with 8 digits" do
@@ -369,8 +368,8 @@ module BoletoBancario
             end
           end
 
-          its(:codigo_de_barras) { should eq '00191556100002952950000007777777800008765418' }
-          its(:linha_digitavel)  { should eq '00190.00009 07777.777801 00087.654182 1 55610000295295' }
+          it { expect(subject.codigo_de_barras).to eq '00191556100002952950000007777777800008765418' }
+          it { expect(subject.linha_digitavel).to eq '00190.00009 07777.777801 00087.654182 1 55610000295295' }
         end
       end
     end

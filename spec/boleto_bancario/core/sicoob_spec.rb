@@ -27,11 +27,11 @@ module BoletoBancario
         context "when have a value" do
           subject { Sicoob.new(agencia: '215') }
 
-          its(:agencia) { should eq '0215' }
+          it { expect(subject.agencia).to eq '0215' }
         end
 
         context "when is nil" do
-          its(:agencia) { should be nil }
+          it { expect(subject.agencia).to be nil }
         end
       end
 
@@ -39,11 +39,11 @@ module BoletoBancario
         context "when have a value" do
           subject { Sicoob.new(codigo_cedente: '9201') }
 
-          its(:codigo_cedente) { should eq '0009201' }
+          it { expect(subject.codigo_cedente).to eq '0009201' }
         end
 
         context "when is nil" do
-          its(:codigo_cedente) { should be nil }
+          it { expect(subject.codigo_cedente).to be nil }
         end
       end
 
@@ -51,11 +51,11 @@ module BoletoBancario
         context "when have a value" do
           subject { Sicoob.new(numero_documento: '1') }
 
-          its(:numero_documento) { should eq '000001' }
+          it { expect(subject.numero_documento).to eq '000001' }
         end
 
         context "when is nil" do
-          its(:numero_documento) { should be nil }
+          it { expect(subject.numero_documento).to be nil }
         end
       end
 
@@ -63,32 +63,32 @@ module BoletoBancario
         context "when have a value" do
           subject { Sicoob.new(carteira: '1') }
 
-          its(:carteira) { should eq '1' }
+          it { expect(subject.carteira).to eq '1' }
         end
 
         context "when is nil" do
-          its(:carteira) { should be nil }
+          it { expect(subject.carteira).to be nil }
         end
       end
 
       describe "#codigo_banco" do
-        its(:codigo_banco) { should eq '756' }
+        it { expect(subject.codigo_banco).to eq '756' }
       end
 
       describe "#digito_codigo_banco" do
-        its(:digito_codigo_banco) { should eq '0' }
+        it { expect(subject.digito_codigo_banco).to eq '0' }
       end
 
       describe "#agencia_codigo_beneficiario" do
         subject { Sicoob.new(agencia: 48, codigo_cedente: '7368') }
 
-        its(:agencia_codigo_cedente) { should eq '0048 / 0007368' }
+        it { expect(subject.agencia_codigo_cedente).to eq '0048 / 0007368' }
       end
 
       describe "#nosso_numero" do
         subject { Sicoob.new(numero_documento: '68315') }
 
-        its(:nosso_numero) { should eq '15068315' }
+        it { expect(subject.nosso_numero).to eq '15068315' }
       end
 
       describe "#codigo_de_barras" do
@@ -103,8 +103,8 @@ module BoletoBancario
           end
         end
 
-        its(:codigo_de_barras) { should eq '75692780300093015781009501000653215001101001' }
-        its(:linha_digitavel)  { should eq '75691.00956 01000.653210 50011.010019 2 78030009301578' }
+        it { expect(subject.codigo_de_barras).to eq '75692780300093015781009501000653215001101001' }
+        it { expect(subject.linha_digitavel).to eq '75691.00956 01000.653210 50011.010019 2 78030009301578' }
       end
     end
   end

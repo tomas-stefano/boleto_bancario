@@ -55,28 +55,27 @@ module BoletoBancario
             )
           end
 
-          its(:numero_documento)  { should eq '191075' }
-          its(:valor_documento)   { should eq 101.99 }
-          its(:data_vencimento)   { should eq Date.new(2012, 10, 10) }
-          its(:carteira)          { should eq '175' }
-          its(:agencia)           { should eq '0098' }
-          its(:conta_corrente)    { should eq '98701' }
-          its(:codigo_moeda)      { should eq '9' }
-          its(:cedente)           { should eq 'Nome da razao social' }
-          its(:especie)           { should eq 'R$' }
-          its(:especie_documento) { should eq 'DM' }
-          its(:data_documento)    { should eq Date.today }
-          its(:sacado)            { should eq 'Teste' }
-          its(:documento_sacado)  { should eq '725.275.005-10' }
-          its(:endereco_sacado)   { should eq 'Rua teste, 23045'}
-          its(:local_pagamento)   { should eq 'PAGÁVEL EM QUALQUER BANCO ATÉ O VENCIMENTO' }
-          its(:instrucoes1)       { should eq 'Lembrar de algo 1'}
-          its(:instrucoes2)       { should eq 'Lembrar de algo 2'}
-          its(:instrucoes3)       { should eq 'Lembrar de algo 3'}
-          its(:instrucoes4)       { should eq 'Lembrar de algo 4'}
-          its(:instrucoes5)       { should eq 'Lembrar de algo 5'}
-          its(:instrucoes6)       { should eq 'Lembrar de algo 6'}
-
+          it { expect(subject.numero_documento).to  eq '191075' }
+          it { expect(subject.valor_documento).to   eq 101.99 }
+          it { expect(subject.data_vencimento).to   eq Date.new(2012, 10, 10) }
+          it { expect(subject.carteira).to          eq '175' }
+          it { expect(subject.agencia).to           eq '0098' }
+          it { expect(subject.conta_corrente).to    eq '98701' }
+          it { expect(subject.codigo_moeda).to      eq '9' }
+          it { expect(subject.cedente).to           eq 'Nome da razao social' }
+          it { expect(subject.especie).to           eq 'R$' }
+          it { expect(subject.especie_documento).to eq 'DM' }
+          it { expect(subject.data_documento).to    eq Date.today }
+          it { expect(subject.sacado).to            eq 'Teste' }
+          it { expect(subject.documento_sacado).to  eq '725.275.005-10' }
+          it { expect(subject.endereco_sacado).to   eq 'Rua teste, 23045' }
+          it { expect(subject.local_pagamento).to   eq 'PAGÁVEL EM QUALQUER BANCO ATÉ O VENCIMENTO' }
+          it { expect(subject.instrucoes1).to       eq 'Lembrar de algo 1' }
+          it { expect(subject.instrucoes2).to       eq 'Lembrar de algo 2' }
+          it { expect(subject.instrucoes3).to       eq 'Lembrar de algo 3' }
+          it { expect(subject.instrucoes4).to       eq 'Lembrar de algo 4' }
+          it { expect(subject.instrucoes5).to       eq 'Lembrar de algo 5' }
+          it { expect(subject.instrucoes6).to       eq 'Lembrar de algo 6' }
         end
 
         context 'when passing a block' do
@@ -102,31 +101,32 @@ module BoletoBancario
             end
           end
 
-          its(:numero_documento)  { should eq '187390' }
-          its(:valor_documento)   { should eq 1 }
-          its(:carteira)          { should eq '109' }
-          its(:agencia)           { should eq '0914' }
-          its(:conta_corrente)    { should eq '82369' }
-          its(:codigo_moeda)      { should eq '9' }
-          its(:codigo_cedente)    { should eq '90182' }
-          its(:endereco_cedente)  { should eq 'Rua Itapaiuna, 2434' }
-          its(:cedente)           { should eq 'Nome da razao social' }
-          its(:documento_cedente) { should eq '62.526.713/0001-40' }
-          its(:sacado)            { should eq 'Teste' }
-          its(:aceite)            { should be true }
-          its(:instrucoes1)       { should eq 'Lembrar de algo 1' }
-          its(:instrucoes2)       { should eq 'Lembrar de algo 2' }
-          its(:instrucoes3)       { should eq 'Lembrar de algo 3' }
-          its(:instrucoes4)       { should eq 'Lembrar de algo 4' }
-          its(:instrucoes5)       { should eq 'Lembrar de algo 5' }
-          its(:instrucoes6)       { should eq 'Lembrar de algo 6' }
+          it { expect(subject.numero_documento).to  eq '187390' }
+          it { expect(subject.valor_documento).to   eq 1 }
+          it { expect(subject.carteira).to          eq '109' }
+          it { expect(subject.agencia).to           eq '0914' }
+          it { expect(subject.conta_corrente).to    eq '82369' }
+          it { expect(subject.codigo_moeda).to      eq '9' }
+          it { expect(subject.codigo_cedente).to    eq '90182' }
+          it { expect(subject.endereco_cedente).to  eq 'Rua Itapaiuna, 2434' }
+          it { expect(subject.cedente).to           eq 'Nome da razao social' }
+          it { expect(subject.documento_cedente).to eq '62.526.713/0001-40' }
+          it { expect(subject.sacado).to            eq 'Teste' }
+          it { expect(subject.aceite).to            be true }
+          it { expect(subject.instrucoes1).to       eq 'Lembrar de algo 1' }
+          it { expect(subject.instrucoes2).to       eq 'Lembrar de algo 2' }
+          it { expect(subject.instrucoes3).to       eq 'Lembrar de algo 3' }
+          it { expect(subject.instrucoes4).to       eq 'Lembrar de algo 4' }
+          it { expect(subject.instrucoes5).to       eq 'Lembrar de algo 5' }
+          it { expect(subject.instrucoes6).to       eq 'Lembrar de algo 6' }
         end
       end
 
       describe "#carteira_formatada" do
         it "returns 'carteira' as default" do
           subject.stub(:carteira).and_return('Foo')
-          subject.carteira_formatada.should eq 'Foo'
+
+          expect(subject.carteira_formatada).to eq 'Foo'
         end
       end
 
@@ -134,43 +134,43 @@ module BoletoBancario
         context "when period" do
           before { subject.stub(:valor_documento).and_return(123.45) }
 
-          its(:valor_formatado_para_codigo_de_barras) { should eq '0000012345' }
+          it { expect(subject.valor_formatado_para_codigo_de_barras).to eq '0000012345' }
         end
 
         context "when less than ten" do
           before { subject.stub(:valor_documento).and_return(5.0) }
 
-          its(:valor_formatado_para_codigo_de_barras) { should eq '0000000500'}
+          it { expect(subject.valor_formatado_para_codigo_de_barras).to eq '0000000500' }
         end
 
         context "when have many decimal points" do
           before { subject.stub(:valor_documento).and_return(10.999999) }
 
-          its(:valor_formatado_para_codigo_de_barras) { should eq '0000001099' }
+          it { expect(subject.valor_formatado_para_codigo_de_barras).to eq '0000001099' }
         end
 
         context "when integer" do
           before { subject.stub(:valor_documento).and_return(1_999) }
 
-          its(:valor_formatado_para_codigo_de_barras) { should eq '0000199900' }
+          it { expect(subject.valor_formatado_para_codigo_de_barras).to eq '0000199900' }
         end
 
         context "when period with string" do
           before { subject.stub(:valor_documento).and_return('236.91') }
 
-          its(:valor_formatado_para_codigo_de_barras) { should eq '0000023691' }
+          it { expect(subject.valor_formatado_para_codigo_de_barras).to eq '0000023691' }
         end
 
         context "when period with string with many decimals" do
           before { subject.stub(:valor_documento).and_return('10.999999') }
 
-          its(:valor_formatado_para_codigo_de_barras) { should eq '0000001099' }
+          it { expect(subject.valor_formatado_para_codigo_de_barras).to eq '0000001099' }
         end
 
         context "when the cents is not broken" do
           before { subject.stub(:valor_documento).and_return(229.5) }
 
-          its(:valor_formatado_para_codigo_de_barras) { should eq '0000022950'}
+          it { expect(subject.valor_formatado_para_codigo_de_barras).to eq '0000022950' }
         end
       end
 
@@ -178,19 +178,19 @@ module BoletoBancario
         context "when is true" do
           subject { described_class.new(aceite: true) }
 
-          its(:aceite_formatado) { should eq 'S' }
+          it { expect(subject.aceite_formatado).to eq 'S' }
         end
 
         context "when is false" do
           subject { described_class.new(aceite: false) }
 
-          its(:aceite_formatado) { should eq 'N' }
+          it { expect(subject.aceite_formatado).to eq 'N' }
         end
 
         context "when is nil" do
           subject { described_class.new(aceite: nil) }
 
-          its(:aceite_formatado) { should eq 'N' }
+          it { expect(subject.aceite_formatado).to eq 'N' }
         end
       end
 

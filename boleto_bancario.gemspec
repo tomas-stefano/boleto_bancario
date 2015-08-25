@@ -16,8 +16,8 @@ Gem::Specification.new do |gem|
   gem.version       = BoletoBancario::VERSION
 
   gem.add_dependency "rake"
-  gem.add_dependency "activesupport", "~> 4.1.0"
-  gem.add_dependency "activemodel", "~> 4.1.0"
+  gem.add_dependency "activesupport", "~> 4.1"
+  gem.add_dependency "activemodel", "~> 4.1"
   gem.add_dependency "barby"
 
   gem.add_development_dependency "rspec", "~> 2.13"

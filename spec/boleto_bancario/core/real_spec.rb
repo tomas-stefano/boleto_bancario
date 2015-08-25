@@ -27,11 +27,11 @@ module BoletoBancario
         context "when have a value" do
           subject { Real.new(agencia: '802') }
 
-          its(:agencia) { should eq '0802' }
+          it { expect(subject.agencia).to eq '0802' }
         end
 
         context "when is nil" do
-          its(:agencia) { should be nil }
+          it { expect(subject.agencia).to be nil }
         end
       end
 
@@ -39,11 +39,11 @@ module BoletoBancario
         context "when have a value" do
           subject { Real.new(conta_corrente: '1625') }
 
-          its(:conta_corrente) { should eq '0001625' }
+          it { expect(subject.conta_corrente).to eq '0001625' }
         end
 
         context "when is nil" do
-          its(:conta_corrente) { should be nil }
+          it { expect(subject.conta_corrente).to be nil }
         end
       end
 
@@ -51,11 +51,11 @@ module BoletoBancario
         context "when have a value" do
           subject { Real.new(numero_documento: '2483169') }
 
-          its(:numero_documento) { should eq '0000002483169' }
+          it { expect(subject.numero_documento).to eq '0000002483169' }
         end
 
         context "when is nil" do
-          its(:numero_documento) { should be nil }
+          it { expect(subject.numero_documento).to be nil }
         end
       end
 
@@ -63,26 +63,26 @@ module BoletoBancario
         context "when have a value" do
           subject { Real.new(carteira: '20') }
 
-          its(:carteira) { should eq '20' }
+          it { expect(subject.carteira).to eq '20' }
         end
 
         context "when is nil" do
-          its(:carteira) { should be nil }
+          it { expect(subject.carteira).to be nil }
         end
       end
 
       describe "#codigo_banco" do
-        its(:codigo_banco) { should eq '356' }
+        it { expect(subject.codigo_banco).to eq '356' }
       end
 
       describe "#digito_codigo_banco" do
-        its(:digito_codigo_banco) { should eq '5' }
+        it { expect(subject.digito_codigo_banco).to eq '5' }
       end
 
       describe "#agencia_codigo_beneficiario" do
         subject { Real.new(agencia: '501', conta_corrente: 6703255) }
 
-        its(:agencia_codigo_cedente) { should eq '0501/6703255/1' }
+        it { expect(subject.agencia_codigo_cedente).to eq '0501/6703255/1' }
       end
 
       describe "#codigo_de_barras" do
@@ -96,8 +96,8 @@ module BoletoBancario
           end
         end
 
-        its(:codigo_de_barras) { should eq '35699145600000035000501670325510000000003020' }
-        its(:linha_digitavel)  { should eq '35690.50168 70325.510009 00000.030205 9 14560000003500' }
+        it { expect(subject.codigo_de_barras).to eq '35699145600000035000501670325510000000003020' }
+        it { expect(subject.linha_digitavel).to eq '35690.50168 70325.510009 00000.030205 9 14560000003500' }
       end
     end
   end

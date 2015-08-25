@@ -27,11 +27,11 @@ module BoletoBancario
         context "when have a value" do
           subject { Santander.new(agencia: '2') }
 
-          its(:agencia) { should eq '0002' }
+          it { expect(subject.agencia).to eq '0002' }
         end
 
         context "when is nil" do
-          its(:agencia) { should be nil }
+          it { expect(subject.agencia).to be nil }
         end
       end
 
@@ -39,11 +39,11 @@ module BoletoBancario
         context "when have a value" do
           subject { Santander.new(codigo_cedente: '1') }
 
-          its(:codigo_cedente) { should eq '0000001' }
+          it { expect(subject.codigo_cedente).to eq '0000001' }
         end
 
         context "when is nil" do
-          its(:codigo_cedente) { should be nil }
+          it { expect(subject.codigo_cedente).to be nil }
         end
       end
 
@@ -51,11 +51,11 @@ module BoletoBancario
         context "when have a value" do
           subject { Santander.new(numero_documento: '1') }
 
-          its(:numero_documento) { should eq '000000000001' }
+          it { expect(subject.numero_documento).to eq '000000000001' }
         end
 
         context "when is nil" do
-          its(:numero_documento) { should be nil }
+          it { expect(subject.numero_documento).to be nil }
         end
       end
 
@@ -63,11 +63,11 @@ module BoletoBancario
         context "when have a value" do
           subject { Santander.new(carteira: '101') }
 
-          its(:carteira) { should eq '101' }
+          it { expect(subject.carteira).to eq '101' }
         end
 
         context "when is nil" do
-          its(:carteira) { should be nil }
+          it { expect(subject.carteira).to be nil }
         end
       end
 
@@ -75,34 +75,34 @@ module BoletoBancario
         context "when is registered" do
           subject { Santander.new(:carteira => 101) }
 
-          its(:carteira_formatada) { should eq 'COBRANÇA SIMPLES ECR' }
+          it { expect(subject.carteira_formatada).to eq 'COBRANÇA SIMPLES ECR' }
         end
 
         context "when isn't registered" do
           subject { Santander.new(:carteira => 102) }
 
-          its(:carteira_formatada) { should eq 'COBRANÇA SIMPLES CSR' }
+          it { expect(subject.carteira_formatada).to eq 'COBRANÇA SIMPLES CSR' }
         end
       end
 
       describe "#codigo_banco" do
-        its(:codigo_banco) { should eq '033' }
+        it { expect(subject.codigo_banco).to eq '033' }
       end
 
       describe "#digito_codigo_banco" do
-        its(:digito_codigo_banco) { should eq '7' }
+        it { expect(subject.digito_codigo_banco).to eq '7' }
       end
 
       describe "#agencia_codigo_cedente" do
         subject { Santander.new(agencia: '0235', codigo_cedente: '1625462') }
 
-        its(:agencia_codigo_cedente) { should eq '0235 / 1625462' }
+        it { expect(subject.agencia_codigo_cedente).to eq '0235 / 1625462' }
       end
 
       describe "#nosso_numero" do
         subject { Santander.new(numero_documento: '566612457800') }
 
-        its(:nosso_numero) { should eq '566612457800-2' }
+        it { expect(subject.nosso_numero).to eq '566612457800-2' }
       end
 
       describe "#codigo_de_barras" do
@@ -117,19 +117,19 @@ module BoletoBancario
           end
         end
 
-        its(:codigo_de_barras) { should eq '03391556100002952959070707700000123456790102' }
-        its(:linha_digitavel)  { should eq '03399.07073 07700.000123 34567.901029 1 55610000295295' }
+        it { expect(subject.codigo_de_barras).to eq '03391556100002952959070707700000123456790102' }
+        it { expect(subject.linha_digitavel).to eq '03399.07073 07700.000123 34567.901029 1 55610000295295' }
       end
 
       describe "#iof" do
         context "default iof" do
-          its(:iof) { should eq '0' }
+          it { expect(subject.iof).to eq '0' }
         end
 
         context "setting iof" do
           subject { Santander.new(iof: 7) }
 
-          its(:iof) { should eq '7' }
+          it { expect(subject.iof).to eq '7' }
         end
       end
     end
