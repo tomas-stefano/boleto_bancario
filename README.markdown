@@ -1,4 +1,4 @@
-# BoletoBancario
+# Boleto Bancario
 
 Emissão de Boletos Bancários em Ruby.
 
