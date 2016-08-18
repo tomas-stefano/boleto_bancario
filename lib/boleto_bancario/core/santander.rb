@@ -54,7 +54,6 @@ module BoletoBancario
     # linha digitável. Ambos os métodos podem ser sobrescritos se você quiser também.
     #
     class Santander < Boleto
-      include ActionView::Helpers::NumberHelper
       # Campo IOF que será mostrado no código de barras.
       # Padrão é 0 (zero), conforme a documentação do Santander.
       # Para mais detalhes veja o método #iof.

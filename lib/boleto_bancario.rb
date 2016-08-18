@@ -5,7 +5,6 @@ require 'active_support/core_ext/class'
 require 'active_support/core_ext/enumerable'
 require 'active_support/core_ext/object'
 require 'active_support/core_ext/string'
-require 'action_view'
 
 # Copyright (C) 2012 Tomás D'Stefano <http://successoft.com>
 #
