@@ -15,7 +15,7 @@ module BoletoBancario
     #
     # === Carteiras suportadas
     #
-    # Segue abaixo as carteiras suportadas do itáu <b>seguindo a documentação</b>:
+    # Segue abaixo as carteiras suportadas do Santander <b>seguindo a documentação</b>:
     #
     #      _________________________________________________________________________
     #     | Carteira | Descrição                     | Testada/Homologada no banco |
@@ -265,6 +265,10 @@ module BoletoBancario
         return @iof.to_s if @iof.present?
 
         '0'
+      end
+
+      def to_html
+        HTMLRenderer.render(self)
       end
     end
   end
