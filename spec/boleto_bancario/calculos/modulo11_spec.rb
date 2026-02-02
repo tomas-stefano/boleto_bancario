@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'spec_helper'
 
 module BoletoBancario
@@ -6,7 +8,7 @@ module BoletoBancario
       subject { Modulo11.new(1) }
 
       describe "#fatores" do
-        before { Modulo11.any_instance.stub(:calculate).and_return(1) }
+        before { allow_any_instance_of(Modulo11).to receive(:calculate).and_return(1) }
 
         it { expect { subject.fatores }.to raise_error(NotImplementedError, "Not implemented #fatores in subclass.") }
       end
