@@ -127,33 +127,310 @@ File.binwrite('codigo_barras.png', boleto.to_png)
 ### Banco do Brasil
 
 ```ruby
+# Carteira 18 com código do cedente de 6 dígitos
 boleto = BoletoBancario::BancoBrasil.new do |b|
-  b.agencia          = '1234'
-  b.conta_corrente   = '12345678'
-  b.carteira         = '18'
-  b.cedente          = 'Empresa LTDA'
-  b.codigo_cedente   = '123456'
-  b.numero_documento = '12345'
-  b.sacado           = 'Cliente'
-  b.documento_sacado = '123.456.789-00'
-  b.data_vencimento  = Date.today + 10
-  b.valor_documento  = 150.00
+  b.agencia               = '1234'
+  b.digito_agencia        = '1'
+  b.conta_corrente        = '12345678'
+  b.digito_conta_corrente = '9'
+  b.carteira              = '18'
+  b.cedente               = 'Padaria do João LTDA'
+  b.documento_cedente     = '12.345.678/0001-90'
+  b.codigo_cedente        = '123456'
+  b.endereco_cedente      = 'Rua das Flores, 100 - Centro - Brasília/DF'
+  b.numero_documento      = '12345'
+  b.sacado                = 'Maria Silva'
+  b.documento_sacado      = '123.456.789-00'
+  b.endereco_sacado       = 'Av. Brasil, 500 - Apt 101 - São Paulo/SP'
+  b.data_vencimento       = Date.today + 10
+  b.valor_documento       = 1250.00
+  b.instrucoes            = 'Não receber após o vencimento. Juros de 1% ao mês.'
 end
+
+# Verificando os dados gerados
+boleto.codigo_banco_formatado  # => "001-9"
+boleto.nosso_numero            # => "12345678-12345-17"
+boleto.agencia_codigo_cedente  # => "1234-1 / 123456"
+```
+
+### Banrisul
+
+```ruby
+# Carteira 00 - Cobrança Simples
+boleto = BoletoBancario::Banrisul.new do |b|
+  b.agencia               = '1102'
+  b.digito_agencia        = '72'
+  b.conta_corrente        = '9000150'
+  b.digito_conta_corrente = '46'
+  b.carteira              = '00'
+  b.cedente               = 'Loja de Informática RS LTDA'
+  b.documento_cedente     = '98.765.432/0001-10'
+  b.endereco_cedente      = 'Av. Ipiranga, 1000 - Porto Alegre/RS'
+  b.numero_documento      = '22832563'
+  b.sacado                = 'José Santos'
+  b.documento_sacado      = '987.654.321-00'
+  b.endereco_sacado       = 'Rua Voluntários da Pátria, 200 - Porto Alegre/RS'
+  b.data_vencimento       = Date.today + 15
+  b.valor_documento       = 550.00
+end
+
+boleto.codigo_banco_formatado  # => "041-8"
+boleto.nosso_numero            # => "22832563.42"
 ```
 
 ### Bradesco
 
 ```ruby
+# Carteira 09 - Cobrança com Registro
 boleto = BoletoBancario::Bradesco.new do |b|
+  b.agencia               = '1234'
+  b.digito_agencia        = '5'
+  b.conta_corrente        = '1234567'
+  b.digito_conta_corrente = '0'
+  b.carteira              = '09'
+  b.cedente               = 'Distribuidora ABC LTDA'
+  b.documento_cedente     = '11.222.333/0001-44'
+  b.endereco_cedente      = 'Rua Augusta, 2000 - São Paulo/SP'
+  b.numero_documento      = '12345678901'
+  b.sacado                = 'Carlos Ferreira'
+  b.documento_sacado      = '111.222.333-44'
+  b.endereco_sacado       = 'Rua Oscar Freire, 300 - São Paulo/SP'
+  b.data_vencimento       = Date.today + 7
+  b.valor_documento       = 1890.50
+  b.instrucoes            = 'Após vencimento cobrar multa de 2%'
+end
+
+boleto.codigo_banco_formatado  # => "237-2"
+boleto.nosso_numero            # => "09/12345678901-P"
+boleto.agencia_codigo_cedente  # => "1234-5 / 1234567-0"
+
+# Carteira 06 - Cobrança Sem Registro
+boleto_sem_registro = BoletoBancario::Bradesco.new do |b|
   b.agencia          = '1234'
   b.conta_corrente   = '1234567'
-  b.carteira         = '09'
-  b.cedente          = 'Empresa LTDA'
-  b.numero_documento = '12345678901'
-  b.sacado           = 'Cliente'
-  b.documento_sacado = '12.345.678/0001-00'
+  b.carteira         = '06'
+  b.cedente          = 'Distribuidora ABC LTDA'
+  b.numero_documento = '98765432101'
+  b.sacado           = 'Ana Paula'
+  b.documento_sacado = '222.333.444-55'
+  b.data_vencimento  = Date.today + 5
+  b.valor_documento  = 350.00
+end
+```
+
+### Caixa Econômica Federal
+
+```ruby
+# Carteira 14 - Cobrança Simples com Registro
+boleto = BoletoBancario::Caixa.new do |b|
+  b.agencia          = '1234'
+  b.conta_corrente   = '123456'
+  b.carteira         = '14'
+  b.cedente          = 'Construtora XYZ LTDA'
+  b.documento_cedente = '33.444.555/0001-66'
+  b.codigo_cedente   = '123456'
+  b.endereco_cedente = 'Setor Comercial Sul, Quadra 1 - Brasília/DF'
+  b.numero_documento = '000000000000001'
+  b.sacado           = 'Roberto Almeida'
+  b.documento_sacado = '333.444.555-66'
+  b.endereco_sacado  = 'SGAN 607, Bloco A - Brasília/DF'
+  b.data_vencimento  = Date.today + 30
+  b.valor_documento  = 15000.00
+  b.instrucoes       = 'Referente à parcela 1/12 do contrato 12345'
+end
+
+boleto.codigo_banco_formatado  # => "104-0"
+boleto.nosso_numero            # => "14000000000000001-0"
+
+# Carteira 24 - Cobrança Sem Registro
+boleto_sr = BoletoBancario::Caixa.new do |b|
+  b.agencia          = '1234'
+  b.conta_corrente   = '123456'
+  b.carteira         = '24'
+  b.cedente          = 'Construtora XYZ LTDA'
+  b.codigo_cedente   = '123456'
+  b.numero_documento = '000000000000002'
+  b.sacado           = 'Fernanda Costa'
+  b.documento_sacado = '444.555.666-77'
+  b.data_vencimento  = Date.today + 15
+  b.valor_documento  = 8500.00
+end
+```
+
+### Itaú
+
+```ruby
+# Carteira 198 - Cobrança com Registro
+boleto = BoletoBancario::Itau.new do |b|
+  b.agencia               = '0097'
+  b.conta_corrente        = '12345'
+  b.digito_conta_corrente = '7'
+  b.carteira              = '198'
+  b.cedente               = 'Tech Solutions LTDA'
+  b.documento_cedente     = '55.666.777/0001-88'
+  b.codigo_cedente        = '12345'
+  b.endereco_cedente      = 'Av. Paulista, 1500 - 10º andar - São Paulo/SP'
+  b.numero_documento      = '12345678'
+  b.sacado                = 'Pedro Henrique'
+  b.documento_sacado      = '555.666.777-88'
+  b.endereco_sacado       = 'Rua Consolação, 100 - São Paulo/SP'
+  b.data_vencimento       = Date.today + 5
+  b.valor_documento       = 2500.00
+  b.seu_numero            = '1234'
+  b.instrucoes            = 'Cobrar juros de 0,033% ao dia após vencimento'
+end
+
+boleto.codigo_banco_formatado  # => "341-7"
+boleto.nosso_numero            # => "198/12345678-2"
+boleto.agencia_codigo_cedente  # => "0097 / 12345-7"
+
+# Carteira 109 - Direta Eletrônica sem Registro
+boleto_109 = BoletoBancario::Itau.new do |b|
+  b.agencia          = '0097'
+  b.conta_corrente   = '12345'
+  b.carteira         = '109'
+  b.cedente          = 'Tech Solutions LTDA'
+  b.codigo_cedente   = '12345'
+  b.numero_documento = '87654321'
+  b.sacado           = 'Juliana Lima'
+  b.documento_sacado = '666.777.888-99'
+  b.data_vencimento  = Date.today + 3
+  b.valor_documento  = 199.90
+end
+
+# Carteira 175 - Cobrança com Registro com IOF
+boleto_175 = BoletoBancario::Itau.new do |b|
+  b.agencia          = '0097'
+  b.conta_corrente   = '12345'
+  b.carteira         = '175'
+  b.cedente          = 'Seguradora ABC'
+  b.codigo_cedente   = '12345'
+  b.numero_documento = '11111111'
+  b.sacado           = 'Marcos Souza'
+  b.documento_sacado = '777.888.999-00'
+  b.data_vencimento  = Date.today + 30
+  b.valor_documento  = 5000.00
+end
+```
+
+### Santander
+
+```ruby
+# Carteira 102 - Cobrança Simples com Registro
+boleto = BoletoBancario::Santander.new do |b|
+  b.agencia          = '1234'
+  b.conta_corrente   = '1234567'
+  b.carteira         = '102'
+  b.cedente          = 'Importadora Global LTDA'
+  b.documento_cedente = '77.888.999/0001-00'
+  b.codigo_cedente   = '1234567'
+  b.endereco_cedente = 'Av. das Nações Unidas, 12000 - São Paulo/SP'
+  b.numero_documento = '1234567890123'
+  b.sacado           = 'Lucas Oliveira'
+  b.documento_sacado = '888.999.000-11'
+  b.endereco_sacado  = 'Rua Funchal, 500 - São Paulo/SP'
   b.data_vencimento  = Date.today + 10
-  b.valor_documento  = 250.00
+  b.valor_documento  = 3750.00
+end
+
+boleto.codigo_banco_formatado  # => "033-7"
+boleto.nosso_numero            # => "1234567890123-4"
+boleto.agencia_codigo_cedente  # => "1234 / 1234567"
+
+# Carteira 101 - Cobrança Simples Rápida
+boleto_101 = BoletoBancario::Santander.new do |b|
+  b.agencia          = '1234'
+  b.conta_corrente   = '1234567'
+  b.carteira         = '101'
+  b.cedente          = 'Importadora Global LTDA'
+  b.codigo_cedente   = '1234567'
+  b.numero_documento = '9876543210987'
+  b.sacado           = 'Beatriz Mendes'
+  b.documento_sacado = '999.000.111-22'
+  b.data_vencimento  = Date.today + 7
+  b.valor_documento  = 890.00
+end
+```
+
+### Sicoob
+
+```ruby
+# Carteira 1 - Simples com Registro
+boleto = BoletoBancario::Sicoob.new do |b|
+  b.agencia          = '3069'
+  b.conta_corrente   = '828452'
+  b.carteira         = '1'
+  b.cedente          = 'Cooperativa Agrícola do Vale'
+  b.documento_cedente = '11.222.333/0001-44'
+  b.codigo_cedente   = '828452'
+  b.convenio         = '123456'
+  b.endereco_cedente = 'Rodovia BR-101, km 50 - Interior/MG'
+  b.numero_documento = '1234567'
+  b.sacado           = 'Fazenda Santa Maria'
+  b.documento_sacado = '22.333.444/0001-55'
+  b.endereco_sacado  = 'Fazenda Santa Maria, s/n - Zona Rural - Interior/MG'
+  b.data_vencimento  = Date.today + 30
+  b.valor_documento  = 25000.00
+  b.instrucoes       = 'Referente à compra de insumos agrícolas'
+end
+
+boleto.codigo_banco_formatado  # => "756-0"
+boleto.nosso_numero            # => "1234567-4"
+boleto.agencia_codigo_cedente  # => "3069 / 828452"
+
+# Carteira 9 - Sem Registro
+boleto_9 = BoletoBancario::Sicoob.new do |b|
+  b.agencia          = '3069'
+  b.conta_corrente   = '828452'
+  b.carteira         = '9'
+  b.cedente          = 'Cooperativa Agrícola do Vale'
+  b.codigo_cedente   = '828452'
+  b.convenio         = '123456'
+  b.numero_documento = '7654321'
+  b.sacado           = 'Sítio Boa Vista'
+  b.documento_sacado = '33.444.555/0001-66'
+  b.data_vencimento  = Date.today + 15
+  b.valor_documento  = 8500.00
+end
+```
+
+### Sicredi
+
+```ruby
+# Carteira 03 - Cobrança com Registro
+boleto = BoletoBancario::Sicredi.new do |b|
+  b.agencia          = '0710'
+  b.conta_corrente   = '54321'
+  b.carteira         = '03'
+  b.posto            = '08'
+  b.byte_id          = '2'
+  b.cedente          = 'Supermercado Bom Preço LTDA'
+  b.documento_cedente = '44.555.666/0001-77'
+  b.endereco_cedente = 'Av. Central, 500 - Centro - Interior/RS'
+  b.numero_documento = '12345'
+  b.sacado           = 'João da Silva'
+  b.documento_sacado = '444.555.666-77'
+  b.endereco_sacado  = 'Rua das Palmeiras, 100 - Interior/RS'
+  b.data_vencimento  = Date.today + 7
+  b.valor_documento  = 450.00
+end
+
+boleto.codigo_banco_formatado  # => "748-X"
+boleto.agencia_codigo_cedente  # => "0710.08.54321"
+
+# Carteira C - Correspondente
+boleto_c = BoletoBancario::Sicredi.new do |b|
+  b.agencia          = '0710'
+  b.conta_corrente   = '54321'
+  b.carteira         = 'C'
+  b.posto            = '08'
+  b.byte_id          = '3'
+  b.cedente          = 'Supermercado Bom Preço LTDA'
+  b.numero_documento = '54321'
+  b.sacado           = 'Maria Aparecida'
+  b.documento_sacado = '555.666.777-88'
+  b.data_vencimento  = Date.today + 10
+  b.valor_documento  = 1200.00
 end
 ```
 
@@ -164,13 +441,21 @@ boleto = BoletoBancario::Nubank.new do |b|
   b.agencia          = '0001'
   b.conta_corrente   = '1234567890'
   b.carteira         = '1'
-  b.cedente          = 'Empresa LTDA'
-  b.numero_documento = '12345678901'
-  b.sacado           = 'Cliente'
-  b.documento_sacado = '123.456.789-00'
+  b.cedente          = 'Startup Digital LTDA'
+  b.documento_cedente = '55.666.777/0001-88'
+  b.endereco_cedente = 'Rua Capote Valente, 39 - Pinheiros - São Paulo/SP'
+  b.numero_documento = '00012345678'
+  b.sacado           = 'Amanda Torres'
+  b.documento_sacado = '666.777.888-99'
+  b.endereco_sacado  = 'Av. Rebouças, 1000 - Apt 42 - São Paulo/SP'
   b.data_vencimento  = Date.today + 7
-  b.valor_documento  = 99.90
+  b.valor_documento  = 299.90
+  b.instrucoes       = 'Pagamento referente à assinatura mensal'
 end
+
+boleto.codigo_banco_formatado  # => "260-0"
+boleto.nosso_numero            # => "00012345678-9"
+boleto.agencia_codigo_cedente  # => "0001 / 1234567890-3"
 ```
 
 ### Inter
@@ -178,15 +463,23 @@ end
 ```ruby
 boleto = BoletoBancario::Inter.new do |b|
   b.agencia          = '0001'
-  b.conta_corrente   = '1234567890'
+  b.conta_corrente   = '9876543210'
   b.carteira         = '112'
-  b.cedente          = 'Empresa LTDA'
-  b.numero_documento = '12345678901'
-  b.sacado           = 'Cliente'
-  b.documento_sacado = '123.456.789-00'
-  b.data_vencimento  = Date.today + 7
-  b.valor_documento  = 199.90
+  b.cedente          = 'E-commerce Express LTDA'
+  b.documento_cedente = '66.777.888/0001-99'
+  b.endereco_cedente = 'Av. Raja Gabaglia, 1000 - Belo Horizonte/MG'
+  b.numero_documento = '00098765432'
+  b.sacado           = 'Ricardo Gomes'
+  b.documento_sacado = '777.888.999-00'
+  b.endereco_sacado  = 'Rua da Bahia, 500 - Belo Horizonte/MG'
+  b.data_vencimento  = Date.today + 5
+  b.valor_documento  = 1599.00
+  b.instrucoes       = 'Pedido #98765 - Entrega expressa inclusa'
 end
+
+boleto.codigo_banco_formatado  # => "077-9"
+boleto.nosso_numero            # => "00098765432-9"
+boleto.agencia_codigo_cedente  # => "0001 / 9876543210-3"
 ```
 
 ### C6 Bank
@@ -194,15 +487,23 @@ end
 ```ruby
 boleto = BoletoBancario::C6Bank.new do |b|
   b.agencia          = '0001'
-  b.conta_corrente   = '1234567890'
+  b.conta_corrente   = '5678901234'
   b.carteira         = '1'
-  b.cedente          = 'Empresa LTDA'
-  b.numero_documento = '12345678901'
-  b.sacado           = 'Cliente'
-  b.documento_sacado = '123.456.789-00'
-  b.data_vencimento  = Date.today + 7
-  b.valor_documento  = 299.90
+  b.cedente          = 'Fintech Solutions LTDA'
+  b.documento_cedente = '77.888.999/0001-00'
+  b.endereco_cedente = 'Av. Faria Lima, 3000 - 15º andar - São Paulo/SP'
+  b.numero_documento = '00056789012'
+  b.sacado           = 'Camila Rodrigues'
+  b.documento_sacado = '888.999.000-11'
+  b.endereco_sacado  = 'Rua Pamplona, 200 - São Paulo/SP'
+  b.data_vencimento  = Date.today + 10
+  b.valor_documento  = 4500.00
+  b.instrucoes       = 'Parcela 3/6 - Contrato de serviços'
 end
+
+boleto.codigo_banco_formatado  # => "336-5"
+boleto.nosso_numero            # => "00056789012-4"
+boleto.agencia_codigo_cedente  # => "0001 / 5678901234-3"
 ```
 
 ## Herança e Customização
