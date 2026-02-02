@@ -2,48 +2,71 @@
 
 module BoletoBancario
   module Renderers
-    # Renderizador de boletos em formato HTML.
+    # Renderizador de boletos em formato HTML usando templates ERB.
     #
-    # @example Gerando HTML
+    # @example Gerando HTML com template padrão
     #
     #    boleto = BoletoBancario::Itau.new(...)
     #    html_content = BoletoBancario::Renderers::HtmlRenderer.new(boleto).render
     #
+    # @example Customizando o caminho dos templates
+    #
+    #    class MyHtmlRenderer < BoletoBancario::Renderers::HtmlRenderer
+    #      self.template_path = 'path/to/my/templates'
+    #    end
+    #
+    #    renderer = MyHtmlRenderer.new(boleto)
+    #    html = renderer.render
+    #
     class HtmlRenderer < Base
-      # Renderiza o boleto em HTML.
+      # Renderiza o boleto em HTML usando template ERB.
       #
       # @return [String] O conteúdo HTML do boleto
       #
       def render
-        <<~HTML
-          <!DOCTYPE html>
-          <html lang="pt-BR">
-          <head>
-            <meta charset="UTF-8">
-            <meta name="viewport" content="width=device-width, initial-scale=1.0">
-            <title>Boleto Bancário</title>
-            <style>
-              #{css_styles}
-            </style>
-          </head>
-          <body>
-            <div class="boleto">
-              #{render_header}
-              #{render_linha_digitavel}
-              #{render_cedente_info}
-              #{render_payment_info}
-              #{render_sacado_info}
-              #{render_instructions}
-              #{render_barcode_section}
-            </div>
-          </body>
-          </html>
-        HTML
+        render_template('boleto.html.erb')
+      end
+
+      # Retorna os estilos CSS para o boleto.
+      # Pode ser sobrescrito em subclasses para customização.
+      #
+      # @return [String]
+      #
+      def css_styles
+        css_file = File.join(template_path, 'boleto_styles.css')
+        if File.exist?(css_file)
+          File.read(css_file)
+        else
+          default_css_styles
+        end
+      end
+
+      # Retorna a lista de instruções não vazias.
+      #
+      # @return [Array<String>]
+      #
+      def instructions
+        [
+          boleto.instrucoes1,
+          boleto.instrucoes2,
+          boleto.instrucoes3,
+          boleto.instrucoes4,
+          boleto.instrucoes5,
+          boleto.instrucoes6
+        ].compact.reject(&:empty?)
+      end
+
+      # Retorna o nome do banco formatado.
+      #
+      # @return [String]
+      #
+      def bank_name
+        boleto.class.name.split('::').last
       end
 
       private
 
-      def css_styles
+      def default_css_styles
         <<~CSS
           * { margin: 0; padding: 0; box-sizing: border-box; }
           body { font-family: Arial, sans-serif; font-size: 12px; }
@@ -63,126 +86,6 @@ module BoletoBancario
           .barcode { text-align: center; margin: 20px 0; font-family: 'Libre Barcode 128', monospace; font-size: 48px; }
           .barcode-text { font-size: 10px; margin-top: 5px; }
         CSS
-      end
-
-      def render_header
-        <<~HTML
-          <div class="header">
-            <div class="bank-name">#{boleto.class.name.demodulize}</div>
-            <div class="bank-code">#{boleto.codigo_banco_formatado}</div>
-          </div>
-        HTML
-      end
-
-      def render_linha_digitavel
-        <<~HTML
-          <div class="linha-digitavel">#{linha_digitavel}</div>
-        HTML
-      end
-
-      def render_cedente_info
-        <<~HTML
-          <div class="info-row">
-            <div class="info-cell" style="flex: 2;">
-              <label>Cedente</label>
-              <span>#{boleto.cedente}</span>
-            </div>
-            <div class="info-cell">
-              <label>CPF/CNPJ</label>
-              <span>#{boleto.documento_cedente}</span>
-            </div>
-            <div class="info-cell">
-              <label>Agência/Código Cedente</label>
-              <span>#{boleto.agencia_codigo_cedente}</span>
-            </div>
-          </div>
-        HTML
-      end
-
-      def render_payment_info
-        <<~HTML
-          <div class="info-row">
-            <div class="info-cell">
-              <label>Data Vencimento</label>
-              <span>#{data_vencimento_formatada}</span>
-            </div>
-            <div class="info-cell">
-              <label>Valor Documento</label>
-              <span>R$ #{valor_formatado}</span>
-            </div>
-            <div class="info-cell">
-              <label>Nosso Número</label>
-              <span>#{nosso_numero}</span>
-            </div>
-            <div class="info-cell">
-              <label>Nº Documento</label>
-              <span>#{boleto.numero_documento}</span>
-            </div>
-          </div>
-          <div class="info-row">
-            <div class="info-cell">
-              <label>Carteira</label>
-              <span>#{boleto.carteira_formatada}</span>
-            </div>
-            <div class="info-cell">
-              <label>Espécie</label>
-              <span>#{boleto.especie_documento}</span>
-            </div>
-            <div class="info-cell">
-              <label>Data Documento</label>
-              <span>#{data_documento_formatada}</span>
-            </div>
-            <div class="info-cell">
-              <label>Aceite</label>
-              <span>#{boleto.aceite_formatado}</span>
-            </div>
-          </div>
-        HTML
-      end
-
-      def render_sacado_info
-        <<~HTML
-          <div class="info-row">
-            <div class="info-cell" style="flex: 2;">
-              <label>Sacado</label>
-              <span>#{boleto.sacado}</span>
-            </div>
-            <div class="info-cell">
-              <label>CPF/CNPJ</label>
-              <span>#{boleto.documento_sacado}</span>
-            </div>
-          </div>
-        HTML
-      end
-
-      def render_instructions
-        instructions = [
-          boleto.instrucoes1,
-          boleto.instrucoes2,
-          boleto.instrucoes3,
-          boleto.instrucoes4,
-          boleto.instrucoes5,
-          boleto.instrucoes6
-        ].compact
-
-        return '' if instructions.empty?
-
-        <<~HTML
-          <div class="instructions">
-            <h4>Instruções</h4>
-            <ul>
-              #{instructions.map { |i| "<li>#{i}</li>" }.join}
-            </ul>
-          </div>
-        HTML
-      end
-
-      def render_barcode_section
-        <<~HTML
-          <div class="barcode">
-            <div class="barcode-text">#{codigo_de_barras}</div>
-          </div>
-        HTML
       end
     end
   end

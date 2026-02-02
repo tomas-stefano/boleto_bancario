@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require 'erb'
+
 module BoletoBancario
   module Renderers
     # Classe base para renderizadores de boletos.
@@ -11,6 +13,15 @@ module BoletoBancario
     #
     class Base
       attr_reader :boleto
+
+      class << self
+        # Caminho customizado para templates ERB.
+        # Se não definido, usa o caminho padrão dos templates bundled.
+        #
+        # @return [String, nil]
+        #
+        attr_accessor :template_path
+      end
 
       # Inicializa o renderizador com um boleto.
       #
@@ -32,7 +43,64 @@ module BoletoBancario
         raise NotImplementedError, "#{self.class} deve implementar #render"
       end
 
+      # Retorna o partial path para integração com Rails.
+      #
+      # @return [String]
+      #
+      def to_partial_path
+        boleto.to_partial_path
+      end
+
       protected
+
+      # Retorna o caminho para os templates.
+      # Usa o template_path da classe se definido, caso contrário usa o padrão.
+      #
+      # @return [String]
+      #
+      def template_path
+        self.class.template_path || default_template_path
+      end
+
+      # Retorna o caminho padrão para os templates bundled.
+      #
+      # @return [String]
+      #
+      def default_template_path
+        File.expand_path('../templates', __dir__)
+      end
+
+      # Renderiza um template ERB.
+      #
+      # @param [String] template_name Nome do arquivo de template (ex: 'boleto.html.erb')
+      # @return [String] Conteúdo renderizado
+      #
+      def render_template(template_name)
+        template_file = File.join(template_path, template_name)
+        template_content = File.read(template_file)
+        erb = ERB.new(template_content, trim_mode: '-')
+        erb.result(binding)
+      end
+
+      # Renderiza um partial ERB.
+      #
+      # @param [String] partial_name Nome do partial (sem underscore, ex: 'header')
+      # @return [String] Conteúdo renderizado
+      #
+      def render_partial(partial_name)
+        render_template("_#{partial_name}.html.erb")
+      end
+
+      # Retorna as variáveis locais disponíveis nos templates.
+      #
+      # @return [Hash]
+      #
+      def locals
+        {
+          boleto: boleto,
+          renderer: self
+        }
+      end
 
       # Retorna o código de barras do boleto.
       #
