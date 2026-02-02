@@ -1,4 +1,5 @@
-# encoding: utf-8
+# frozen_string_literal: true
+
 require 'spec_helper'
 
 class Bradesco < BoletoBancario::Bradesco
@@ -13,10 +14,10 @@ end
 
 describe Bradesco do
   describe "on validations" do
-    it { should have_valid(:valor_documento).when(99, 249, 250) }
-    it { should_not have_valid(:valor_documento).when(250.01, 260) }
+    it { is_expected.to have_valid(:valor_documento).when(99, 249, 250) }
+    it { is_expected.not_to have_valid(:valor_documento).when(250.01, 260) }
 
-    it { should have_valid(:carteira).when(6, 19, 22) }
-    it { should_not have_valid(:carteira).when(3, 9, 21, 15) }
+    it { is_expected.to have_valid(:carteira).when(6, 19, 22) }
+    it { is_expected.not_to have_valid(:carteira).when(3, 9, 21, 15) }
   end
 end

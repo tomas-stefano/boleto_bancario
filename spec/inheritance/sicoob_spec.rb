@@ -1,4 +1,5 @@
-# encoding: utf-8
+# frozen_string_literal: true
+
 require 'spec_helper'
 
 class Sicoob < BoletoBancario::Sicoob
@@ -13,10 +14,10 @@ end
 
 describe Sicoob do
   describe "on validations" do
-    it { should have_valid(:valor_documento).when(99, 99.99, 25) }
-    it { should_not have_valid(:valor_documento).when(456.51, 1000) }
+    it { is_expected.to have_valid(:valor_documento).when(99, 99.99, 25) }
+    it { is_expected.not_to have_valid(:valor_documento).when(456.51, 1000) }
 
-    it { should have_valid(:carteira).when(1) }
-    it { should_not have_valid(:carteira).when(9) }
+    it { is_expected.to have_valid(:carteira).when(1) }
+    it { is_expected.not_to have_valid(:carteira).when(9) }
   end
 end
