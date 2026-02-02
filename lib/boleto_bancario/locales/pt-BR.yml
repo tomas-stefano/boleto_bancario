@@ -1,0 +1,55 @@
+pt-BR:
+  boleto_bancario:
+    labels:
+      cedente: "Cedente"
+      sacado: "Sacado"
+      nosso_numero: "Nosso Número"
+      numero_documento: "Número do Documento"
+      data_vencimento: "Data de Vencimento"
+      valor_documento: "Valor do Documento"
+      agencia_cedente: "Agência/Código Cedente"
+      especie: "Espécie"
+      especie_documento: "Espécie Doc."
+      aceite: "Aceite"
+      data_documento: "Data do Documento"
+      carteira: "Carteira"
+      instrucoes: "Instruções"
+      local_pagamento: "Local de Pagamento"
+      linha_digitavel: "Linha Digitável"
+      codigo_banco: "Código do Banco"
+      documento_cedente: "CPF/CNPJ Cedente"
+      documento_sacado: "CPF/CNPJ Sacado"
+      endereco_cedente: "Endereço Cedente"
+      endereco_sacado: "Endereço Sacado"
+      conta_corrente: "Conta Corrente"
+      agencia: "Agência"
+      codigo_cedente: "Código do Cedente"
+
+    errors:
+      messages:
+        carteira_invalida: "carteira inválida"
+        agencia_invalida: "agência inválida"
+        conta_corrente_invalida: "conta corrente inválida"
+        valor_documento_invalido: "valor do documento inválido"
+        numero_documento_invalido: "número do documento inválido"
+        codigo_cedente_invalido: "código do cedente inválido"
+        documento_invalido: "documento inválido (CPF/CNPJ)"
+        data_vencimento_invalida: "data de vencimento inválida"
+
+    banks:
+      banco_brasil: "Banco do Brasil"
+      bradesco: "Bradesco"
+      itau: "Itaú"
+      santander: "Santander"
+      caixa: "Caixa Econômica Federal"
+      banrisul: "Banrisul"
+      sicoob: "Sicoob"
+      sicredi: "Sicredi"
+      nubank: "Nubank"
+      inter: "Banco Inter"
+      c6_bank: "C6 Bank"
+
+    defaults:
+      local_pagamento: "PAGÁVEL EM QUALQUER BANCO ATÉ O VENCIMENTO"
+      especie_documento: "DM"
+      especie: "R$"
