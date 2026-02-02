@@ -1,84 +1,85 @@
-# encoding: utf-8
+# frozen_string_literal: true
+
 require 'spec_helper'
 
 module BoletoBancario
   module Core
     describe BancoBrasil do
-      it_should_behave_like 'boleto bancario'
+      it_behaves_like 'boleto bancario'
 
       describe "on validations" do
         context "#agencia" do
-          it { should have_valid(:agencia).when('123', '1234') }
-          it { should_not have_valid(:agencia).when('12345', '123456', nil, '') }
+          it { is_expected.to have_valid(:agencia).when('123', '1234') }
+          it { is_expected.not_to have_valid(:agencia).when('12345', '123456', nil, '') }
         end
 
         context "#conta_corrente" do
-          it { should have_valid(:conta_corrente).when('12345678', '12345', '1234') }
-          it { should_not have_valid(:conta_corrente).when('123456789', nil, '') }
+          it { is_expected.to have_valid(:conta_corrente).when('12345678', '12345', '1234') }
+          it { is_expected.not_to have_valid(:conta_corrente).when('123456789', nil, '') }
         end
 
         context "#codigo_cedente" do
-          it { should have_valid(:codigo_cedente).when('1234', '123456', '1234567', '12345678') }
-          it { should_not have_valid(:codigo_cedente).when('123', '1', '12', nil, '') }
+          it { is_expected.to have_valid(:codigo_cedente).when('1234', '123456', '1234567', '12345678') }
+          it { is_expected.not_to have_valid(:codigo_cedente).when('123', '1', '12', nil, '') }
         end
 
         context "#carteira" do
-          it { should have_valid(:carteira).when('12', '16', '17', '18', 12, 18) }
-          it { should_not have_valid(:carteira).when(nil, '', '5', '20', '100', 14, 19) }
+          it { is_expected.to have_valid(:carteira).when('12', '16', '17', '18', 12, 18) }
+          it { is_expected.not_to have_valid(:carteira).when(nil, '', '5', '20', '100', 14, 19) }
         end
 
         describe "#valor_documento" do
-          it { should have_valid(:valor_documento).when(1, 1.99, 100.99, 99_999_999.99, '100.99') }
-          it { should_not have_valid(:valor_documento).when(nil, '', '100,99', 100_000_000.99) }
+          it { is_expected.to have_valid(:valor_documento).when(1, 1.99, 100.99, 99_999_999.99, '100.99') }
+          it { is_expected.not_to have_valid(:valor_documento).when(nil, '', '100,99', 100_000_000.99) }
         end
 
         context "when 'carteira' is 16 and 'codigo_cedente' 6 digits" do
           subject { BancoBrasil.new(carteira: 16, codigo_cedente: 123456) }
 
-          it { should have_valid(:numero_documento).when('1234', '12345', '12345', '12345678911234567') }
-          it { should_not have_valid(:numero_documento).when(nil, '', '123456', '123456789112345678') }
+          it { is_expected.to have_valid(:numero_documento).when('1234', '12345', '12345', '12345678911234567') }
+          it { is_expected.not_to have_valid(:numero_documento).when(nil, '', '123456', '123456789112345678') }
         end
 
         context "when 'carteira' is 18 and 'codigo_cedente' 6 digits" do
           subject { BancoBrasil.new(carteira: 18, codigo_cedente: 123456) }
 
-          it { should have_valid(:numero_documento).when('1234', '12345', '12345678911234567') }
-          it { should_not have_valid(:numero_documento).when(nil, '', '123456', '1234567', '123456789112345678') }
+          it { is_expected.to have_valid(:numero_documento).when('1234', '12345', '12345678911234567') }
+          it { is_expected.not_to have_valid(:numero_documento).when(nil, '', '123456', '1234567', '123456789112345678') }
         end
 
         context "when 'carteira' is 12 and 'codigo_cedente' 6 digits" do
           subject { BancoBrasil.new(carteira: 12, codigo_cedente: 123456) }
 
-          it { should have_valid(:numero_documento).when('12345', '1234') }
-          it { should_not have_valid(:numero_documento).when(nil, '', '123456', '12345678911234567') }
+          it { is_expected.to have_valid(:numero_documento).when('12345', '1234') }
+          it { is_expected.not_to have_valid(:numero_documento).when(nil, '', '123456', '12345678911234567') }
         end
 
         context "when 'codigo_cedente' 4 digits" do
           subject { BancoBrasil.new(codigo_cedente: 1234) }
 
-          it { should have_valid(:numero_documento).when('123', '1235', '1234567') }
-          it { should_not have_valid(:numero_documento).when(nil, '', '12345678', '12345678911234567') }
+          it { is_expected.to have_valid(:numero_documento).when('123', '1235', '1234567') }
+          it { is_expected.not_to have_valid(:numero_documento).when(nil, '', '12345678', '12345678911234567') }
         end
 
         context "when 'codigo_cedente' 7 digits" do
           subject { BancoBrasil.new(codigo_cedente: 1234567) }
 
-          it { should have_valid(:numero_documento).when('1234567890', '1235', '1234567') }
-          it { should_not have_valid(:numero_documento).when(nil, '', '12345678901', '12345678911234567') }
+          it { is_expected.to have_valid(:numero_documento).when('1234567890', '1235', '1234567') }
+          it { is_expected.not_to have_valid(:numero_documento).when(nil, '', '12345678901', '12345678911234567') }
         end
 
         context "when 'codigo_cedente' 8 digits" do
           subject { BancoBrasil.new(codigo_cedente: 12345678) }
 
-          it { should have_valid(:numero_documento).when('123456789', '1235', '1234567') }
-          it { should_not have_valid(:numero_documento).when(nil, '', '1234567890', '12345678911234567') }
+          it { is_expected.to have_valid(:numero_documento).when('123456789', '1235', '1234567') }
+          it { is_expected.not_to have_valid(:numero_documento).when(nil, '', '1234567890', '12345678911234567') }
         end
 
         context "when 'codigo_cedente' unsupported" do
           subject { BancoBrasil.new(codigo_cedente: 12345) }
 
-          it { should have_valid(:numero_documento).when('123456789', '1235', '1234567', '1234567890', '12345678911234567') }
-          it { should_not have_valid(:numero_documento).when(nil, '') }
+          it { is_expected.to have_valid(:numero_documento).when('123456789', '1235', '1234567', '1234567890', '12345678911234567') }
+          it { is_expected.not_to have_valid(:numero_documento).when(nil, '') }
         end
       end
 

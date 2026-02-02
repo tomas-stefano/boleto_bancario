@@ -1,4 +1,5 @@
-# encoding: utf-8
+# frozen_string_literal: true
+
 require 'spec_helper'
 
 module BoletoBancario
@@ -124,7 +125,7 @@ module BoletoBancario
 
       describe "#carteira_formatada" do
         it "returns 'carteira' as default" do
-          subject.stub(:carteira).and_return('Foo')
+          allow(subject).to receive(:carteira).and_return('Foo')
 
           expect(subject.carteira_formatada).to eq 'Foo'
         end
@@ -132,43 +133,43 @@ module BoletoBancario
 
       describe "#valor_documento_formatado" do
         context "when period" do
-          before { subject.stub(:valor_documento).and_return(123.45) }
+          before { allow(subject).to receive(:valor_documento).and_return(123.45) }
 
           it { expect(subject.valor_formatado_para_codigo_de_barras).to eq '0000012345' }
         end
 
         context "when less than ten" do
-          before { subject.stub(:valor_documento).and_return(5.0) }
+          before { allow(subject).to receive(:valor_documento).and_return(5.0) }
 
           it { expect(subject.valor_formatado_para_codigo_de_barras).to eq '0000000500' }
         end
 
         context "when have many decimal points" do
-          before { subject.stub(:valor_documento).and_return(10.999999) }
+          before { allow(subject).to receive(:valor_documento).and_return(10.999999) }
 
           it { expect(subject.valor_formatado_para_codigo_de_barras).to eq '0000001099' }
         end
 
         context "when integer" do
-          before { subject.stub(:valor_documento).and_return(1_999) }
+          before { allow(subject).to receive(:valor_documento).and_return(1_999) }
 
           it { expect(subject.valor_formatado_para_codigo_de_barras).to eq '0000199900' }
         end
 
         context "when period with string" do
-          before { subject.stub(:valor_documento).and_return('236.91') }
+          before { allow(subject).to receive(:valor_documento).and_return('236.91') }
 
           it { expect(subject.valor_formatado_para_codigo_de_barras).to eq '0000023691' }
         end
 
         context "when period with string with many decimals" do
-          before { subject.stub(:valor_documento).and_return('10.999999') }
+          before { allow(subject).to receive(:valor_documento).and_return('10.999999') }
 
           it { expect(subject.valor_formatado_para_codigo_de_barras).to eq '0000001099' }
         end
 
         context "when the cents is not broken" do
-          before { subject.stub(:valor_documento).and_return(229.5) }
+          before { allow(subject).to receive(:valor_documento).and_return(229.5) }
 
           it { expect(subject.valor_formatado_para_codigo_de_barras).to eq '0000022950' }
         end

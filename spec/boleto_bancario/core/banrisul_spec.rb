@@ -1,34 +1,36 @@
+# frozen_string_literal: true
+
 require 'spec_helper'
 
 module BoletoBancario
   module Core
     describe Banrisul do
-      it_should_behave_like 'boleto bancario'
+      it_behaves_like 'boleto bancario'
 
       describe "on validations" do
         it "agencia should have 3 digits" do
-          should have_valid(:agencia).when("1", "123", 1, 123)
-          should_not have_valid(:agencia).when(nil, "", "1234")
+          is_expected.to have_valid(:agencia).when("1", "123", 1, 123)
+          is_expected.not_to have_valid(:agencia).when(nil, "", "1234")
         end
 
         it "codigo cedente should have 07 digits" do
-          should have_valid(:codigo_cedente).when("1234567", "12", "12345")
-          should_not have_valid(:codigo_cedente).when(nil, "", "12345678", "123456789")
+          is_expected.to have_valid(:codigo_cedente).when("1234567", "12", "12345")
+          is_expected.not_to have_valid(:codigo_cedente).when(nil, "", "12345678", "123456789")
         end
 
         it "numero documento should have 8 digits" do
-          should have_valid(:numero_documento).when("12345678", "1234")
-          should_not have_valid(:numero_documento).when(nil, "", "123456789")
+          is_expected.to have_valid(:numero_documento).when("12345678", "1234")
+          is_expected.not_to have_valid(:numero_documento).when(nil, "", "123456789")
         end
 
         it "carteira is supported" do
-          should have_valid(:carteira).when('00', '08', 0, 8)
-          should_not have_valid(:carteira).when(nil, '', '5', '20', '100')
+          is_expected.to have_valid(:carteira).when('00', '08', 0, 8)
+          is_expected.not_to have_valid(:carteira).when(nil, '', '5', '20', '100')
         end
 
         describe "#valor_documento" do
-          it { should have_valid(:valor_documento).when(1, 1.99, 100.99, 99_999_999.99, '100.99') }
-          it { should_not have_valid(:valor_documento).when(nil, '', '100,99', 100_000_000.99) }
+          it { is_expected.to have_valid(:valor_documento).when(1, 1.99, 100.99, 99_999_999.99, '100.99') }
+          it { is_expected.not_to have_valid(:valor_documento).when(nil, '', '100,99', 100_000_000.99) }
         end
       end
 

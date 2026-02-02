@@ -1,26 +1,27 @@
-# encoding: utf-8
+# frozen_string_literal: true
+
 require 'spec_helper'
 
 module BoletoBancario
   module Core
     describe Bradesco do
-      it_should_behave_like 'boleto bancario'
+      it_behaves_like 'boleto bancario'
 
       describe "on validations" do
-        it { should have_valid(:agencia).when('1', '123', '1234') }
-        it { should_not have_valid(:agencia).when('12345', '123456', '1234567', nil, '') }
+        it { is_expected.to have_valid(:agencia).when('1', '123', '1234') }
+        it { is_expected.not_to have_valid(:agencia).when('12345', '123456', '1234567', nil, '') }
 
-        it { should have_valid(:conta_corrente).when('1', '123', '1234') }
-        it { should_not have_valid(:conta_corrente).when('12345678', '123456789', nil, '') }
+        it { is_expected.to have_valid(:conta_corrente).when('1', '123', '1234') }
+        it { is_expected.not_to have_valid(:conta_corrente).when('12345678', '123456789', nil, '') }
 
-        it { should have_valid(:numero_documento).when(12345678911, '12345678911', '13') }
-        it { should_not have_valid(:numero_documento).when('', nil, 123456789112, 1234567891113) }
+        it { is_expected.to have_valid(:numero_documento).when(12345678911, '12345678911', '13') }
+        it { is_expected.not_to have_valid(:numero_documento).when('', nil, 123456789112, 1234567891113) }
 
-        it { should have_valid(:carteira).when('03', '06', '09', '19', '21', '22', 3, 9, 19, 21, 22) }
-        it { should_not have_valid(:carteira).when(nil, '', '05', '20', '100') }
+        it { is_expected.to have_valid(:carteira).when('03', '06', '09', '19', '21', '22', 3, 9, 19, 21, 22) }
+        it { is_expected.not_to have_valid(:carteira).when(nil, '', '05', '20', '100') }
 
-        it { should have_valid(:valor_documento).when(1, 1.99, 100.99, 99_999_999.99, '100.99') }
-        it { should_not have_valid(:valor_documento).when(nil, '', '100,99', 100_000_000.99) }
+        it { is_expected.to have_valid(:valor_documento).when(1, 1.99, 100.99, 99_999_999.99, '100.99') }
+        it { is_expected.not_to have_valid(:valor_documento).when(nil, '', '100,99', 100_000_000.99) }
       end
 
       describe "#agencia" do
