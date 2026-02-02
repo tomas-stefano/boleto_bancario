@@ -122,6 +122,61 @@ boleto.to_png(height: 80, margin: 20)
 File.binwrite('codigo_barras.png', boleto.to_png)
 ```
 
+### Customizando Templates HTML
+
+O HTML é gerado usando templates ERB que podem ser customizados.
+
+#### Usando um Caminho Customizado
+
+```ruby
+class MeuHtmlRenderer < BoletoBancario::Renderers::HtmlRenderer
+  self.template_path = '/caminho/para/meus/templates'
+end
+
+boleto = BoletoBancario::Itau.new(...)
+renderer = MeuHtmlRenderer.new(boleto)
+html = renderer.render
+```
+
+#### Estrutura dos Templates
+
+Os templates padrão estão em `lib/boleto_bancario/templates/`:
+
+| Arquivo | Descrição |
+|---------|-----------|
+| `boleto.html.erb` | Template principal |
+| `boleto_styles.css` | Estilos CSS |
+| `_header.html.erb` | Cabeçalho com nome e código do banco |
+| `_cedente.html.erb` | Dados do cedente |
+| `_sacado.html.erb` | Dados do sacado |
+| `_payment.html.erb` | Informações de pagamento |
+| `_instructions.html.erb` | Instruções do boleto |
+| `_barcode.html.erb` | Código de barras |
+
+#### Rails: Copiando Templates
+
+```bash
+rails generate boleto_bancario:views
+```
+
+Isso copia os templates para `app/views/boletos/`, onde você pode customizá-los.
+
+#### Rails: Renderizando com Partials
+
+O boleto suporta `to_partial_path` para integração com Rails:
+
+```erb
+<%# app/views/boletos/_itau.html.erb %>
+<div class="meu-boleto-customizado">
+  <h1><%= boleto.cedente %></h1>
+  <p>Valor: R$ <%= number_to_currency(boleto.valor_documento) %></p>
+  <!-- ... -->
+</div>
+
+<%# Em qualquer view %>
+<%= render @boleto %>
+```
+
 ## Exemplos por Banco
 
 ### Banco do Brasil
