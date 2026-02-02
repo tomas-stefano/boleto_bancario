@@ -1,4 +1,5 @@
-# encoding: utf-8
+# frozen_string_literal: true
+
 module BoletoBancario
   module Core
     # @abstract Métodos { #codigo_banco, #digito_codigo_banco, #agencia_codigo_cedente, #nosso_numero, #codigo_de_barras_do_banco}
@@ -500,6 +501,34 @@ module BoletoBancario
       #
       def persisted?
         false
+      end
+
+      # Renderiza o boleto em formato PDF.
+      #
+      # @return [String] Conteúdo binário do PDF
+      # @raise [ArgumentError] Se o boleto não for válido
+      #
+      def to_pdf
+        Renderers::PdfRenderer.new(self).render
+      end
+
+      # Renderiza o boleto em formato HTML.
+      #
+      # @return [String] Conteúdo HTML do boleto
+      # @raise [ArgumentError] Se o boleto não for válido
+      #
+      def to_html
+        Renderers::HtmlRenderer.new(self).render
+      end
+
+      # Renderiza o código de barras em formato PNG.
+      #
+      # @param [Hash] options Opções para o renderizador PNG
+      # @return [String] Conteúdo binário do PNG
+      # @raise [ArgumentError] Se o boleto não for válido
+      #
+      def to_png(options = {})
+        Renderers::PngRenderer.new(self, options).render
       end
 
       # Método usado para verificar se deve realizar a validação de tamanho do campo 'agência'.
