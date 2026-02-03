@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Boleto Bancario</title>
+  <style>
+    <%= css_styles %>
+  </style>
+</head>
+<body>
+  <div class="boleto">
+    <%= render_partial('header') %>
+    <div class="linha-digitavel"><%= linha_digitavel %></div>
+    <%= render_partial('cedente') %>
+    <%= render_partial('payment') %>
+    <%= render_partial('sacado') %>
+    <%= render_partial('instructions') %>
+    <%= render_partial('barcode') %>
+  </div>
+</body>
+</html>

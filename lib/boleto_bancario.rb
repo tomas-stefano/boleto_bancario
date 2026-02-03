@@ -1,12 +1,17 @@
-# encoding: utf-8
+# frozen_string_literal: true
+
 require 'boleto_bancario/version'
 require 'active_model'
 require 'active_support/core_ext/class'
 require 'active_support/core_ext/enumerable'
 require 'active_support/core_ext/object'
 require 'active_support/core_ext/string'
+require 'i18n'
 
-# Copyright (C) 2012 Tomás D'Stefano <http://successoft.com>
+# Load locale files
+I18n.load_path += Dir[File.join(File.dirname(__FILE__), 'boleto_bancario', 'locales', '*.yml')]
+
+# Copyright (C) 2012-2026 Tomás D'Stefano <http://successoft.com>
 #
 # @author Tomás D'Stefano <tomas_stefano@successoft.com>
 #
@@ -17,12 +22,11 @@ require 'active_support/core_ext/string'
 # Essa biblioteca é baseada em outras <b>ótimas</b> bibliotecas.
 # Recomendo analisar muito bem cada solução!
 #
-# * Novo Gateway de Pagamentos da Locaweb: http://www.locaweb.com.br/produtos/gateway-pagamento.html
 # * Brcobranca: https://github.com/kivanio/brcobranca
 # * Boleto Php: http://boletophp.com.br
 # * Stella Caelum: http://stella.caelum.com.br
 #
-# === Coreuições
+# === Contribuições
 #
 # Você pode contribuir de N formas. Seguem elas:
 #
@@ -63,10 +67,11 @@ module BoletoBancario
     autoload :BancoBrasil
     autoload :Banrisul
     autoload :Bradesco
+    autoload :C6Bank
     autoload :Caixa
-    autoload :Hsbc
+    autoload :Inter
     autoload :Itau
-    autoload :Real
+    autoload :Nubank
     autoload :Santander
     autoload :Sicoob
     autoload :Sicredi
@@ -77,6 +82,7 @@ module BoletoBancario
   module Calculos
     extend ActiveSupport::Autoload
 
+    autoload :Documento
     autoload :FatorVencimento
     autoload :FatoresDeMultiplicacao
     autoload :LinhaDigitavel
@@ -89,6 +95,17 @@ module BoletoBancario
     autoload :Modulo11FatorDe9a2RestoX
     autoload :ModuloNumeroDeControle
     autoload :Digitos
+  end
+
+  # Módulo que possui classes para renderização de boletos em diferentes formatos.
+  #
+  module Renderers
+    extend ActiveSupport::Autoload
+
+    autoload :Base
+    autoload :PdfRenderer
+    autoload :HtmlRenderer
+    autoload :PngRenderer
   end
 
   include Core

@@ -1,0 +1,36 @@
+<div class="info-row">
+  <div class="info-cell">
+    <label>Data Vencimento</label>
+    <span><%= data_vencimento_formatada %></span>
+  </div>
+  <div class="info-cell">
+    <label>Valor Documento</label>
+    <span>R$ <%= valor_formatado %></span>
+  </div>
+  <div class="info-cell">
+    <label>Nosso Numero</label>
+    <span><%= nosso_numero %></span>
+  </div>
+  <div class="info-cell">
+    <label>N Documento</label>
+    <span><%= boleto.numero_documento %></span>
+  </div>
+</div>
+<div class="info-row">
+  <div class="info-cell">
+    <label>Carteira</label>
+    <span><%= boleto.carteira_formatada %></span>
+  </div>
+  <div class="info-cell">
+    <label>Especie</label>
+    <span><%= boleto.especie_documento %></span>
+  </div>
+  <div class="info-cell">
+    <label>Data Documento</label>
+    <span><%= data_documento_formatada %></span>
+  </div>
+  <div class="info-cell">
+    <label>Aceite</label>
+    <span><%= boleto.aceite_formatado %></span>
+  </div>
+</div>

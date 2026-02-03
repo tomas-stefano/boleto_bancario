@@ -1,4 +1,5 @@
-# encoding: utf-8
+# frozen_string_literal: true
+
 require 'spec_helper'
 
 class Boleto < BoletoBancario::Boleto
@@ -9,7 +10,7 @@ end
 
 describe Boleto do
   describe "on validations" do
-    it { should have_valid(:valor_documento).when(100.99, 9_999.99) }
-    it { should_not have_valid(:valor_documento).when(10_000.00, 99_999.99) }
+    it { is_expected.to have_valid(:valor_documento).when(100.99, 9_999.99) }
+    it { is_expected.not_to have_valid(:valor_documento).when(10_000.00, 99_999.99) }
   end
 end

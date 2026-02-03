@@ -1,34 +1,36 @@
+# frozen_string_literal: true
+
 require 'spec_helper'
 
 module BoletoBancario
   module Core
     describe Itau do
-      it_should_behave_like 'boleto bancario'
+      it_behaves_like 'boleto bancario'
 
       describe "on validations" do
         context "#carteira" do
-          it { should have_valid(:carteira).when('107', '109', '174', '175', '196', '198', '126', '131', '146', '122', '142', '143', '150', '168', 109, 131, 168) }
-          it { should_not have_valid(:carteira).when(nil, '', '05', '20', '100', '115', '145', '170') }
+          it { is_expected.to have_valid(:carteira).when('107', '109', '174', '175', '196', '198', '126', '131', '146', '122', '142', '143', '150', '168', 109, 131, 168) }
+          it { is_expected.not_to have_valid(:carteira).when(nil, '', '05', '20', '100', '115', '145', '170') }
         end
 
         describe "#numero_documento" do
-          it { should have_valid(:numero_documento).when('12345', '123456', '12345678') }
-          it { should_not have_valid(:numero_documento).when('123456789', nil, '', '12345678910') }
+          it { is_expected.to have_valid(:numero_documento).when('12345', '123456', '12345678') }
+          it { is_expected.not_to have_valid(:numero_documento).when('123456789', nil, '', '12345678910') }
         end
 
         describe "#conta_corrente" do
-          it { should have_valid(:conta_corrente).when('1', '1234', '12345') }
-          it { should_not have_valid(:conta_corrente).when('123456', nil, '1234567', '') }
+          it { is_expected.to have_valid(:conta_corrente).when('1', '1234', '12345') }
+          it { is_expected.not_to have_valid(:conta_corrente).when('123456', nil, '1234567', '') }
         end
 
         describe "#agencia" do
-          it { should have_valid(:agencia).when('1', '1234', '1234') }
-          it { should_not have_valid(:agencia).when('12345', nil, '123456', '') }
+          it { is_expected.to have_valid(:agencia).when('1', '1234', '1234') }
+          it { is_expected.not_to have_valid(:agencia).when('12345', nil, '123456', '') }
         end
 
         describe "#valor_documento" do
-          it { should have_valid(:valor_documento).when(1, 1.99, 100.99, 99_999_999.99, '100.99') }
-          it { should_not have_valid(:valor_documento).when(nil, '', '100,99', 100_000_000.99) }
+          it { is_expected.to have_valid(:valor_documento).when(1, 1.99, 100.99, 99_999_999.99, '100.99') }
+          it { is_expected.not_to have_valid(:valor_documento).when(nil, '', '100,99', 100_000_000.99) }
         end
 
         describe "#codigo_cedente" do
@@ -36,8 +38,8 @@ module BoletoBancario
             context "when 'carteira' is special: #{carteira_especial}" do
               subject { Itau.new(carteira: carteira_especial) }
 
-              it { should have_valid(:codigo_cedente).when('1', '1234', '12345') }
-              it { should_not have_valid(:codigo_cedente).when('123456', nil, '1234567', '') }
+              it { is_expected.to have_valid(:codigo_cedente).when('1', '1234', '12345') }
+              it { is_expected.not_to have_valid(:codigo_cedente).when('123456', nil, '1234567', '') }
             end
           end
 
@@ -47,7 +49,7 @@ module BoletoBancario
 
               # Código do Cedente não precisa ser validado quando possui essas carteiras.
               #
-              it { should have_valid(:codigo_cedente).when('1', '1234', '12345', nil, '') }
+              it { is_expected.to have_valid(:codigo_cedente).when('1', '1234', '12345', nil, '') }
             end
           end
 
@@ -56,8 +58,8 @@ module BoletoBancario
               context "when 'carteira' is special: #{carteira_especial}" do
                 subject { Itau.new(carteira: carteira_especial) }
 
-                it { should have_valid(:seu_numero).when('1', '1234', '1234567') }
-                it { should_not have_valid(:seu_numero).when('12345678', nil, '123456789', '') }
+                it { is_expected.to have_valid(:seu_numero).when('1', '1234', '1234567') }
+                it { is_expected.not_to have_valid(:seu_numero).when('12345678', nil, '123456789', '') }
               end
             end
 
@@ -67,7 +69,7 @@ module BoletoBancario
 
                 # Seu número não precisa ser validado quando possui essas carteiras.
                 #
-                it { should have_valid(:seu_numero).when('1', '1234', '12345', nil, '') }
+                it { is_expected.to have_valid(:seu_numero).when('1', '1234', '12345', nil, '') }
               end
             end
           end
@@ -148,7 +150,7 @@ module BoletoBancario
         subject { Itau.new(:agencia => '0057', :conta_corrente => '12345') }
 
         it "should return the agency and bank account with digit" do
-          subject.agencia_codigo_cedente.should eq '0057 / 12345-7'
+          expect(subject.agencia_codigo_cedente).to eq '0057 / 12345-7'
         end
       end
 
@@ -157,7 +159,7 @@ module BoletoBancario
           subject { Itau.new(:carteira => '126', :numero_documento => '12345') }
 
           it "should calculate the 'nosso numero' with carteira and document number" do
-            subject.nosso_numero.should eq '126/00012345-8'
+            expect(subject.nosso_numero).to eq '126/00012345-8'
           end
         end
 
@@ -165,7 +167,7 @@ module BoletoBancario
           subject { Itau.new(:carteira => '131', :numero_documento => '6789') }
 
           it "should calculate the 'nosso numero' with carteira and document number" do
-            subject.nosso_numero.should eq '131/00006789-5'
+            expect(subject.nosso_numero).to eq '131/00006789-5'
           end
         end
 
@@ -173,7 +175,7 @@ module BoletoBancario
           subject { Itau.new(:carteira => '146', :numero_documento => '147890') }
 
           it "should calculate the 'nosso numero' with carteira and document number" do
-            subject.nosso_numero.should eq '146/00147890-9'
+            expect(subject.nosso_numero).to eq '146/00147890-9'
           end
         end
 
@@ -181,7 +183,7 @@ module BoletoBancario
           subject { Itau.new(:carteira => '150', :numero_documento => '18765476') }
 
           it "should calculate the 'nosso numero' with carteira and document number" do
-            subject.nosso_numero.should eq '150/18765476-2'
+            expect(subject.nosso_numero).to eq '150/18765476-2'
           end
         end
 
@@ -189,7 +191,7 @@ module BoletoBancario
           subject { Itau.new(:carteira => '168', :numero_documento => '12784698') }
 
           it "should calculate the 'nosso numero' with carteira and document number" do
-            subject.nosso_numero.should eq '168/12784698-3'
+            expect(subject.nosso_numero).to eq '168/12784698-3'
           end
         end
 
@@ -204,7 +206,7 @@ module BoletoBancario
           end
 
           it "should format the 'nosso numero' with agencia, conta_corrente, carteira and document number" do
-            subject.nosso_numero.should eq '110/12345678-8'
+            expect(subject.nosso_numero).to eq '110/12345678-8'
           end
         end
 
@@ -219,7 +221,7 @@ module BoletoBancario
           end
 
           it "should follow the Itau documentation" do
-            subject.nosso_numero.should eq '198/98712345-1'
+            expect(subject.nosso_numero).to eq '198/98712345-1'
           end
         end
       end

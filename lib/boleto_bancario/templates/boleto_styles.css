@@ -1,0 +1,18 @@
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: Arial, sans-serif; font-size: 12px; }
+.boleto { max-width: 800px; margin: 20px auto; border: 1px solid #000; padding: 15px; }
+.header { display: flex; justify-content: space-between; border-bottom: 2px solid #000; padding-bottom: 10px; margin-bottom: 10px; }
+.bank-name { font-size: 18px; font-weight: bold; }
+.bank-code { font-size: 16px; font-weight: bold; }
+.linha-digitavel { text-align: center; font-size: 14px; font-weight: bold; margin: 15px 0; letter-spacing: 1px; }
+.info-row { display: flex; border-bottom: 1px solid #ccc; }
+.info-cell { flex: 1; padding: 5px; border-right: 1px solid #ccc; }
+.info-cell:last-child { border-right: none; }
+.info-cell label { font-size: 10px; color: #666; display: block; }
+.info-cell span { font-weight: bold; }
+.info-cell.flex-2 { flex: 2; }
+.instructions { margin: 15px 0; padding: 10px; background: #f9f9f9; }
+.instructions h4 { margin-bottom: 5px; }
+.instructions ul { margin-left: 20px; }
+.barcode { text-align: center; margin: 20px 0; font-family: 'Libre Barcode 128', monospace; font-size: 48px; }
+.barcode-text { font-size: 10px; margin-top: 5px; }
